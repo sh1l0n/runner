@@ -9,3 +9,4 @@ proj.linux
 cocos2d
 proj.tizen
 .cocos-project.json
+.idea
