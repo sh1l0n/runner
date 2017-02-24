@@ -5,8 +5,17 @@
  * @brief  BaseStructure class implementation
  */
 
-#include "BaseStructure.hpp"
+#include "base_structure.hpp"
 
+Runner::
+BaseStructure::BaseStructure() {
+
+}
+
+Runner::
+BaseStructure::~BaseStructure() {
+
+}
 
 /** 
 *	@brief Getter
@@ -15,7 +24,7 @@
 unsigned char 
 Runner::
 BaseStructure::getHeight() const {
-    return this._height;
+    return this->_height;
 }
 
 /** 
@@ -25,7 +34,7 @@ BaseStructure::getHeight() const {
 unsigned char 
 Runner::
 BaseStructure::getWidth() const {
-    return this._width;
+    return this->_width;
 }
 
 /** 
@@ -41,8 +50,8 @@ BaseStructure::print() const {
 *	@brief Getter
 *	@retval DATA info structure
 */
-std::vector<std::vector<unsigned char>> 
+std::vector< std::vector<bool> > 
 Runner::
 BaseStructure::getData() const {
-	return this._data;
+	return this->_data;
 }

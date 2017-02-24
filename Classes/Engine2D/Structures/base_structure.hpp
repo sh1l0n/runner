@@ -19,14 +19,26 @@ namespace Runner {
 		protected:
 
 			/** @short Vector of data structure info */
-			std::vector<std::vector<unsigned char>> _data;
+			std::vector< std::vector<bool> > _data;
 
 			/** @short Width of structure */
 			unsigned char _width;
 
 			/** @short Height of structure */
 			unsigned char _height;
+
 		public:
+
+			friend std::ostream& operator<<(std::ostream& os, BaseStructure const& structure)
+        	{
+                 return os;
+        	}
+
+			/** @short Creates a new base structure */
+		    BaseStructure();
+
+		    /** @short Delete a base structure */
+		    ~BaseStructure();
 
 			/** @short Get the width of structure */
 		    unsigned char getWidth() const;
@@ -35,7 +47,7 @@ namespace Runner {
 		    unsigned char getHeight() const;
 
 		    /** @short Get the data info of structure */
-		    std::vector<std::vector<unsigned char>> getData() const;
+		    std::vector< std::vector<bool> > getData() const;
 
 		    /** @short Print structure info like a matrix */
 		    void print() const;

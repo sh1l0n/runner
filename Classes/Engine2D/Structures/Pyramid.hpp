@@ -7,7 +7,7 @@
 
 #pragma mark
 
-#include "BaseStructure.hpp"
+#include "base_structure.hpp"
 #include <vector>
 
 namespace Runner {
@@ -19,16 +19,16 @@ namespace Runner {
 	{
 		private:
 			/** @short Maximun height for the pyramid */
-			const unsigned char K_MAX_HEIGHT = 0x06;
+			const static unsigned char K_MAX_HEIGHT = 0x06;
 
 			/** @short Minimun height for the pyramid */
-			const unsigned char K_MIN_HEIGHT = 0x01;
+			const static unsigned char K_MIN_HEIGHT = 0x01;
 
 		public:
 			/** @short Creates a new pyramid structure */
 		    Pyramid();
 
 		    /** @short Delete structure */
-		    virtual ~Pyramid();
+		   ~Pyramid();
 	};
 }
