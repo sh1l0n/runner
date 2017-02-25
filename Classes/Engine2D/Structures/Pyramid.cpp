@@ -16,7 +16,7 @@ Pyramid::Pyramid():BaseStructure() {
 	this->_height = rand() % K_MAX_HEIGHT + K_MIN_HEIGHT;;
 	this->_width = (this->_height*2)-1;
 	this->_data.resize(this->_height);
-	
+
 	unsigned char i,j, left = 0, right = this->_width-1;
 	for(i=this->_height-1; i>=0; --i) {
 		this->_data[i].resize(this->_width, false);
@@ -28,7 +28,6 @@ Pyramid::Pyramid():BaseStructure() {
 		++left;
 		--right;
 	}
-	print();
 }
 
 /** 

@@ -8,6 +8,7 @@
 #pragma mark
 
 #include <vector>
+#include <iostream>
 
 namespace Runner {
 
@@ -16,6 +17,9 @@ namespace Runner {
 	*/
 	class BaseStructure
 	{
+		/** @short Make friend overload operator for easy prints */
+		friend std::ostream& operator<<(std::ostream&, const BaseStructure&);
+
 		protected:
 
 			/** @short Vector of data structure info */
@@ -28,11 +32,6 @@ namespace Runner {
 			unsigned char _height;
 
 		public:
-
-			friend std::ostream& operator<<(std::ostream& os, BaseStructure const& structure)
-        	{
-                 return os;
-        	}
 
 			/** @short Creates a new base structure */
 		    BaseStructure();
@@ -49,7 +48,8 @@ namespace Runner {
 		    /** @short Get the data info of structure */
 		    std::vector< std::vector<bool> > getData() const;
 
-		    /** @short Print structure info like a matrix */
-		    void print() const;
+		    /** @short Get the info of a position in structure */
+		    bool getDataAt(unsigned char row, unsigned char column) const;
+
 	};
 }
