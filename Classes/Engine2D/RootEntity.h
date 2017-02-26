@@ -10,7 +10,10 @@ USING_NS_CC;
 
 class RootEntity: public Node {
 private:
-    float x, y, ax, ay, lax, lay, dx, dy, lx, ly;
+
+    float x, y;
+    float dx, dy;
+    float lx, ly;
     float motionX, motionY;
     float deltaCount, stepTime, time, totalTime;
     Sprite *sprite;

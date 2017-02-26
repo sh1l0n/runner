@@ -5,8 +5,8 @@
 #include "RootEntity.h"
 
 RootEntity::RootEntity() {
-    x, ax, dx, lx = getPositionX();
-    y, ay, dy, ly = getPositionY();
+    x, dx, lx = getPositionX();
+    y, dy, ly = getPositionY();
     motionX = 6.f;
     motionY = 0.f;
     stepTime, deltaCount = 0.f;
