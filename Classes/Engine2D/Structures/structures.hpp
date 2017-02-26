@@ -10,7 +10,6 @@
 #include "base_structure.hpp"
 #include "pyramid.hpp"
 #include "middle_pyramid.hpp"
-#include <stdlib.h>
 
 namespace Structures {
 
@@ -18,23 +17,24 @@ namespace Structures {
 	static const unsigned char K_NUMBER_STRUCTURES = 2;
 
 	/**
-	* @brief Generate a new structure
+		@brief Generate a random structure
+		@retval STRUCTURE a new structure
 	*/
-	BaseStructure* getStructureMatrix() {
+	BaseStructure* getStructureMatrix()
+	{
 		unsigned int typeStructure =  rand() % K_NUMBER_STRUCTURES + 1;
-		BaseStructure* structure = NULL;
+		Structures::BaseStructure* structure = NULL;
 		
 		switch(typeStructure) {
 			case 1:
-				std::cout << "1\n";
-				structure = new MiddlePyramid();
+				structure = new Structures::MiddlePyramid();
 				break;
 			case 2:
-				std::cout << "2\n";
-				structure = new Pyramid();
+				structure = new Structures::Pyramid();
 			break;
 		}
 
 		return structure;
 	}
+
 }
