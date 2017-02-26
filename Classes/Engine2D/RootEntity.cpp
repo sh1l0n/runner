@@ -7,7 +7,7 @@
 RootEntity::RootEntity() {
     x, ax, dx, lx = getPositionX();
     y, ay, dy, ly = getPositionY();
-    motionX = 5.f;
+    motionX = 6.f;
     motionY = 0.f;
     stepTime, deltaCount = 0.f;
 
@@ -23,19 +23,15 @@ RootEntity::RootEntity() {
  */
 
 void RootEntity::update(float delta) {
-    deltaCount += delta;
+
+    deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
+    //deltaCount += delta;
     if(deltaCount >= 1/15.f) {
         lx = x;
         ly = y;
-        //dx = lx;
-        //dy = ly;
 
-        log("%f", x);
         x = x + motionX;
         y = y + motionY;
-
-        ax = x;
-        ay = y;
 
         stepTime = deltaCount;
         deltaCount = 0.f;
@@ -53,15 +49,16 @@ void RootEntity::draw(float delta) {
 
     if(stepTime!=0) { //Se salta el primer frame
         percenTick = deltaCount / stepTime;
-    } else percenTick = 0;
+    } else {
+        percenTick = 0;
+    }
 
-    //log("%f : %f : %f", deltaCount, stepTime, percenTick);
-    dx = lx*(1.f-percenTick) + ax * percenTick;
-    dy = ly*(1.f-percenTick) + ay * percenTick;
+    dx = lx*(1.f-percenTick) + x * percenTick;
+    dy = ly*(1.f-percenTick) + y * percenTick;
 
     setPosition(dx, dy);
 
-    log("## %f - %f ### %f : %f --> %f", getPositionX(), percenTick, deltaCount, stepTime, deltaCount + delta);
+
 }
 void RootEntity::setSprite(const std::string &filename) {
     sprite = Sprite::create(filename);
