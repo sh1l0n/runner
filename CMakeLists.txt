@@ -143,7 +143,7 @@ set(GAME_HEADERS
         Classes/AppDelegate.h
         Classes/HelloWorldScene.h
         ${PLATFORM_SPECIFIC_HEADERS}
-        )
+        Classes/Engine2D/RootEntity.cpp Classes/Engine2D/RootEntity.h Classes/dev/jclh1/PlayerTestScene.cpp Classes/dev/jclh1/PlayerTestScene.h)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
@@ -158,12 +158,13 @@ target_link_libraries(${APP_NAME} cocos2d)
 
 if( MACOSX )
     set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin/${APP_NAME}.app/Contents")
+    set_target_properties(${APP_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY  "${APP_BIN_DIR}/MacOS")
 else()
     set(APP_BIN_DIR "${CMAKE_BINARY_DIR}/bin")
+    set_target_properties(${APP_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY  "${APP_BIN_DIR}")
 endif()
-
-set_target_properties(${APP_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY  "${APP_BIN_DIR}/MacOS")
 
 if ( WIN32 )
     #also copying dlls to binary directory for the executable to run
