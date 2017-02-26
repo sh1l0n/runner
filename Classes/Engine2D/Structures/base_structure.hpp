@@ -11,7 +11,7 @@
 #include <iostream>
 #include <string>
 
-namespace Runner {
+namespace Structures {
 
 	/**
 	* @short Class BaseStructure, all structures use this parent class

@@ -10,7 +10,7 @@
 
 #include "base_structure.hpp"
 
-namespace Runner {
+namespace Structures {
 
 	/**
 	* @short Class Middle Pyramid, create an structure like a middle pyramid
@@ -22,14 +22,11 @@ namespace Runner {
 			const static unsigned char K_MAX_HEIGHT = 0x06;
 
 			/** @short Minimun height for the middle pyramid */
-			const static unsigned char K_MIN_HEIGHT = 0x01;
+			const static unsigned char K_MIN_HEIGHT = 0x02;
 
 		public:
 			/** @short Creates a new middle pyramid structure */
 		    MiddlePyramid();
-
-		    /** @short Delete structure */
-		   virtual ~MiddlePyramid();
 	};
 }
 

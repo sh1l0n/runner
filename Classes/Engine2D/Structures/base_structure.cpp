@@ -10,7 +10,7 @@
 /**
 * @brief Constructor of class BaseStructre
 */
-Runner::
+Structures::
 BaseStructure::BaseStructure() {
 
 }
@@ -18,7 +18,7 @@ BaseStructure::BaseStructure() {
 /**
 * @brief Destructor of class BaseStructre
 */
-Runner::
+Structures::
 BaseStructure::~BaseStructure() {
 
 }
@@ -28,7 +28,7 @@ BaseStructure::~BaseStructure() {
 *	@retval HEIGHT height of structure
 */
 unsigned int 
-Runner::
+Structures::
 BaseStructure::getHeight() const {
     return this->_height;
 }
@@ -38,7 +38,7 @@ BaseStructure::getHeight() const {
 *	@retval WIDTH width of structure
 */
 unsigned int 
-Runner::
+Structures::
 BaseStructure::getWidth() const {
     return this->_width;
 }
@@ -48,7 +48,7 @@ BaseStructure::getWidth() const {
 *	@retval DATA info structure
 */
 std::vector< std::vector<bool> > 
-Runner::
+Structures::
 BaseStructure::getData() const {
 	return this->_data;
 }
@@ -59,7 +59,7 @@ BaseStructure::getData() const {
 *	@retval VALUE the value in this position
 */
 bool
-Runner::
+Structures::
 BaseStructure::getDataAt(unsigned int row, unsigned int column) const
 {
 	if(row>=0 && row<this->_height && column>=0 && column<this->_width) 
@@ -72,7 +72,7 @@ BaseStructure::getDataAt(unsigned int row, unsigned int column) const
 *	@retval CHAIN a chain with the info of the structure
 */
 std::string
-Runner::
+Structures::
 BaseStructure::toString() const
 {
 	std::string chain = "Width: " + std::to_string(this->_width) + "\n";

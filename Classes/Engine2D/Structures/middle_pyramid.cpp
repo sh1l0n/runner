@@ -11,8 +11,8 @@
 /** 
 * @brief Creates a middle pyramid structure with a random height
 */
-Runner::
-MiddlePyramid::MiddlePyramid() : BaseStructure() 
+Structures::
+MiddlePyramid::MiddlePyramid() : Structures::BaseStructure() 
 {
 	this->_height = rand() % K_MAX_HEIGHT + K_MIN_HEIGHT;
 	this->_width = this->_height;
@@ -26,11 +26,4 @@ MiddlePyramid::MiddlePyramid() : BaseStructure()
 		}
 		--startInRow;
 	}
-}
-
-/** 
-* @brief Destroy middle pyramid structure
-*/
-Runner::
-MiddlePyramid::~MiddlePyramid() {
 }
