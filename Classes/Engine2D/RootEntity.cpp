@@ -2,7 +2,7 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#include "RootEntity.h"
+#include "RootEntity.hpp"
 
 RootEntity::RootEntity() {
     x, dx, lx = getPositionX();

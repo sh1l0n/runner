@@ -2,7 +2,7 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#pragma mark
+#pragma once
 
 #include "cocos2d.h"
 USING_NS_CC;

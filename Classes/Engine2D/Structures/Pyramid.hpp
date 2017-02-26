@@ -5,7 +5,7 @@
  * @brief  Pyramid class interface
  */
 
-#pragma mark
+#pragma once
 
 #include "base_structure.hpp"
 

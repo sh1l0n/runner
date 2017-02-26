@@ -5,6 +5,7 @@
  * @brief  This file contains all includes for use Structures
  */
 
-#pragma mark
+#pragma once
 
 #include "pyramid.hpp"
+#include "middle_pyramid.hpp"

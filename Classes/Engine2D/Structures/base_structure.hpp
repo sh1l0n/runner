@@ -5,7 +5,7 @@
  * @brief  BaseStructure class interface
  */
 
-#pragma mark
+#pragma once
 
 #include <vector>
 #include <iostream>
