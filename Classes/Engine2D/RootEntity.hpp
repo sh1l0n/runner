@@ -2,8 +2,7 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#ifndef MYGAME_ROOTENTITY_H
-#define MYGAME_ROOTENTITY_H
+#pragma mark
 
 #include "cocos2d.h"
 USING_NS_CC;
@@ -27,5 +26,3 @@ public:
     void setSprite(const std::string &filename);
 };
 
-
-#endif //MYGAME_ROOTENTITY_H

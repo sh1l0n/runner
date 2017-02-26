@@ -2,7 +2,7 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#include "PlayerTestScene.h"
+#include "PlayerTestScene.hpp"
 #include "cocos2d.h"
 
 USING_NS_CC;

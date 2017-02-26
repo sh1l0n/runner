@@ -2,10 +2,9 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#ifndef MYGAME_PLAYERTEST_H
-#define MYGAME_PLAYERTEST_H
+#pragma mark
 
-#include <Engine2D/RootEntity.h>
+#include "../Engine2D/RootEntity.h"
 #include "cocos2d.h"
 USING_NS_CC;
 
@@ -25,5 +24,3 @@ private:
     float testX = 0;
 };
 
-
-#endif //MYGAME_PLAYERTEST_H
