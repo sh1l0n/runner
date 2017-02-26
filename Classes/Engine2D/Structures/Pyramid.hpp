@@ -29,6 +29,6 @@ namespace Runner {
 		    Pyramid();
 
 		    /** @short Delete structure */
-		   ~Pyramid();
+		   virtual ~Pyramid();
 	};
 }

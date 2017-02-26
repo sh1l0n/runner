@@ -6,13 +6,18 @@
  */
 
 #include "base_structure.hpp"
-#include <string>
 
+/**
+* @brief Constructor of class BaseStructre
+*/
 Runner::
 BaseStructure::BaseStructure() {
 
 }
 
+/**
+* @brief Destructor of class BaseStructre
+*/
 Runner::
 BaseStructure::~BaseStructure() {
 
@@ -22,7 +27,7 @@ BaseStructure::~BaseStructure() {
 *	@brief Getter
 *	@retval HEIGHT height of structure
 */
-unsigned char 
+unsigned int 
 Runner::
 BaseStructure::getHeight() const {
     return this->_height;
@@ -32,7 +37,7 @@ BaseStructure::getHeight() const {
 *	@brief Getter
 *	@retval WIDTH width of structure
 */
-unsigned char 
+unsigned int 
 Runner::
 BaseStructure::getWidth() const {
     return this->_width;
@@ -55,26 +60,28 @@ BaseStructure::getData() const {
 */
 bool
 Runner::
-BaseStructure::getDataAt(unsigned char row, unsigned char column) const
+BaseStructure::getDataAt(unsigned int row, unsigned int column) const
 {
-	if(row>=0 && row<this->_width && column>=0 && column<this->_height) 
+	if(row>=0 && row<this->_height && column>=0 && column<this->_width) 
 		return this->_data[row][column];
 	else return false;
 }
 
-
-std::ostream& 
-operator<<(std::ostream& os, const Runner::BaseStructure& p)
+/**
+*	@brief Convert structure to string for debug
+*	@retval CHAIN a chain with the info of the structure
+*/
+std::string
+Runner::
+BaseStructure::toString() const
 {
-	std::string chain = "Width: " + std::to_string(p.getWidth()) + "\n";
-	chain += "Height: " + std::to_string(p.getHeight()) + "\n";
-	for(unsigned char i=0;i<p.getWidth();++i) {
-		for(unsigned char j=0;j<p.getHeight();++j) {
-			chain+= p.getDataAt(i, j)?"1 ":"0 ";
+	std::string chain = "Width: " + std::to_string(this->_width) + "\n";
+	chain += "Height: " + std::to_string(this->_height) + "\n";
+	for(unsigned int i=0;i<this->_height;++i) {
+		for(unsigned int j=0;j<this->_width;++j) {
+			chain+= this->getDataAt(i, j)?"1 ":"0 ";
 		}
 		chain+="\n";
 	}
-	std::cout << chain << "\n";
-  	os << chain;
-	return os;
+	return chain;
 }

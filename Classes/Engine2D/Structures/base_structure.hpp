@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
 
 namespace Runner {
 
@@ -17,19 +18,16 @@ namespace Runner {
 	*/
 	class BaseStructure
 	{
-		/** @short Make friend overload operator for easy prints */
-		friend std::ostream& operator<<(std::ostream&, const BaseStructure&);
-
 		protected:
 
 			/** @short Vector of data structure info */
 			std::vector< std::vector<bool> > _data;
 
 			/** @short Width of structure */
-			unsigned char _width;
+			unsigned int _width;
 
 			/** @short Height of structure */
-			unsigned char _height;
+			unsigned int _height;
 
 		public:
 
@@ -40,16 +38,18 @@ namespace Runner {
 		    ~BaseStructure();
 
 			/** @short Get the width of structure */
-		    unsigned char getWidth() const;
+		    unsigned int getWidth() const;
 
 		    /** @short Get the height of structure */
-		    unsigned char getHeight() const;
+		    unsigned int getHeight() const;
 
 		    /** @short Get the data info of structure */
 		    std::vector< std::vector<bool> > getData() const;
 
 		    /** @short Get the info of a position in structure */
-		    bool getDataAt(unsigned char row, unsigned char column) const;
+		    bool getDataAt(unsigned int row, unsigned int column) const;
 
+			/** @short Convert this class in a string */
+			std::string toString() const;
 	};
 }
