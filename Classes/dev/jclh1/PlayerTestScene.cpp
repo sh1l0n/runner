@@ -37,6 +37,7 @@ bool PlayerTestScene::init()
     e->setSprite("CloseNormal.png");
     e->setPosition(32, 200);
     this->addChild(e);
+    e->schedule(SEL_SCHEDULE());
 
     test = Sprite::create("CloseNormal.png");
     test->setPosition(32, 164);

@@ -16,12 +16,13 @@ RootEntity::RootEntity() {
     y = 200.f;
 }
 
+
+
 /*!
- * Complex game logic (like movement, collision, generation etc..) should be here to be executed 15 frames per second.
- * This implementation allows the game to process heavy mathematical operations and maintain a stable frame rate.
+ * Complex game logic (like movements, collisions, generation etc..) should be here to be executed 15 frames per second.
+ * This implementation allows the game to process heavy mathematical operations and maintain a stable drawing frame rate.
  * @param delta frame duration in seconds
  */
-
 void RootEntity::update(float delta) {
 
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
@@ -36,7 +37,6 @@ void RootEntity::update(float delta) {
         stepTime = deltaCount;
         deltaCount = 0.f;
     }
-
 }
 
 /*!
@@ -57,12 +57,51 @@ void RootEntity::draw(float delta) {
     dy = ly*(1.f-percenTick) + y * percenTick;
 
     setPosition(dx, dy);
-
-
 }
+
+
+//SETTERS
+/*!
+ * Sets motion x (horizontal movement)
+ * @param motionX
+ */
+void RootEntity::setMotionX(float motionX) {
+    RootEntity::motionX = motionX;
+}
+
+/*!
+ * Sets motion y (vertical movement)
+ * @param motionY
+ */
+void RootEntity::setMotionY(float motionY) {
+    RootEntity::motionY = motionY;
+}
+
+/*!
+ * Set x y position (no interpolated)
+ * @param x
+ * @param y
+ */
+void RootEntity::setPosition(float x, float y) {
+    this->x = x;
+    this->y = y;
+    this->dx = x;
+    this->dy = y;
+}
+
 void RootEntity::setSprite(const std::string &filename) {
     sprite = Sprite::create(filename);
     this->addChild(sprite);
+}
+
+
+//GETTERS
+float RootEntity::getMotionX() const {
+    return motionX;
+}
+
+float RootEntity::getMotionY() const {
+    return motionY;
 }
 
 RootEntity * RootEntity::create()
