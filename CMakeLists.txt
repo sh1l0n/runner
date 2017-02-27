@@ -143,7 +143,7 @@ set(GAME_HEADERS
         Classes/AppDelegate.h
         Classes/HelloWorldScene.h
         ${PLATFORM_SPECIFIC_HEADERS}
-        Classes/Engine2D/RootEntity.cpp Classes/Engine2D/RootEntity.h Classes/dev/jclh1/PlayerTestScene.cpp Classes/dev/jclh1/PlayerTestScene.h)
+        Classes/Engine2D/RootEntity.cpp Classes/Engine2D/RootEntity.hpp Classes/dev/jclh1/PlayerTestScene.cpp Classes/dev/jclh1/PlayerTestScene.hpp)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
