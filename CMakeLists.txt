@@ -143,7 +143,21 @@ set(GAME_HEADERS
         Classes/AppDelegate.h
         Classes/HelloWorldScene.h
         ${PLATFORM_SPECIFIC_HEADERS}
-        Classes/Engine2D/RootEntity.cpp Classes/Engine2D/RootEntity.hpp Classes/dev/jclh1/PlayerTestScene.cpp Classes/dev/jclh1/PlayerTestScene.hpp)
+        Classes/Engine2D/RootEntity.cpp
+        Classes/Engine2D/RootEntity.hpp
+        Classes/dev/jclh1/PlayerTestScene.cpp
+        Classes/dev/jclh1/PlayerTestScene.hpp
+        Classes/dev/jman1/PlayerTestScene.cpp
+        Classes/dev/jman1/PlayerTestScene.hpp
+        Classes/Engine2D/TiledMap/map_parser.cpp
+        Classes/Engine2D/TiledMap/map_parser.hpp
+        Classes/Engine2D/Structures/Pyramid.cpp
+        Classes/Engine2D/Structures/Pyramid.hpp
+        Classes/Engine2D/Structures/middle_pyramid.hpp
+        Classes/Engine2D/Structures/middle_pyramid.cpp
+        Classes/Engine2D/Structures/base_structure.cpp
+        Classes/Engine2D/Structures/base_structure.hpp
+        Classes/Engine2D/Structures/structures.hpp )
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
