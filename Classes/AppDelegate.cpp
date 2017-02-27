@@ -1,6 +1,6 @@
-#include "dev/jman1/PlayerTestScene.hpp"
+#include "dev/jman1/jman1_TestScene.hpp"
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "Engine2D/Structures/structures.hpp"
 
 USING_NS_CC;
 
@@ -75,10 +75,12 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = PlayerTestScene::createScene();
+    //auto scene = jman_TestScene::createScene();
+    Structures::BaseStructure* bs = Structures::getStructureMatrix();
+    std::cout << bs->toString() << "\n";
 
     // run
-    director->runWithScene(scene);
+    //director->runWithScene(scene);
 
     return true;
 }
