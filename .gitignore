@@ -1,6 +1,10 @@
 cmake-build-debug
 cocos2d
+.cocos-project.json
+.idea
 proj.*
 .cocos-project.json
-*.DS_Store
-.idea
+*DS_Store*
+bin
+Classes/AppDelegate*
+Classes/HelloWordScene*
