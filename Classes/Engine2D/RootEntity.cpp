@@ -7,13 +7,9 @@
 RootEntity::RootEntity() {
     x, dx, lx = getPositionX();
     y, dy, ly = getPositionY();
-    motionX = 6.f;
+    motionX = 0.f;
     motionY = 0.f;
     stepTime, deltaCount = 0.f;
-
-    //test
-    x = 32.f;
-    y = 200.f;
 }
 
 
@@ -23,7 +19,7 @@ RootEntity::RootEntity() {
  * This implementation allows the game to process heavy mathematical operations and maintain a stable drawing frame rate.
  * @param delta frame duration in seconds
  */
-void RootEntity::update(float delta) {
+void RootEntity::customupdate(float delta) {
 
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
     //deltaCount += delta;
@@ -44,7 +40,7 @@ void RootEntity::update(float delta) {
  * to generate smooth movements
  * @param delta frame duration in seconds
  */
-void RootEntity::draw(float delta) {
+void RootEntity::customdraw(float delta) {
     float percenTick = 0.f;
 
     if(stepTime!=0) { //Se salta el primer frame
@@ -56,7 +52,7 @@ void RootEntity::draw(float delta) {
     dx = lx*(1.f-percenTick) + x * percenTick;
     dy = ly*(1.f-percenTick) + y * percenTick;
 
-    setPosition(dx, dy);
+    Node::setPosition(dx, dy);
 }
 
 

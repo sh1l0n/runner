@@ -21,8 +21,8 @@ public:
     RootEntity();
     static RootEntity * create();
 
-    void update(float delta);
-    void draw(float delta);
+    virtual void customupdate(float delta);
+    virtual void customdraw(float delta);
 
     //Getters
     void setPosition(float x, float y);
@@ -33,7 +33,5 @@ public:
     //Setters
     void setMotionX(float motionX);
     float getMotionY() const;
-
-
 };
 

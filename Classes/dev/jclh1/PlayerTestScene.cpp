@@ -3,6 +3,7 @@
 //
 
 #include "PlayerTestScene.hpp"
+#include <Entities/Player.hpp>
 #include "cocos2d.h"
 
 USING_NS_CC;
@@ -33,41 +34,41 @@ bool PlayerTestScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    e = RootEntity::create();
+    auto eventListener = EventListenerKeyboard::create();
+
+    e = Player::create();
     e->setSprite("CloseNormal.png");
     e->setPosition(32, 200);
     this->addChild(e);
-    e->schedule(SEL_SCHEDULE());
 
-    test = Sprite::create("CloseNormal.png");
-    test->setPosition(32, 164);
-    this->addChild(test);
+    eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
+    eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 
     this->scheduleUpdate();
     return true;
 }
 
-
-void PlayerTestScene::menuCloseCallback(Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+    switch(keyCode) {
+        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+            e->moveLeft();
+            break;
+        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+            e->moveRight();
+    }
+}
+void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+    switch(keyCode) {
+        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+            e->stop();
+            break;
+    }
 }
 
+
 void PlayerTestScene::update(float delta){
-    testX+=1.2;
-    test->setPosition(testX, 164);
-
-    e->update(delta);
-    e->draw(delta);
-
+    e->customupdate(delta);
+    e->customdraw(delta);
 }
