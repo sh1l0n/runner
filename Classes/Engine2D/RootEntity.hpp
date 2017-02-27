@@ -14,8 +14,9 @@ private:
     float dx, dy;
     float lx, ly;
     float motionX, motionY;
-    float deltaCount, stepTime, time, totalTime;
+    float deltaCount, stepTime;
     Sprite *sprite;
+
 public:
     RootEntity();
     static RootEntity * create();
@@ -23,6 +24,16 @@ public:
     void update(float delta);
     void draw(float delta);
 
+    //Getters
+    void setPosition(float x, float y);
+    float getMotionX() const;
+    void setMotionY(float motionY);
     void setSprite(const std::string &filename);
+
+    //Setters
+    void setMotionX(float motionX);
+    float getMotionY() const;
+
+
 };
 
