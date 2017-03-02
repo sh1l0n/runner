@@ -5,7 +5,7 @@
  * @brief  BaseStructure class implementation
  */
 
-#include "base_structure.hpp"
+#include "BaseStructure.hpp"
 
 /**
 * @brief Constructor of class BaseStructre

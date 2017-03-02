@@ -3,9 +3,10 @@
 //
 
 #include "PlayerTestScene.hpp"
+#include <iostream>
 #include "cocos2d.h"
 #include <string>
-#include "../../Engine2D/TiledMap/MapParser.hpp"
+#include "Engine2D/TiledMap/MapParser.hpp"
 
 USING_NS_CC;
 
@@ -44,26 +45,29 @@ bool PlayerTestScene::init()
     test->setPosition(32, 164);
     this->addChild(test);
 
-    this->scheduleUpdate();
 
 
-    TiledMap::T_CHUNK chunk = TiledMap::generateNewChunck();
+
+    MapParser::T_CHUNK chunk = MapParser::generateNewChunck();
 
     unsigned int i,j;
     std::string chainMap = "";
 
-    for(i=0; i<TiledMap::K_HEIGHT; ++i) {
-        for(j=0; j<TiledMap::K_WIDTH; ++j) {
-            chainMap+= chunk[i][j]?"1 ":"0 ";
+    for(i=0; i< MapParser::K_HEIGHT; ++i) {
+        for(j=0; j< MapParser::K_WIDTH; ++j) {
+            //chainMap+= chunk[i][j]?"1 ":"0 ";
+            chainMap+= std::to_string(chunk[i][j]);
         }
         chainMap +="\n";
     }
 
 
+    std::cout<<chainMap;
+    Node *nodo1=MapParser::createMapNode(chunk);
+    nodo1->setPosition(0,0);
+    this->addChild(nodo1);
 
-
-
-
+    this->scheduleUpdate();
 
     return true;
 }

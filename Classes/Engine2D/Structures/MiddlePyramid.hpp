@@ -8,7 +8,7 @@
 #pragma once
 
 
-#include "base_structure.hpp"
+#include "BaseStructure.hpp"
 
 namespace Structures {
 

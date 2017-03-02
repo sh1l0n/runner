@@ -1,5 +1,5 @@
 /**
- * @file   Structures.hpp
+ * @file   StructuresGenerator.hpp
  * @Author Jesús Manresa Parres (jmp66@alu.ua.es)
  * @date   February, 2017
  * @brief  This file contains all includes for use Structures
@@ -7,24 +7,26 @@
 
 #pragma once
 
-#include "base_structure.hpp"
+#include "BaseStructure.hpp"
 #include "pyramid.hpp"
-#include "middle_pyramid.hpp"
+#include "MiddlePyramid.hpp"
 
 namespace Structures {
-
+	class StructuresGenerator{
 	/** @short The number of structures */
+	private:
 	static const unsigned char K_NUMBER_STRUCTURES = 2;
 
 	/**
 		@brief Generate a random structure
 		@retval STRUCTURE a new structure
 	*/
-	BaseStructure* getStructureMatrix()
+	public:
+	static BaseStructure* getStructureMatrix()
 	{
 		unsigned int typeStructure =  rand() % K_NUMBER_STRUCTURES + 1;
-		Structures::BaseStructure* structure = NULL;
-		
+		BaseStructure* structure = NULL;
+
 		switch(typeStructure) {
 			case 1:
 				structure = new Structures::MiddlePyramid();
@@ -35,6 +37,8 @@ namespace Structures {
 		}
 
 		return structure;
+
 	}
+	};
 
 }

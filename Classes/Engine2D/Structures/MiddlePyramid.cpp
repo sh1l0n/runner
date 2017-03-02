@@ -5,7 +5,7 @@
  * @brief  MiddlePyramid class implementation
  */
 
-#include "middle_pyramid.hpp"
+#include "MiddlePyramid.hpp"
 #include <stdlib.h>
 
 /** 
