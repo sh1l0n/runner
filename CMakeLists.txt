@@ -166,7 +166,7 @@ set(GAME_HEADERS
         ${PLATFORM_SPECIFIC_HEADERS}
 
 
-        )
+        Classes/Engine2D/TiledMap/TileCollisionable.cpp Classes/Engine2D/TiledMap/TileCollisionable.h)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})

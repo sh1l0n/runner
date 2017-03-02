@@ -85,3 +85,9 @@ BaseStructure::toString() const
 	}
 	return chain;
 }
+
+std::vector< TileMap::TileCollisionable >
+Structures::
+BaseStructure::getCollisionableVector() const{
+	return this->_vectorCollisionables;
+}

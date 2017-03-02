@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "../TiledMap/TileCollisionable.h"
 
 namespace Structures {
 
@@ -22,6 +23,7 @@ namespace Structures {
 
 			/** @short Vector of data structure info */
 			std::vector< std::vector<bool> > _data;
+			std::vector<TileMap::TileCollisionable> _vectorCollisionables;
 
 			/** @short Width of structure */
 			unsigned int _width;
@@ -45,6 +47,10 @@ namespace Structures {
 
 		    /** @short Get the data info of structure */
 		    std::vector< std::vector<bool> > getData() const;
+
+
+			/** @short Get the data of the collisionable vector */
+			std::vector< TileMap::TileCollisionable > getCollisionableVector() const;
 
 		    /** @short Get the info of a position in structure */
 		    bool getDataAt(unsigned int row, unsigned int column) const;

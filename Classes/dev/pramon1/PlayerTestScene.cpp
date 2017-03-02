@@ -48,13 +48,13 @@ bool PlayerTestScene::init()
 
 
 
-    MapParser::T_CHUNK chunk = MapParser::generateNewChunck();
+    TileMap::MapParser::T_CHUNK chunk =TileMap::MapParser::generateNewChunck();
 
     unsigned int i,j;
     std::string chainMap = "";
 
-    for(i=0; i< MapParser::K_HEIGHT; ++i) {
-        for(j=0; j< MapParser::K_WIDTH; ++j) {
+    for(i=0; i< TileMap::MapParser::K_HEIGHT; ++i) {
+        for(j=0; j< TileMap::MapParser::K_WIDTH; ++j) {
             //chainMap+= chunk[i][j]?"1 ":"0 ";
             chainMap+= std::to_string(chunk[i][j]);
         }
@@ -63,7 +63,7 @@ bool PlayerTestScene::init()
 
 
     std::cout<<chainMap;
-    Node *nodo1=MapParser::createMapNode(chunk);
+    Node *nodo1=TileMap::MapParser::createMapNode(chunk);
     nodo1->setPosition(0,0);
     this->addChild(nodo1);
 
