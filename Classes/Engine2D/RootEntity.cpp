@@ -7,6 +7,7 @@
 RootEntity::RootEntity() {
     x, dx, lx = getPositionX();
     y, dy, ly = getPositionY();
+    width, height = 0;
     motionX = 0.f;
     motionY = 0.f;
     stepTime, deltaCount = 0.f;
@@ -78,6 +79,14 @@ void RootEntity::setMotionY(float motionY) {
  * @param x
  * @param y
  */
+
+void RootEntity::setX(float x){
+    this->x = x;
+}
+
+void RootEntity::setY(float y){
+    this->y = y;
+}
 void RootEntity::setPosition(float x, float y) {
     this->x = x;
     this->y = y;
@@ -89,17 +98,44 @@ void RootEntity::setPosition(float x, float y) {
 
 void RootEntity::setSprite(const std::string &filename) {
     sprite = Sprite::create(filename);
+    this->width = sprite->getContentSize().width;
+    this->height = sprite->getContentSize().height;
     this->addChild(sprite);
 }
 
 
 //GETTERS
-float RootEntity::getMotionX() const {
-    return motionX;
+
+float RootEntity::getX() {
+    return this->x;
 }
 
-float RootEntity::getMotionY() const {
-    return motionY;
+float RootEntity::getY() {
+    return this->y;
+}
+
+float RootEntity::getMotionX() {
+    return this->motionX;
+}
+
+float RootEntity::getMotionY() {
+    return this->motionY;
+}
+
+float RootEntity::getWidth() {
+    return this->width;
+}
+
+float RootEntity::getHeight() {
+    return this->height;
+}
+
+float RootEntity::getCorrectPositionX() {
+    return this->x - this->width/2;
+}
+
+float RootEntity::getCorrectPositionY() {
+    return this->y - this->height/2;
 }
 
 RootEntity * RootEntity::create()

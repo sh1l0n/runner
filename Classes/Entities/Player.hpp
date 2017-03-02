@@ -10,7 +10,7 @@
 
 class Player : public RootEntity {
 private:
-    float accel, maxVel, friction, gravity;
+    float accel, maxVel, friction, gravity, terminalVelocity;
     float vx, vy;
     bool moveLeft, moveRight;
 public:

@@ -10,6 +10,8 @@ Player::Player():RootEntity() {
     accel = 0.5;
     friction = 0.3;
     maxVel = 15;
+    gravity = 0.8;
+    terminalVelocity = 5;
 }
 
 void Player::customupdate(float delta) {
@@ -28,6 +30,16 @@ void Player::customupdate(float delta) {
     } else if(moveRight == false) {
         if(vx <= -friction) vx+=friction;
         else if(vx > -friction && vx < 0) vx = 0;
+    }
+
+    //gravity
+    vy -= gravity;
+
+    //floor collision
+    if(getCorrectPositionY() < 0) {
+        while(getCorrectPositionY() < 0){
+            setY(getY() + 1);
+        }
     }
 
     setMotionX(vx);

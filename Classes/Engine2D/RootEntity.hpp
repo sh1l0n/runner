@@ -13,6 +13,7 @@ private:
     float x, y;
     float dx, dy;
     float lx, ly;
+    float width, height;
     float motionX, motionY;
     float deltaCount, stepTime;
     Sprite *sprite;
@@ -25,13 +26,21 @@ public:
     virtual void customdraw(float delta);
 
     //Getters
-    void setPosition(float x, float y);
-    float getMotionX() const;
-    void setMotionY(float motionY);
-    void setSprite(const std::string &filename);
+    float getCorrectPositionX();
+    float getCorrectPositionY();
+    float getMotionX();
+    float getMotionY();
+    float getX();
+    float getY();
+    float getWidth();
+    float getHeight();
 
     //Setters
+    void setPosition(float x, float y);
+    void setX(float x);
+    void setY(float y);
     void setMotionX(float motionX);
-    float getMotionY() const;
+    void setMotionY(float motionY);
+    void setSprite(const std::string &filename);
 };
 
