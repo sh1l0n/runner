@@ -9,7 +9,7 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
-namespace TileMap {
+namespace TiledMap {
 
     /**
      * @brief Class of a collisionable object
@@ -45,7 +45,7 @@ namespace TileMap {
             BasicBlockCollisionable(const BasicBlockCollisionable& titleCollisionable);
 
             /** @short Overload operator = */
-            TileMap::BasicBlockCollisionable& operator=(const BasicBlockCollisionable& tileCollisionable);
+            TiledMap::BasicBlockCollisionable& operator=(const BasicBlockCollisionable& tileCollisionable);
 
             /** @short Set the global coordinates for the objects */
             void setGlobalBoundingBox(const float posX, const float posY);

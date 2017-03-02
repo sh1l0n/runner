@@ -6,7 +6,7 @@
 #include <iostream>
 #include "cocos2d.h"
 #include <string>
-#include "Engine2D/TiledMap/MapParser.hpp"
+#include "Engine2D/TiledMap/TiledMapGenerator.hpp"
 
 USING_NS_CC;
 
@@ -48,13 +48,13 @@ bool PlayerTestScene::init()
 
 
 
-    TileMap::MapParser::T_CHUNK chunk =TileMap::MapParser::generateNewChunck();
+    TiledMap::T_CHUNK chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
 
     unsigned int i,j;
     std::string chainMap = "";
 
-    for(i=0; i< TileMap::MapParser::K_HEIGHT; ++i) {
-        for(j=0; j< TileMap::MapParser::K_WIDTH; ++j) {
+    for(i=0; i< TiledMap::K_HEIGHT; ++i) {
+        for(j=0; j< TiledMap::K_WIDTH; ++j) {
             //chainMap+= chunk[i][j]?"1 ":"0 ";
             chainMap+= std::to_string(chunk[i][j]);
         }
@@ -63,7 +63,7 @@ bool PlayerTestScene::init()
 
 
     std::cout<<chainMap;
-    Node *nodo1=TileMap::MapParser::createMapNode(chunk);
+    Node *nodo1=TiledMap::TiledMapGenerator::getInstance()->createMapNode(chunk);
     nodo1->setPosition(0,0);
     this->addChild(nodo1);
 

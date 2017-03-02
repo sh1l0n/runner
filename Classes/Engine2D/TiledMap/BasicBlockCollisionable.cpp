@@ -5,7 +5,7 @@
 * @brief  TileCollisoinable interface
 */
 
-#include "BasicBlockCollisionable.h"
+#include "BasicBlockCollisionable.hpp"
 
 /**
  * Build an basic block collisionable object. In first time, the global and local positions are the same
@@ -14,7 +14,7 @@
  * @param width  the width
  * @param height the height
  */
-TileMap::
+TiledMap::
 BasicBlockCollisionable::BasicBlockCollisionable(const float localX, const float localY, const float width, const float height) : Node() {
 
     this->_localPosX=localX;
@@ -29,7 +29,7 @@ BasicBlockCollisionable::BasicBlockCollisionable(const float localX, const float
  * Copy Constructor
  * @param tileCollisionable object for copy
  */
-TileMap::
+TiledMap::
 BasicBlockCollisionable::BasicBlockCollisionable(const BasicBlockCollisionable& tileCollisionable) {
 
     this->_localPosX= tileCollisionable._localPosX;
@@ -46,7 +46,7 @@ BasicBlockCollisionable::BasicBlockCollisionable(const BasicBlockCollisionable& 
  * @param posY real position y
  */
 void
-TileMap::
+TiledMap::
 BasicBlockCollisionable::setGlobalBoundingBox(const float posX, const float posY) {
     this->_globalPosX=posX+this->_localPosX;
     this->_globalPosY=posY+this->_localPosY;
@@ -57,7 +57,7 @@ BasicBlockCollisionable::setGlobalBoundingBox(const float posX, const float posY
  * @return the bounding box in global world positions
  */
 Rect
-TileMap::
+TiledMap::
 BasicBlockCollisionable::getGlobalBoundingBox() const {
     return Rect(this->_globalPosX,this->_globalPosY,this->_width,this->_height);
 
@@ -68,11 +68,11 @@ BasicBlockCollisionable::getGlobalBoundingBox() const {
  * @param tileCollisionable object for copy
  * @return object copyied
  */
-TileMap::BasicBlockCollisionable&
-TileMap::
-BasicBlockCollisionable::operator=(const TileMap::BasicBlockCollisionable& tileCollisionable) {
+TiledMap::BasicBlockCollisionable&
+TiledMap::
+BasicBlockCollisionable::operator=(const TiledMap::BasicBlockCollisionable& tileCollisionable) {
     if(this != &tileCollisionable) {
-        *this = TileMap::BasicBlockCollisionable(tileCollisionable);
+        *this = TiledMap::BasicBlockCollisionable(tileCollisionable);
     }
     return *this;
 }

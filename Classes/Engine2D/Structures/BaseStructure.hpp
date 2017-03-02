@@ -10,7 +10,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
-#include "Engine2D/TiledMap/BasicBlockCollisionable.h"
+#include "Engine2D/TiledMap/BasicBlockCollisionable.hpp"
 
 namespace Structures {
 
@@ -25,7 +25,7 @@ namespace Structures {
 			std::vector< std::vector<bool> > _data;
 
 			/** @short Vector of collisinable object */
-			std::vector<TileMap::BasicBlockCollisionable> _vectorCollisionables;
+			std::vector<TiledMap::BasicBlockCollisionable> _vectorCollisionables;
 
 			/** @short Width of structure */
 			unsigned int _width;
@@ -51,7 +51,7 @@ namespace Structures {
 		    std::vector< std::vector<bool> > getData() const;
 
 			/** @short Get the data of the collisionable vector */
-			std::vector< TileMap::BasicBlockCollisionable > getCollisionableVector() const;
+			std::vector< TiledMap::BasicBlockCollisionable > getCollisionableVector() const;
 
 		    /** @short Get the info of a position in structure */
 		    bool getDataAt(unsigned int row, unsigned int column) const;

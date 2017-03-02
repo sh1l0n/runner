@@ -26,7 +26,7 @@ MiddlePyramid::MiddlePyramid() : Structures::BaseStructure()
 			this->_data[i][j] = true;
 		}
 
-		this->_vectorCollisionables[i] = TileMap::BasicBlockCollisionable();
+		this->_vectorCollisionables[i] = TiledMap::BasicBlockCollisionable();
 		--startInRow;
 	}
 }

@@ -147,7 +147,7 @@ set(GAME_SRC
         Classes/Engine2D/Structures/BaseStructure.cpp
         Classes/Engine2D/Structures/MiddlePyramid.cpp
         Classes/Engine2D/Structures/Pyramid.cpp
-        Classes/Engine2D/TiledMap/MapParser.cpp
+        Classes/Engine2D/TiledMap/TiledMapGenerator.cpp
 
         Classes/dev/pramon1/PlayerTestScene.cpp
   ${PLATFORM_SPECIFIC_SRC}
@@ -160,13 +160,13 @@ set(GAME_HEADERS
         Classes/Engine2D/Structures/BaseStructure.hpp
         Classes/Engine2D/Structures/MiddlePyramid.hpp
         Classes/Engine2D/Structures/Pyramid.hpp
-        Classes/Engine2D/Structures/StructuresGenerator.hpp
-        Classes/Engine2D/TiledMap/MapParser.hpp
+        Classes/Engine2D/Structures/Structures.hpp
+        Classes/Engine2D/TiledMap/TiledMapGenerator.hpp
         Classes/dev/pramon1/PlayerTestScene.hpp
         ${PLATFORM_SPECIFIC_HEADERS}
 
 
-        Classes/Engine2D/TiledMap/BasicBlockCollisionable.cpp Classes/Engine2D/TiledMap/BasicBlockCollisionable.h)
+        Classes/Engine2D/TiledMap/BasicBlockCollisionable.cpp Classes/Engine2D/TiledMap/BasicBlockCollisionable.hpp)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
