@@ -1,6 +1,10 @@
+
 #include "dev/pramon1/PlayerTestScene.hpp"
+
+#include "dev/jman1/jman1_TestScene.hpp"
+
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "Engine2D/Structures/StructuresGenerator.hpp"
 
 USING_NS_CC;
 
@@ -76,6 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = PlayerTestScene::createScene();
+
 
     // run
     director->runWithScene(scene);
