@@ -52,17 +52,19 @@ bool PlayerTestScene::init()
 void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
     switch(keyCode) {
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            e->moveLeft();
+            e->onKeyLeft();
             break;
         case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            e->moveRight();
+            e->onKeyRight();
     }
 }
 void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
     switch(keyCode) {
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+            e->onKeyLeftRelease();
+            break;
         case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            e->stop();
+            e->onKeyRightRelease();
             break;
     }
 }

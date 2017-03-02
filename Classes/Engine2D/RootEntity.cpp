@@ -81,6 +81,8 @@ void RootEntity::setMotionY(float motionY) {
 void RootEntity::setPosition(float x, float y) {
     this->x = x;
     this->y = y;
+    this->lx = x;
+    this->ly = y;
     this->dx = x;
     this->dy = y;
 }

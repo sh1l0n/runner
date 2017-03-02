@@ -9,6 +9,10 @@
 #include <Engine2D/RootEntity.hpp>
 
 class Player : public RootEntity {
+private:
+    float accel, maxVel, friction, gravity;
+    float vx, vy;
+    bool moveLeft, moveRight;
 public:
     Player();
     static Player * create();
@@ -16,9 +20,10 @@ public:
     void customupdate(float delta) override;
     void customdraw(float delta) override;
 
-    void moveLeft();
-    void moveRight();
-    void stop();
+    void onKeyLeft();
+    void onKeyRight();
+    void onKeyLeftRelease();
+    void onKeyRightRelease();
 };
 
 
