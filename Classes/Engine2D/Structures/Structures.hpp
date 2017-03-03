@@ -12,16 +12,14 @@
 #include "MiddlePyramid.hpp"
 
 namespace Structures {
-	class StructuresGenerator{
+
 	/** @short The number of structures */
-	private:
 	static const unsigned char K_NUMBER_STRUCTURES = 2;
 
 	/**
 		@brief Generate a random structure
 		@retval STRUCTURE a new structure
 	*/
-	public:
 	static BaseStructure* getStructureMatrix()
 	{
 		unsigned int typeStructure =  rand() % K_NUMBER_STRUCTURES + 1;
@@ -29,16 +27,12 @@ namespace Structures {
 
 		switch(typeStructure) {
 			case 1:
-				structure = new Structures::MiddlePyramid();
+				structure = new MiddlePyramid();
 				break;
 			case 2:
-				structure = new Structures::Pyramid();
+				structure = new Pyramid();
 			break;
 		}
-
 		return structure;
-
 	}
-	};
-
 }

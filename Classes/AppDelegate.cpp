@@ -4,7 +4,7 @@
 #include "dev/jman1/jman1_TestScene.hpp"
 
 #include "AppDelegate.h"
-#include "Engine2D/Structures/StructuresGenerator.hpp"
+#include "Engine2D/Structures/Structures.hpp"
 
 USING_NS_CC;
 

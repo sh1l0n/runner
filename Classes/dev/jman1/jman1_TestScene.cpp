@@ -6,7 +6,7 @@
 #include "PlayerTestScene.hpp"
 #include "cocos2d.h"
 #include <string>
-#include "../../Engine2D/TiledMap/MapParser.hpp"
+#include "Engine2D/TiledMap/TiledMapGenerator.hpp"
 
 
 USING_NS_CC;

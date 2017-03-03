@@ -6,7 +6,6 @@
  */
 
 #include "MiddlePyramid.hpp"
-#include <stdlib.h>
 
 /** 
 * @brief Creates a middle pyramid structure with a random height
@@ -27,7 +26,7 @@ MiddlePyramid::MiddlePyramid() : Structures::BaseStructure()
 			this->_data[i][j] = true;
 		}
 
-		this->_vectorCollisionables[i] = TileMap::TileCollisionable();
+		this->_vectorCollisionables[i] = TiledMap::BasicBlockCollisionable();
 		--startInRow;
 	}
 }
