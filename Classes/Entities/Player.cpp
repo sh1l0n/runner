@@ -11,7 +11,7 @@ Player::Player():RootEntity() {
     vx = 0;
     vy = 0;
     accel = 0.5;
-    jump = 10;
+    jump = 25;
     friction = 0.3;
     maxVel = 15;
     gravity = 0.8;
@@ -37,12 +37,18 @@ void Player::customupdate(float delta) {
         else if(vx > -friction && vx < 0) vx = 0;
     }
 
+    //modo vuelo
     /*if(moveUp){
         floor = false;
-    }else if(moveUp == false){
-        jump = 0;
-        //vy -= gravity;
+        vy += 1.5;
     }*/
+
+    if(moveUp){
+        if(floor){
+            vy = jump;
+        }
+        floor = false;
+    }
 
     if(!floor) {
         //if floor collision
