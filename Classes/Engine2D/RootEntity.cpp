@@ -2,7 +2,10 @@
 // Created by juancarlos on 26/02/17.
 //
 
+#include <iostream>
 #include "RootEntity.hpp"
+
+using namespace std;
 
 RootEntity::RootEntity() {
     x, dx, lx = getPositionX();
@@ -24,14 +27,17 @@ void RootEntity::customupdate(float delta) {
 
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
     //deltaCount += delta;
+    //cout<<"deltaCount: "<<deltaCount<<endl;
     if(deltaCount >= 1/15.f) {
         lx = x;
         ly = y;
 
         x = x + motionX;
         y = y + motionY;
-
+        //cout<<"motionX: "<<motionX<<endl;
+        //cout<<"motionY: "<<motionY<<endl;
         stepTime = deltaCount;
+        //cout<<"StepTime: "<<stepTime<<endl;
         deltaCount = 0.f;
     }
 }
@@ -49,9 +55,10 @@ void RootEntity::customdraw(float delta) {
     } else {
         percenTick = 0;
     }
-
+    //cout<<"percentTick"<<percenTick<<endl;
     dx = lx*(1.f-percenTick) + x * percenTick;
     dy = ly*(1.f-percenTick) + y * percenTick;
+    //cout<<"PRUEBA DX: "<<dx<<"PRUEBA DY: "<<dy<<endl;
 
     Node::setPosition(dx, dy);
 }
@@ -72,6 +79,7 @@ void RootEntity::setMotionX(float motionX) {
  */
 void RootEntity::setMotionY(float motionY) {
     RootEntity::motionY = motionY;
+    //cout<<"que pasa: "<<motionY<<endl;
 }
 
 /*!

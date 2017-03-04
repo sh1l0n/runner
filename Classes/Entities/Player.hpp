@@ -10,9 +10,9 @@
 
 class Player : public RootEntity {
 private:
-    float accel, maxVel, friction, gravity, terminalVelocity;
+    float accel, maxVel, friction, gravity, terminalVelocity, jump;
     float vx, vy;
-    bool moveLeft, moveRight;
+    bool moveLeft, moveRight, moveUp, floor;
 public:
     Player();
     static Player * create();
@@ -22,8 +22,10 @@ public:
 
     void onKeyLeft();
     void onKeyRight();
+    void onKeyUp();
     void onKeyLeftRelease();
     void onKeyRightRelease();
+    void onKeyUpRelease();
 };
 
 

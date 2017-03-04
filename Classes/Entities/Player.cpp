@@ -2,16 +2,21 @@
 // Created by Master Móviles on 27/2/17.
 //
 
+#include <iostream>
 #include "Player.hpp"
+
+using namespace std;
 
 Player::Player():RootEntity() {
     vx = 0;
     vy = 0;
     accel = 0.5;
+    jump = 10;
     friction = 0.3;
     maxVel = 15;
     gravity = 0.8;
     terminalVelocity = 5;
+    floor = false;
 }
 
 void Player::customupdate(float delta) {
@@ -32,13 +37,23 @@ void Player::customupdate(float delta) {
         else if(vx > -friction && vx < 0) vx = 0;
     }
 
-    //gravity
-    vy -= gravity;
+    /*if(moveUp){
+        floor = false;
+    }else if(moveUp == false){
+        jump = 0;
+        //vy -= gravity;
+    }*/
 
-    //floor collision
-    if(getCorrectPositionY() < 0) {
-        while(getCorrectPositionY() < 0){
-            setY(getY() + 1);
+    if(!floor) {
+        //if floor collision
+        if(getCorrectPositionY() < 0) {
+            setY(0 + getHeight()/2); //FIXME:cambiar el 0 por la altura en la que esté la plataforma
+            vy = 0;
+            floor = true;
+            cout<<"toco suelo"<<endl;
+        }else{
+            cout<<"buenas gravedad"<<endl;
+            vy -= gravity;
         }
     }
 
@@ -60,12 +75,20 @@ void Player::onKeyRight() {
     moveRight = true;
 }
 
+void Player::onKeyUp() {
+    moveUp = true;
+}
+
 void Player::onKeyLeftRelease() {
     moveLeft = false;
 }
 
 void Player::onKeyRightRelease() {
     moveRight = false;
+}
+
+void Player::onKeyUpRelease(){
+    moveUp = false;
 }
 
 
