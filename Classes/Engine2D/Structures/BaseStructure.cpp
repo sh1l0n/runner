@@ -47,7 +47,7 @@ BaseStructure::getWidth() const {
 *	@brief Getter
 *	@retval DATA info structure
 */
-std::vector< std::vector<bool> > 
+std::vector< std::vector<unsigned int> >
 Structures::
 BaseStructure::getData() const {
 	return this->_data;
@@ -58,7 +58,7 @@ BaseStructure::getData() const {
 *	@param [in] column the column in the structure
 *	@retval VALUE the value in this position
 */
-bool
+unsigned int
 Structures::
 BaseStructure::getDataAt(unsigned int row, unsigned int column) const
 {

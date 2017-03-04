@@ -12,7 +12,7 @@
 * @brief Creates a pyramid structure with a random height
 */
 Structures::
-Pyramid::Pyramid() : Structures::BaseStructure() 
+Pyramid::Pyramid() : Structures::BaseStructure()
 {
 	this->_height = rand() % K_MAX_HEIGHT + K_MIN_HEIGHT;
 	this->_width = (this->_height*2)-1;
@@ -31,3 +31,4 @@ Pyramid::Pyramid() : Structures::BaseStructure()
 		--right;
 	}
 }
+

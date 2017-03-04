@@ -6,6 +6,7 @@
 */
 
 #include "TiledMapGenerator.hpp"
+
 #include "../Structures/Structures.hpp"
 
 /**
@@ -61,7 +62,8 @@ TiledMapGenerator::generateNewChunk() const{
     unsigned int i, j;
     for (i = 0; i < bs->getHeight(); ++i) {
         for (j = 0; j < bs->getWidth(); ++j) {
-            chainStructure += bs->getDataAt(i, j) ? "1 " : "0 ";
+           // chainStructure += bs->getDataAt(i, j) ? "1 " : "0 ";
+            chainStructure +=std::to_string(bs->getDataAt(i, j));
         }
         chainStructure += "\n";
     }
@@ -153,7 +155,6 @@ TiledMapGenerator::createMapNode(TiledMap::T_CHUNK map) const {
 
         }
     }
-
 
     return nodo;
 

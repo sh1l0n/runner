@@ -22,7 +22,7 @@ namespace Structures {
 		protected:
 
 			/** @short Vector of data structure info */
-			std::vector< std::vector<bool> > _data;
+			std::vector< std::vector<unsigned int> > _data;
 
 			/** @short Vector of collisinable object */
 			std::vector<TiledMap::BasicBlockCollisionable> _vectorCollisionables;
@@ -48,13 +48,13 @@ namespace Structures {
 		    unsigned int getHeight() const;
 
 		    /** @short Get the data info of structure */
-		    std::vector< std::vector<bool> > getData() const;
+		    std::vector< std::vector<unsigned int> > getData() const;
 
 			/** @short Get the data of the collisionable vector */
 			std::vector< TiledMap::BasicBlockCollisionable > getCollisionableVector() const;
 
 		    /** @short Get the info of a position in structure */
-		    bool getDataAt(unsigned int row, unsigned int column) const;
+            unsigned int getDataAt(unsigned int row, unsigned int column) const;
 
 			/** @short Convert this class in a string */
 			std::string toString() const;

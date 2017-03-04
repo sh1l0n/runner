@@ -9,6 +9,7 @@
 
 #include "BaseStructure.hpp"
 #include "pyramid.hpp"
+#include "JumpEstructure.hpp"
 #include "MiddlePyramid.hpp"
 
 namespace Structures {
@@ -22,7 +23,8 @@ namespace Structures {
 	*/
 	static BaseStructure* getStructureMatrix()
 	{
-		unsigned int typeStructure =  rand() % K_NUMBER_STRUCTURES + 1;
+		//unsigned int typeStructure =  rand() % K_NUMBER_STRUCTURES + 1;
+		unsigned int typeStructure =3;
 		BaseStructure* structure = NULL;
 
 		switch(typeStructure) {
@@ -31,6 +33,9 @@ namespace Structures {
 				break;
 			case 2:
 				structure = new Pyramid();
+			case 3:
+				structure = new JumpEstructure();
+
 			break;
 		}
 		return structure;

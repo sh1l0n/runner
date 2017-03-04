@@ -2,8 +2,7 @@
 // Created by Pablo Ramon on 3/3/17.
 //
 
-#ifndef MYGAME_JUMPESTRUCTURE_H
-#define MYGAME_JUMPESTRUCTURE_H
+
 
 #pragma once
 
@@ -16,19 +15,19 @@ namespace Structures {
     class JumpEstructure: public BaseStructure {
     private:
         /** @short Default height of the structure */
-        const static unsigned char K_DEFAULT_HEIGHT = 0x03;
+        const static unsigned int K_DEFAULT_HEIGHT = 3;
 
         /** @short Default width of the structure */
-        const static unsigned char K_DEFAULT_WIDTH = 0x020;
+        const static unsigned int K_DEFAULT_WIDTH = 20;
 
         /** @short Default max value of x jump of the block structure */
-        const static unsigned char K_DEFAULT_MAX_X_JUMP = 0x01;
+        const static unsigned int K_DEFAULT_MAX_X_DISTANCE_BLOCKS = 2;
 
         /** @short Default max value of y jump of the block structure */
-        const static unsigned char K_DEFAULT_MAX_Y_JUMP = 0x01;
+        const static unsigned int K_DEFAULT_MAX_Y_DISTANCE_BLOCKS = 1;
 
-        unsigned int  _maxXJump;
-        unsigned int  _maxYJump;
+        unsigned int  _maxXDisBlock;
+        unsigned int  _maxYDisBlock;
 
 
 
@@ -40,4 +39,4 @@ namespace Structures {
     };
 }
 
-#endif //MYGAME_JUMPESTRUCTURE_H
+
