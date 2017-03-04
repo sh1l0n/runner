@@ -56,9 +56,7 @@ void Player::customupdate(float delta) {
             setY(0 + getHeight()/2); //FIXME:cambiar el 0 por la altura en la que esté la plataforma
             vy = 0;
             floor = true;
-            cout<<"toco suelo"<<endl;
         }else{
-            cout<<"buenas gravedad"<<endl;
             vy -= gravity;
         }
     }
