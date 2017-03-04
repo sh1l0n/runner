@@ -3,8 +3,6 @@
 //
 
 #include "PlayerTestScene.hpp"
-#include <Entities/Player.hpp>
-#include "cocos2d.h"
 
 USING_NS_CC;
 

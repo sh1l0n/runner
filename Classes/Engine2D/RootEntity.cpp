@@ -27,7 +27,9 @@ void RootEntity::customupdate(float delta) {
 
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
     //deltaCount += delta;
-    if(deltaCount >= 1/15.f) {
+
+    //fifteen frames per second
+    if(deltaCount >= 0.067) {
         lx = x;
         ly = y;
 
@@ -46,7 +48,8 @@ void RootEntity::customupdate(float delta) {
 void RootEntity::customdraw(float delta) {
     float percenTick = 0.f;
 
-    if(stepTime!=0) { //Se salta el primer frame
+    //step the first frame
+    if(stepTime!=0) {
         percenTick = deltaCount / stepTime;
     } else {
         percenTick = 0;
@@ -80,7 +83,6 @@ void RootEntity::setMotionY(float motionY) {
  * @param x
  * @param y
  */
-
 void RootEntity::setX(float x){
     this->x = x;
 }
@@ -97,6 +99,10 @@ void RootEntity::setPosition(float x, float y) {
     this->dy = y;
 }
 
+/*!
+ * Image loaded on the player and set the bounding box
+ * @param filename player image name
+ */
 void RootEntity::setSprite(const std::string &filename) {
     sprite = Sprite::create(filename);
     this->width = sprite->getContentSize().width;
@@ -134,10 +140,16 @@ float RootEntity::getHeight() {
     return this->height;
 }
 
+/*!
+ * Get horitzontal center position of the player
+ */
 float RootEntity::getCorrectPositionX() {
     return this->x - this->width/2;
 }
 
+/*!
+ * Get vertical center position of the player
+ */
 float RootEntity::getCorrectPositionY() {
     return this->y - this->height/2;
 }

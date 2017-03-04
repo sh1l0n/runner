@@ -60,7 +60,7 @@ void Player::customupdate(float delta) {
         setHeight(auxHeight);
         bend = false;
     }
-    cout<<"CUanto mido?? "<<getHeight()<<endl;
+
     if(!floor) {
         //if floor collision
         if(getCorrectPositionY() < 0) {
