@@ -42,5 +42,6 @@ public:
     void setMotionX(float motionX);
     void setMotionY(float motionY);
     void setSprite(const std::string &filename);
+    void setHeight(float height);
 };
 

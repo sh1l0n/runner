@@ -104,6 +104,9 @@ void RootEntity::setSprite(const std::string &filename) {
     this->addChild(sprite);
 }
 
+void RootEntity::setHeight(float height) {
+    this->height = height;
+}
 
 //GETTERS
 

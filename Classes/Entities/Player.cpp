@@ -16,7 +16,9 @@ Player::Player():RootEntity() {
     maxVel = 15;
     gravity = 0.8;
     terminalVelocity = 5;
+    auxHeight = 0;
     floor = false;
+    bend = false;
 }
 
 void Player::customupdate(float delta) {
@@ -24,7 +26,7 @@ void Player::customupdate(float delta) {
     if(moveRight) {
         vx += accel;
         if(vx > maxVel ) vx = maxVel;
-    } else if(moveLeft == false) {
+    } else if(!moveLeft) {
         if (vx >= friction) vx -= friction;
         else if(vx < friction && vx > 0) vx = 0;
     }
@@ -32,7 +34,7 @@ void Player::customupdate(float delta) {
     if(moveLeft) {
         vx -= accel;
         if(vx < -maxVel) vx = -maxVel;
-    } else if(moveRight == false) {
+    } else if(!moveRight) {
         if(vx <= -friction) vx+=friction;
         else if(vx > -friction && vx < 0) vx = 0;
     }
@@ -50,6 +52,15 @@ void Player::customupdate(float delta) {
         floor = false;
     }
 
+    if(moveDown && floor && !bend){
+        auxHeight = getHeight();
+        setHeight(auxHeight/2);
+        bend = true;
+    }else if(!moveDown && bend){
+        setHeight(auxHeight);
+        bend = false;
+    }
+    cout<<"CUanto mido?? "<<getHeight()<<endl;
     if(!floor) {
         //if floor collision
         if(getCorrectPositionY() < 0) {
@@ -83,6 +94,10 @@ void Player::onKeyUp() {
     moveUp = true;
 }
 
+void Player::onKeyDown() {
+    moveDown = true;
+}
+
 void Player::onKeyLeftRelease() {
     moveLeft = false;
 }
@@ -95,6 +110,9 @@ void Player::onKeyUpRelease(){
     moveUp = false;
 }
 
+void Player::onKeyDownRelease(){
+    moveDown = false;
+}
 
 Player * Player::create()
 {

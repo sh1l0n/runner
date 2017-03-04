@@ -60,6 +60,9 @@ void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
             e->onKeyUp();
             break;
+        case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+            e->onKeyDown();
+            break;
     }
 }
 void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
@@ -72,6 +75,9 @@ void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, coc
             break;
         case EventKeyboard::KeyCode ::KEY_UP_ARROW:
             e->onKeyUpRelease();
+            break;
+        case EventKeyboard::KeyCode ::KEY_DOWN_ARROW:
+            e->onKeyDownRelease();
             break;
     }
 }
