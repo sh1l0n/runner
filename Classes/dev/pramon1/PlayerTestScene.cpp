@@ -46,10 +46,18 @@ bool PlayerTestScene::init()
     this->addChild(test);
 
 
+
+
     TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
-    this->addChild(chunk._node);
+    //this->addChild(chunk._node);
     this->scheduleUpdate();
 
+    Node *m_scroll= Node::create();
+    m_scroll->addChild(test);
+    m_scroll->addChild(chunk._node);
+
+    this->addChild(m_scroll);
+    m_scroll->runAction(Follow::create(test));
     /*TiledMap::T_CHUNK chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
 
     int i,j;
