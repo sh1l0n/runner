@@ -119,17 +119,31 @@ TiledMapGenerator::generateNewChunk() const{
 
     for (i = 0; i<K_WIDTH; ++i) {
         for (j = inicioSuelo; j <=finSuelo; ++j) {
+
             map[i][j] = 2;
+
             //create the node to scene
             Sprite *sprite=Sprite::createWithTexture(texture, Rect(0,0,70,70));
             sprite->setScale(0.5f,0.5f);
-            //basicBlock = new TiledMap::BasicBlock(i*16, j*16, 16, 16);
             sprite->setPosition(i*35,j*35);
             sprite->setAnchorPoint(Vec2(0,0));
+            chunck._node->addChild(sprite, 0);
 
-            chunck._node->addChild(sprite);
+            //collisionable block
+            Rect rr = sprite->getBoundingBox();
+            auto bc = TiledMap::BasicBlock(rr.origin.x, rr.origin.y, rr.size.width + rr.origin.x, rr.size.height + rr.origin.y);
+            //auto bc = TiledMap::BasicBlock(40, 40, 75, 5);
+            auto rectNode = DrawNode::create();
+            Rect r = bc.getBoundingBox();
+            Color4F white(1, 1, 1, 1);
 
 
+
+
+            rectNode->drawRect(r.origin, r.size, white);
+            rectNode->setAnchorPoint(Vec2(0,0));
+            chunck._node->addChild(rectNode, 1);
+            chunck._collisionables.push_back(bc);
         }
     }
 
