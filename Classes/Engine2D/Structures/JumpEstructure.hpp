@@ -35,6 +35,8 @@ namespace Structures {
     public:
         /** @short Creates a new jump structure with default values */
         JumpEstructure();
+        /** @short Creates a new jump structure with parameters if parameteres are not ok, get default values  */
+        JumpEstructure(const unsigned int height, const unsigned int width,const unsigned int max_distanceX,const unsigned int max_distanceY);
 
     };
 }

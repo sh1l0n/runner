@@ -50,12 +50,11 @@ bool PlayerTestScene::init()
 
     TiledMap::T_CHUNK chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
 
-    unsigned int i,j;
+    int i,j;
     std::string chainMap = "";
 
-    for(i=0; i< TiledMap::K_HEIGHT; ++i) {
+    for(i=TiledMap::K_HEIGHT-1; i>= 0; --i) {
         for(j=0; j< TiledMap::K_WIDTH; ++j) {
-            //chainMap+= chunk[i][j]?"1 ":"0 ";
             chainMap+= std::to_string(chunk[i][j]);
         }
         chainMap +="\n";

@@ -75,11 +75,13 @@ std::string
 Structures::
 BaseStructure::toString() const
 {
+
 	std::string chain = "Width: " + std::to_string(this->_width) + "\n";
 	chain += "Height: " + std::to_string(this->_height) + "\n";
-	for(unsigned int i=0;i<this->_height;++i) {
+	//metohod to string print rows in inverse order, from heght to 0
+	for(int i=_height-1;i>=0;--i) {
 		for(unsigned int j=0;j<this->_width;++j) {
-			chain+= this->getDataAt(i, j)?"1 ":"0 ";
+			chain+=std::to_string(this->getDataAt(i, j));
 		}
 		chain+="\n";
 	}

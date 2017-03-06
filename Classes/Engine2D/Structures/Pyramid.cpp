@@ -18,7 +18,7 @@ Pyramid::Pyramid() : Structures::BaseStructure()
 	this->_width = (this->_height*2)-1;
 	this->_data.resize(this->_height);
 	unsigned int i,j, left = 0, right = this->_width-1;
-	for(i=this->_height-1; i>=0; --i) {
+	for(i=0; i<this->_height; ++i) {
 		this->_data[i].resize(this->_width, false);
 		if(left==right) {
 			this->_data[i][right] = true;

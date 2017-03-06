@@ -58,41 +58,30 @@ TiledMapGenerator::generateNewChunk() const{
     }
 
     Structures::BaseStructure *bs = Structures::getStructureMatrix();
-    std::string chainStructure = "";
-    unsigned int i, j;
-    for (i = 0; i < bs->getHeight(); ++i) {
-        for (j = 0; j < bs->getWidth(); ++j) {
-           // chainStructure += bs->getDataAt(i, j) ? "1 " : "0 ";
-            chainStructure +=std::to_string(bs->getDataAt(i, j));
-        }
-        chainStructure += "\n";
-    }
-    std::cout << chainStructure;
+
+    std::cout << bs->toString();
     std::cout << "\n\n\n\n";
 
+
     //Obtenemos la posición relativa para la estrutura en el mapa
-    unsigned int startStructureOnOY = K_HEIGHT - K_POSITION_Y_START;
+    unsigned int startStructureOnOY = K_POSITION_Y_START;
     unsigned int startStructureOnOX = K_POSITION_X_START;
     //unsigned int i,j;
 
-    /*for(i=startStructureOnOY; i<bs->getHeight(); ++i) {
-        for(j=startStructureOnOX; j<bs->getWidth(); ++j) {
-            map[i][j] = bs->getDataAt(i, j);
-        }
-    }*/
-    unsigned int posicionChunkX, posicionChunkY;
+
+    unsigned int posicionChunkX, posicionChunkY,i,j;
 
     for (i = 0; i < bs->getHeight(); i++) {
         for (j = 0; j < bs->getWidth(); j++) {
             posicionChunkX = j + startStructureOnOX;
-            posicionChunkY = i + startStructureOnOY - 1 - K_HEIGHT_FLOOR;
+            posicionChunkY = i + K_HEIGHT_FLOOR;
             map[posicionChunkY][posicionChunkX] = bs->getDataAt(i, j);
         }
     }
     //ponemos el suelo
-    int inicioSuelo = K_HEIGHT - 1;
-    int finSuelo = K_HEIGHT - K_HEIGHT_FLOOR;
-    for (i = inicioSuelo; i >= finSuelo; i--) {
+    unsigned  int inicioSuelo = 0;
+    unsigned int finSuelo = K_HEIGHT_FLOOR-1;
+    for (i = inicioSuelo; i <= finSuelo; i++) {
         for (j = 0; j < K_WIDTH; j++) {
             map[i][j] = 2;
         }
