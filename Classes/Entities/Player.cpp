@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <Engine2D/MathHelper.hpp>
 #include "Player.hpp"
 
 using namespace std;
@@ -19,6 +20,8 @@ Player::Player():RootEntity() {
     auxHeight = 0;
     floor = false;
     bend = false;
+
+    debug = true;
 }
 
 void Player::customupdate(float delta) {
@@ -47,7 +50,7 @@ void Player::customupdate(float delta) {
 
     if(moveUp){
         if(floor){
-            vy = jump;
+            vy += jump;
         }
         floor = false;
     }
@@ -72,6 +75,9 @@ void Player::customupdate(float delta) {
         }
     }
 
+    //FloorCollision
+    resolveFloorCollisions();
+
     setMotionX(vx);
     setMotionY(vy);
 
@@ -80,6 +86,20 @@ void Player::customupdate(float delta) {
 
 void Player::customdraw(float delta) {
     RootEntity::customdraw(delta);
+}
+
+void Player::setFloorCollision(Vector<RootEntity *> floors) {
+    floorVector = floors;
+}
+
+void Player::resolveFloorCollisions() {
+    for(int i = 0; i<floorVector.size(); i++) {
+        RootEntity* floor = floorVector.at(i);
+        if(MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY(), getWidth(), getHeight(),
+                                     floor->getCorrectPositionX(), floor->getCorrectPositionY(), floor->getWidth(), floor->getHeight())) {
+
+        }
+    }
 }
 
 void Player::onKeyLeft() {

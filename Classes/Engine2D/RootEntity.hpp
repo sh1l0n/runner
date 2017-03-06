@@ -9,7 +9,6 @@ USING_NS_CC;
 
 class RootEntity: public Node {
 private:
-
     float x, y;
     float dx, dy;
     float lx, ly;
@@ -18,9 +17,14 @@ private:
     float deltaCount, stepTime;
     Sprite *sprite;
 
+protected:
+    DrawNode *drawNode;
+
 public:
     RootEntity();
     static RootEntity * create();
+
+    bool debug;
 
     virtual void customupdate(float delta);
     virtual void customdraw(float delta);
@@ -34,6 +38,7 @@ public:
     float getY();
     float getWidth();
     float getHeight();
+    bool isDebug();
 
     //Setters
     void setPosition(float x, float y);

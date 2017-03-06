@@ -25,7 +25,9 @@ public:
 
 private:
     Player *e;
+    RootEntity *box;
 
+    Vector<RootEntity*> boxes;
 
 };
 

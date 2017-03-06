@@ -2,7 +2,10 @@
 // Created by juancarlos on 26/02/17.
 //
 
+#include <iostream>
+
 #include "PlayerTestScene.hpp"
+#include <Engine2D/MathHelper.hpp>
 
 USING_NS_CC;
 
@@ -38,6 +41,15 @@ bool PlayerTestScene::init()
     e->setSprite("CloseNormal.png");
     e->setPosition(32, 200);
     this->addChild(e);
+
+    box = RootEntity::create();
+    box->setSprite("test/Basepack/Tiles/box.png");
+    box->setPosition(200, 32);
+    box->debug = true;
+    this->addChild(box);
+
+    boxes.pushBack(box);
+    e->setFloorCollision(boxes);
 
     eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
     eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
@@ -82,6 +94,8 @@ void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, coc
 
 
 void PlayerTestScene::update(float delta){
+    box->customupdate(delta);
+    box->customdraw(delta);
     e->customupdate(delta);
     e->customdraw(delta);
 }
