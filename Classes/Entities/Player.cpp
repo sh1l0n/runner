@@ -12,7 +12,7 @@ Player::Player():RootEntity() {
     vx = 0;
     vy = 0;
     accel = 0.5;
-    jump = 25;
+    jump = 27;
     friction = 0.3;
     maxVel = 15;
     gravity = 0.8;
@@ -64,24 +64,14 @@ void Player::customupdate(float delta) {
         bend = false;
     }
 
-    if(!floor) {
-        //if floor collision
-        if(getCorrectPositionY() < 0) {
-            setY(0 + getHeight()/2); //FIXME:cambiar el 0 por la altura en la que esté la plataforma
-            vy = 0;
-            floor = true;
-        }else{
-            vy -= gravity;
-        }
-    }
+    vy -= gravity;
 
     //FloorCollision
     resolveFloorCollisions();
+    RootEntity::customupdate(delta);
 
     setMotionX(vx);
     setMotionY(vy);
-
-    RootEntity::customupdate(delta);
 }
 
 void Player::customdraw(float delta) {
@@ -94,10 +84,26 @@ void Player::setFloorCollision(Vector<RootEntity *> floors) {
 
 void Player::resolveFloorCollisions() {
     for(int i = 0; i<floorVector.size(); i++) {
-        RootEntity* floor = floorVector.at(i);
-        if(MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY(), getWidth(), getHeight(),
-                                     floor->getCorrectPositionX(), floor->getCorrectPositionY(), floor->getWidth(), floor->getHeight())) {
+        RootEntity* block = floorVector.at(i);
 
+       //Verical collision
+        if(MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(), block)) {
+            while(!MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + MathHelper::sign(vy), getWidth(), getHeight(), block))
+            {
+                setY(getY() + MathHelper::sign(vy));
+            }
+            vy = 0;
+            floor = true;
+        }
+
+        //Horizontal collision
+        if(MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block)) {
+
+            while(!MathHelper::rectCollision(getCorrectPositionX() + MathHelper::sign(vx),getCorrectPositionY(), getWidth(), getHeight(), block))
+            {
+                setX(getX() + MathHelper::sign(vx));
+            }
+            vx = 0;
         }
     }
 }

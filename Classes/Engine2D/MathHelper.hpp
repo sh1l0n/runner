@@ -5,18 +5,13 @@
 #ifndef MYGAME_MATHHELPER_H
 #define MYGAME_MATHHELPER_H
 
+#include "RootEntity.hpp"
+
 class MathHelper {
 
 public:
-    static bool rectCollision(
-            float x1,
-            float y1,
-            float width1,
-            float height1,
-            float x2,
-            float y2,
-            float width2,
-            float height2);
+    static bool rectCollision(float x, float y, float width, float height, RootEntity *e2);
+    static int sign(float x);
 
 };
 

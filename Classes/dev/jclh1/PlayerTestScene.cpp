@@ -42,13 +42,36 @@ bool PlayerTestScene::init()
     e->setPosition(32, 200);
     this->addChild(e);
 
+    for(int i = 0; i<10 ; i++) {
+        box = RootEntity::create();
+        box->setSprite("test/Basepack/Tiles/box.png");
+        box->setPosition(70*i, 35);
+        box->debug = false;
+        this->addChild(box);
+        boxes.pushBack(box);
+    }
+
     box = RootEntity::create();
     box->setSprite("test/Basepack/Tiles/box.png");
-    box->setPosition(200, 32);
-    box->debug = true;
+    box->setPosition(280, 105);
+    box->debug = false;
     this->addChild(box);
+    boxes.pushBack(box);
+    box = RootEntity::create();
+    box->setSprite("test/Basepack/Tiles/box.png");
+    box->setPosition(350, 105);
+    box->debug = false;
+    this->addChild(box);
+    boxes.pushBack(box);
+    box = RootEntity::create();
+    box->setSprite("test/Basepack/Tiles/box.png");
+    box->setPosition(350, 175);
+    box->debug = false;
+    this->addChild(box);
+    boxes.pushBack(box);
 
     boxes.pushBack(box);
+
     e->setFloorCollision(boxes);
 
     eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);

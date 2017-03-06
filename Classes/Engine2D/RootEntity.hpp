@@ -32,6 +32,8 @@ public:
     //Getters
     float getCorrectPositionX();
     float getCorrectPositionY();
+    float getCorrectLastPositionX();
+    float getCorrectLastPositionY();
     float getMotionX();
     float getMotionY();
     float getX();

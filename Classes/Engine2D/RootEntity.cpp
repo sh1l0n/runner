@@ -91,10 +91,14 @@ void RootEntity::setMotionY(float motionY) {
  */
 void RootEntity::setX(float x){
     this->x = x;
+    //this->lx = x;
+    //this->dx = x;
 }
 
 void RootEntity::setY(float y){
     this->y = y;
+    //this->ly = y;
+    //this->dy = y;
 }
 void RootEntity::setPosition(float x, float y) {
     this->x = x;
@@ -103,6 +107,7 @@ void RootEntity::setPosition(float x, float y) {
     this->ly = y;
     this->dx = x;
     this->dy = y;
+    Node::setPosition(x, y);
 }
 
 /*!
@@ -157,12 +162,11 @@ float RootEntity::getCorrectPositionX() {
     return this->x - this->width/2;
 }
 
-/*!
- * Get vertical center position of the player
- */
 float RootEntity::getCorrectPositionY() {
     return this->y - this->height/2;
 }
+
+
 
 RootEntity * RootEntity::create()
 {
