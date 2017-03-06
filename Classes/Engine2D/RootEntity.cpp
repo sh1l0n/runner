@@ -16,6 +16,25 @@ RootEntity::RootEntity() {
     y = 200.f;
 }
 
+/**
+ * Copy Constructor
+ * @param tileCollisionable object for copy
+ */
+RootEntity::RootEntity(const RootEntity& object) {
+    this->x = object.x;
+    this->y = object.y;
+    this->dx = object.dx;
+    this->dy = object.dy;
+    this->lx = object.lx;
+    this->ly = object.ly;
+    this->motionX = object.motionX;
+    this->motionY = object.motionY;
+    float motionX, motionY;
+    float deltaCount, stepTime, time, totalTime;
+    Sprite *sprite;
+}
+
+
 /*!
  * Complex game logic (like movement, collision, generation etc..) should be here to be executed 15 frames per second.
  * This implementation allows the game to process heavy mathematical operations and maintain a stable frame rate.

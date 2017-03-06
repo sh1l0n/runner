@@ -18,6 +18,7 @@ private:
     Sprite *sprite;
 public:
     RootEntity();
+    RootEntity(const RootEntity& object);
     static RootEntity * create();
 
     void update(float delta);

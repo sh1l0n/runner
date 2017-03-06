@@ -26,7 +26,7 @@ MiddlePyramid::MiddlePyramid() : Structures::BaseStructure()
 			this->_data[i][j] = true;
 		}
 		//TODO add vector collisionables better in Tile map Generator?
-		//this->_vectorCollisionables[i] = TiledMap::BasicBlockCollisionable();
+		//this->_vectorCollisionables[i] = TiledMap::BasicBlock();
 		--startInRow;
 	}
 }

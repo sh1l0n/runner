@@ -46,9 +46,11 @@ bool PlayerTestScene::init()
     this->addChild(test);
 
 
+    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
+    this->addChild(chunk._node);
+    this->scheduleUpdate();
 
-
-    TiledMap::T_CHUNK chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
+    /*TiledMap::T_CHUNK chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
 
     int i,j;
     std::string chainMap = "";
@@ -66,7 +68,7 @@ bool PlayerTestScene::init()
     nodo1->setPosition(0,0);
     this->addChild(nodo1);
 
-    this->scheduleUpdate();
+    this->scheduleUpdate();*/
 
     return true;
 }

@@ -167,7 +167,7 @@ set(GAME_HEADERS
 
 
 
-        Classes/Engine2D/Structures/JumpEstructure.cpp Classes/Engine2D/Structures/JumpEstructure.hpp Classes/Engine2D/TiledMap/BasicBlockCollisionable.cpp Classes/Engine2D/TiledMap/BasicBlockCollisionable.hpp)
+        Classes/Engine2D/Structures/JumpEstructure.cpp Classes/Engine2D/Structures/JumpEstructure.hpp Classes/Engine2D/TiledMap/BasicBlock.cpp Classes/Engine2D/TiledMap/BasicBlock.hpp Classes/Engine2D/TiledMap/Chunck.cpp Classes/Engine2D/TiledMap/Chunck.h)
 
 
 if( ANDROID )

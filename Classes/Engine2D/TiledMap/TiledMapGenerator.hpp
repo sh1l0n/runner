@@ -8,6 +8,7 @@
 #pragma once
 #include <vector>
 #include "cocos2d.h"
+#include "Chunck.h"
 USING_NS_CC;
 
 namespace TiledMap {
@@ -50,7 +51,7 @@ namespace TiledMap {
             static TiledMapGenerator* getInstance();
 
             /** @short Method for generate a new chunk */
-            T_CHUNK generateNewChunk() const;
+            Chunck generateNewChunk() const;
 
             Node* createMapNode(const T_CHUNK map) const;
     };

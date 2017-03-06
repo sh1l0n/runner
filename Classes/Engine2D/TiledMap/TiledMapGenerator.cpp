@@ -40,24 +40,48 @@ TiledMapGenerator::~TiledMapGenerator() {
     }
 }
 
+Node*
+TiledMap::
+TiledMapGenerator::createMapNode(TiledMap::T_CHUNK map) const {
+    //nodo con el tile
+    Node *nodo = Node::create();
+
+    Texture2D *texture = Director::getInstance()->getTextureCache()->addImage("box.png");
+    Sprite *sprite=Sprite::createWithTexture(texture, Rect(0,0,16,16));
+    sprite->setPosition(40,40);
+    nodo->addChild(sprite);
+
+
+
+
+
+    return nodo;
+
+}
+
+
 /**
  * Generate a new chunk.
  * This method contains and pseudo-random algorithm for generate random chuncks with random structures.
  * @return a new random chunck
  */
-TiledMap::T_CHUNK
+TiledMap::Chunck
 TiledMap::
 TiledMapGenerator::generateNewChunk() const{
 
+    TiledMap::Chunck chunck = TiledMap::Chunck();
     TiledMap::T_CHUNK map;
-    map.resize(K_HEIGHT);
 
-    for (unsigned int i = 0; i < K_HEIGHT; ++i) {
-        map[i].resize(K_WIDTH, false);
+
+
+    map.resize(K_WIDTH);
+    for (unsigned int i = 0; i < K_WIDTH; ++i) {
+        map[i].resize(K_HEIGHT, false);
 
     }
 
     Structures::BaseStructure *bs = Structures::getStructureMatrix();
+
 
     std::cout << bs->toString();
     std::cout << "\n\n\n\n";
@@ -71,80 +95,59 @@ TiledMapGenerator::generateNewChunk() const{
 
     unsigned int posicionChunkX, posicionChunkY,i,j;
 
-    for (i = 0; i < bs->getHeight(); i++) {
-        for (j = 0; j < bs->getWidth(); j++) {
-            posicionChunkX = j + startStructureOnOX;
-            posicionChunkY = i + K_HEIGHT_FLOOR;
-            map[posicionChunkY][posicionChunkX] = bs->getDataAt(i, j);
+    for (i = 0; i < bs->getWidth(); i++) {
+        for (j = 0; j < bs->getHeight(); j++) {
+            posicionChunkX = i + startStructureOnOX;
+            posicionChunkY = j + K_HEIGHT_FLOOR;
+            map[posicionChunkX][posicionChunkY] = bs->getDataAt(i, j);
         }
     }
     //ponemos el suelo
     unsigned  int inicioSuelo = 0;
     unsigned int finSuelo = K_HEIGHT_FLOOR-1;
-    for (i = inicioSuelo; i <= finSuelo; i++) {
+   // TiledMap::BasicBlock *basicBlock = NULL;
+
+
+    Texture2D *texture = Director::getInstance()->getTextureCache()->addImage("box.png");
+    //Sprite *sprite=Sprite::createWithTexture(texture, Rect(0,0,16,16));
+    //basicBlock = new TiledMap::BasicBlock(i*16, j*16, 16, 16);
+    //sprite->setPosition(0*16,0*16);
+
+    //chunck._node->addChild(sprite);
+
+
+
+    for (i = 0; i<K_WIDTH; ++i) {
+        for (j = inicioSuelo; j <=finSuelo; ++j) {
+            map[i][j] = 2;
+            //create the node to scene
+            Sprite *sprite=Sprite::createWithTexture(texture, Rect(0,0,70,70));
+            sprite->setScale(0.5f,0.5f);
+            //basicBlock = new TiledMap::BasicBlock(i*16, j*16, 16, 16);
+            sprite->setPosition(i*35,j*35);
+            sprite->setAnchorPoint(Vec2(0,0));
+
+            chunck._node->addChild(sprite);
+
+
+        }
+    }
+
+   /*for (i = inicioSuelo; i <= finSuelo; i++) {
         for (j = 0; j < K_WIDTH; j++) {
             map[i][j] = 2;
-        }
-    }
+            //create the node to scene
+            Sprite *sprite=Sprite::createWithTexture(texture, Rect(0,0,16,16));
+            //basicBlock = new TiledMap::BasicBlock(i*16, j*16, 16, 16);
+            sprite->setPosition(i*16,j*16);
 
+            chunck._node->addChild(sprite);
 
-    return map;
-}
-
-
-Node*
-TiledMap::
-TiledMapGenerator::createMapNode(TiledMap::T_CHUNK map) const {
-
-    unsigned int i, j;
-    //nodo con el chunk
-    Node *nodo = Node::create();
-
-    //esto es temporal, después se añadirá una entidad mapa
-    Sprite *sprite = NULL;
-
-    /*  sprite=Sprite::create("CloseNormal.png");
-      sprite->setPosition(40,40);
-      nodo->addChild(sprite);
-
-      sprite=Sprite::create("CloseNormal.png");
-      sprite->setPosition(80,80);
-      nodo->addChild(sprite);*/
-
-
-    for (i = 0; i < TiledMap::K_HEIGHT - 1; i++) {
-        for (j = 0; j < TiledMap::K_WIDTH - 1; j++) {
-            if (map[i][j] == 1) {
-                //TO DO en lugar de un sprtie añadir un nodo Tile de tipo muro, con sus colisiones
-                sprite = Sprite::create("CloseNormal.png");
-                //esto deberá ser constante por ahora así
-                float ancho = sprite->getContentSize().width;
-                float alto = sprite->getContentSize().height;
-                float posX = j * ancho;
-                float posY = (TiledMap::K_HEIGHT - i) * alto;
-
-                sprite->setPosition(Vec2(posX, posY));
-                nodo->addChild(sprite);
-
-
-            }
-            if (map[i][j] == 2) {
-                //TO DO en lugar de un sprtie añadir un nodo Tile de tipo muro, con sus colisiones
-                sprite = Sprite::create("CloseSelected.png");
-                //esto deberá ser constante por ahora así
-                float ancho = sprite->getContentSize().width;
-                float alto = sprite->getContentSize().height;
-                float posX = j * ancho;
-                float posY = (TiledMap::K_HEIGHT - i) * alto;
-
-                sprite->setPosition(Vec2(posX, posY));
-                nodo->addChild(sprite);
-
-            }
 
         }
     }
+    */
 
-    return nodo;
 
+    return chunck;
 }
