@@ -9,7 +9,7 @@
 
 #include "BaseStructure.hpp"
 #include "pyramid.hpp"
-#include "JumpEstructure.hpp"
+#include "JumpStructure.hpp"
 #include "MiddlePyramid.hpp"
 
 namespace Structures {
@@ -29,7 +29,7 @@ namespace Structures {
 
 
 	/** @short The maximum width value for jump Structure */
-	static const unsigned char K_MAX_JUMP_STRUCT_WIDTH = 40;
+	static const unsigned char K_MAX_JUMP_STRUCT_WIDTH = 20;
 	/** @short The minimum width value for jump Structure */
 	static const unsigned char K_MIM_JUMP_STRUCT_WIDTH = 4;
 
@@ -73,11 +73,15 @@ namespace Structures {
 				break;
 			case 2:
 				if(availableXSpace<K_MAX_PYRAMID_WIDTH){
+
 					max_width=availableXSpace;
 				}else{
 					max_width=K_MAX_PYRAMID_WIDTH;
 				}
 				width=rand() % (max_width-Structures::K_MIM_PYRAMID_WIDTH +1) +Structures::K_MIM_PYRAMID_WIDTH ;
+				if(width%2==0){
+					width--;
+				}
 
 
 				structure = new Pyramid(width);
@@ -92,7 +96,7 @@ namespace Structures {
 				unsigned int max_x_block = rand()%(K_MAX_X_JUMP_HEIGHT-1 + 1) +1;
 				unsigned int max_y_block = rand()%(K_MAX_Y_JUMP_HEIGHT-1 + 1) +1;
 
-				structure = new JumpEstructure(height,width,max_x_block,max_y_block);
+				structure = new JumpStructure(height,width,max_x_block,max_y_block);
 				//structure = new JumpEstructure();
 
 			break;

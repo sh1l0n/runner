@@ -13,11 +13,16 @@ USING_NS_CC;
 
 namespace TiledMap {
 
+    //constant of map generator
+
     /** @short  Custom type for a chunk */
     typedef std::vector<std::vector<int> > T_CHUNK;
 
+
+
     /** @short  Width for a chunk */
     static const unsigned char K_WIDTH = 0xD4; //212
+
 
     /** @short  Height for a chunk */
     static const unsigned char K_HEIGHT = 0x20; //32
@@ -38,6 +43,15 @@ namespace TiledMap {
     /** @short Max value for REST btween structures*/
     static const unsigned short int K_MAX_VALUE_REST =2;
 
+
+
+    //Constants for sprite render
+
+    /** @short image sprite size*/
+    static const unsigned short int K_SIZE_IMAGE_SPRITE =70;
+    /** @short image sprite size*/
+    static const float K_FACTOR_SCALE =0.35f;
+
     /**
     * Singleton class TiledMapGenerator for generate random maps
     */
@@ -46,6 +60,7 @@ namespace TiledMap {
         private:
             /** @short instance of tile map generator */
             static TiledMapGenerator* _instance;
+
 
             /** @short Constructor */
             inline TiledMapGenerator() {};
@@ -58,8 +73,11 @@ namespace TiledMap {
             static TiledMapGenerator* getInstance();
 
             /** @short Method for generate a new chunk */
-            Chunck generateNewChunk() const;
+            Chunck generateNewChunk(unsigned short int level,bool isInitial,bool debugMode) const;
 
             Node* createMapNode(const T_CHUNK map) const;
+
+
+
     };
 }

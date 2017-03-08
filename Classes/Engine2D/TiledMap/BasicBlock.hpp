@@ -51,7 +51,7 @@ namespace TiledMap {
             /** @short Copy constructor */
             BasicBlock(const BasicBlock& titleCollisionable);
 
-            static BasicBlock* create(const float X, const float Y, const float width, const float height, const unsigned short int type);
+            static BasicBlock* create(const float X, const float Y, const float width, const float height, const unsigned short int type, const bool debug_mode);
                 //static BasicBlock* create(const Rect rect, const unsigned short int type);
 
             /** @short Overload operator = */

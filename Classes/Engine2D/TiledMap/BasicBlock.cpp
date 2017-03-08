@@ -6,7 +6,7 @@
 */
 
 #include "BasicBlock.hpp"
-
+#include "TiledMapGenerator.hpp"
 
 
 TiledMap::
@@ -80,7 +80,7 @@ BasicBlock::operator=(const TiledMap::BasicBlock& tileCollisionable) {
 
 TiledMap::BasicBlock*
 TiledMap::
-BasicBlock::create(const float X, const float Y, const float width, const float height,const unsigned short int type)
+BasicBlock::create(const float X, const float Y, const float width, const float height,const unsigned short int type, const bool debug_mode)
 {
     TiledMap::BasicBlock* ret = new (std::nothrow) TiledMap::BasicBlock();
     if (ret && ret->init())
@@ -91,10 +91,15 @@ BasicBlock::create(const float X, const float Y, const float width, const float 
         ret->_width=width;
         ret->_height=height;
         ret->_rect= Rect(ret->_posX,ret->_posY,ret->_width,ret->_height);
-        Color4F white(1, 1, 1, 1);
-        ret->drawRect(ret->_rect.origin,ret->_rect.size, white);
-        ret->setAnchorPoint(Vec2(0,0));
         ret->_type=type;
+        if(debug_mode==true) {
+            Color4F white(1, 1, 1, 1);
+            ret->drawRect(ret->_rect.origin, ret->_rect.size, white);
+        }
+        ret->setAnchorPoint(Vec2(0, 0));
+
+
+
     }
     else
     {

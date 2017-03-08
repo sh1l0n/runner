@@ -2,13 +2,13 @@
 // Created by Pablo Ramon on 3/3/17.
 //
 
-#include "JumpEstructure.hpp"
+#include "JumpStructure.hpp"
 
 /**
 * @brief Creates a jump structure with default values
 */
 Structures::
-JumpEstructure::JumpEstructure() : Structures::BaseStructure()
+JumpStructure::JumpStructure() : Structures::BaseStructure()
 {
 
     this->_height =K_DEFAULT_HEIGHT;
@@ -60,7 +60,7 @@ JumpEstructure::JumpEstructure() : Structures::BaseStructure()
 }
 
 Structures::
-JumpEstructure::JumpEstructure(const unsigned short int height, const unsigned short int width,const unsigned short int max_distanceX,const unsigned short int max_distanceY) : Structures::BaseStructure()
+JumpStructure::JumpStructure(const unsigned short int height, const unsigned short int width,const unsigned short int max_distanceX,const unsigned short int max_distanceY) : Structures::BaseStructure()
 {
     this->_height =height;
     this->_width = width;
@@ -74,14 +74,14 @@ JumpEstructure::JumpEstructure(const unsigned short int height, const unsigned s
         this->_data[i].resize(this->_width, false);
 
     }
-    //spike floor 3,  collisionable block 1, nothing 0
+    //spike floor 3,  platform 4, nothing 0
     //spike floor
     for(i=0;i<_width;i++){
         this->_data[0][i]=3;
 
     }
     //wall in the begin of the structure
-    this->_data[1][0]=1;
+    this->_data[1][0]=4;
 
     posX=0;
     posY=1;
@@ -101,7 +101,7 @@ JumpEstructure::JumpEstructure(const unsigned short int height, const unsigned s
         //new block position in X
         int salto=rand()%(_maxXDisBlock + 1)+1;
         posX=posX+salto;
-        this->_data[posY][posX]=1;
+        this->_data[posY][posX]=4;
 
 
 

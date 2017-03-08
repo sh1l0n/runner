@@ -67,7 +67,8 @@ TiledMapGenerator::createMapNode(TiledMap::T_CHUNK map) const {
  */
 TiledMap::Chunck
 TiledMap::
-TiledMapGenerator::generateNewChunk() const{
+TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool debugMode) const{
+
 
     TiledMap::Chunck chunck = TiledMap::Chunck();
     TiledMap::T_CHUNK map;
@@ -77,16 +78,15 @@ TiledMapGenerator::generateNewChunk() const{
         map[i].resize(K_HEIGHT, false);
 
     }
-    auto cache = SpriteFrameCache::getInstance();
-
-    cache->addSpriteFramesWithFile("sprites.plist", "sprites.png");
-    //Director::getInstance()->getTextureCache()-
 
 
 
- //   Texture2D *textureFloor = Director::getInstance()->getTextureCache()->addImage("box.png");
-    Texture2D *textureWall = Director::getInstance()->getTextureCache()->addImage("castleCenter.png");
+
+    Texture2D *textureWall = Director::getInstance()->getTextureCache()->addImage("box.png");
+    Texture2D *textureFloor = Director::getInstance()->getTextureCache()->addImage("castleCenter.png");
     Texture2D *textureSpike = Director::getInstance()->getTextureCache()->addImage("liquidLavaTop_mid.png");
+    Texture2D *texturePlatform = Director::getInstance()->getTextureCache()->addImage("stoneHalf.png");
+
 
 
 
@@ -99,17 +99,17 @@ TiledMapGenerator::generateNewChunk() const{
             map[i][j] = 2;
 
             //create the node to scene
-            Sprite *sprite = Sprite::createWithSpriteFrameName("box.png");
-            //Sprite *sprite=Sprite::createWithTexture(textureFloor, Rect(0,0,70,70));
-            sprite->setScale(0.5f,0.5f);
-            sprite->setPosition(i*35,j*35);
+            //Sprite *sprite = Sprite::createWithSpriteFrameName("box.png");
+            Sprite *sprite=Sprite::createWithTexture(textureFloor, Rect(0,0,K_SIZE_IMAGE_SPRITE,K_SIZE_IMAGE_SPRITE));
+            sprite->setScale(K_FACTOR_SCALE,K_FACTOR_SCALE);
+            sprite->setPosition(i*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE,j*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
             sprite->setAnchorPoint(Vec2(0,0));
             chunck._node->addChild(sprite, 0);
 
             //collisionable block
             Rect rr = sprite->getBoundingBox();
             auto blockCollisionable=TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y, rr.size.width + rr.origin.x, rr.size.height + rr.origin.y,
-                TiledMap::BasicBlock::K_TYPE_FLOOR);
+                TiledMap::BasicBlock::K_TYPE_FLOOR,debugMode);
 
             chunck._node->addChild(blockCollisionable,1);
             chunck._collisionables.push_back(*blockCollisionable);
@@ -120,34 +120,26 @@ TiledMapGenerator::generateNewChunk() const{
 
 
 
-    unsigned int posicionChunkX, posicionChunkY;
-    //Obtenemos la posición relativa para la estrutura en el mapa
-    /*   unsigned int startStructureOnOY = K_POSITION_Y_START;
-       unsigned int startStructureOnOX = K_POSITION_X_START;
-       //unsigned int i,j;
-
-
-       unsigned int posicionChunkX, posicionChunkY,i,j;
-
-       for (i = 0; i < bs->getWidth(); i++) {
-           for (j = 0; j < bs->getHeight(); j++) {
-               posicionChunkX = i + startStructureOnOX;
-               posicionChunkY = j + K_HEIGHT_FLOOR;
-               map[posicionChunkX][posicionChunkY] = bs->getDataAt(i, j);
-           }
-       }*/
-
     //Generate the map
     //We start to put structures on this position
+    unsigned int posicionChunkX, posicionChunkY;
     unsigned int posX_generated=4;
+    if(isInitial){
+        posX_generated=15;
+    }
+
     unsigned int space_avialable=K_WIDTH-posX_generated;
+
+    
+
+    //Parse bs to debug map, scene and collisionable vector
     while (space_avialable>K_MIN_VALUE_FOR_STRUCT){
         Structures::BaseStructure *bs = Structures::getStructureMatrix(space_avialable);
         std::cout << bs->toString();
         std::cout << "\n\n\n\n";
 
 
-        //Parse bs to debug map, scene and collisionable vector
+
         unsigned short int block_type;
         for (i = 0; i < bs->getWidth(); i++) {
             for (j = 0; j < bs->getHeight(); j++) {
@@ -158,45 +150,70 @@ TiledMapGenerator::generateNewChunk() const{
                 unsigned short int type_basic_block;
                 //Map for debug
                 map[posicionChunkX][posicionChunkY] = block_type;
-                //TODO use positionChunkXY to create the node
+
+                //Wall for pyramids
                 if(block_type==1){
-                   // texture=textureWall;
+
                     type_basic_block=TiledMap::BasicBlock::K_TYPE_WALL;
 
                     //create the node to scene
-                    //Sprite *sprite=Sprite::createWithTexture(texture, Rect(0,0,70,70));
-                    Sprite *sprite = Sprite::createWithSpriteFrameName("castleCenter.png");
-                    sprite->setScale(0.5f,0.5f);
-                    sprite->setPosition(posicionChunkX*35,posicionChunkY*35);
+                    Sprite *sprite=Sprite::createWithTexture(textureWall, Rect(0,0,K_SIZE_IMAGE_SPRITE,K_SIZE_IMAGE_SPRITE));
+
+                    sprite->setScale(K_FACTOR_SCALE,K_FACTOR_SCALE);
+                    sprite->setPosition(posicionChunkX*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE,posicionChunkY*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
                     sprite->setAnchorPoint(Vec2(0,0));
                     chunck._node->addChild(sprite, 0);
 
                     //collisionable block
                     Rect rr = sprite->getBoundingBox();
                     auto blockCollisionable=TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y, rr.size.width + rr.origin.x, rr.size.height + rr.origin.y,
-                                                                         type_basic_block);
+                                                                         type_basic_block,debugMode);
 
                     chunck._node->addChild(blockCollisionable,1);
                     chunck._collisionables.push_back(*blockCollisionable);
 
 
                 }
+
+                //Lava for jump Structure, tehe block collisionbale is smaller
                 if(block_type==3){
 
                     type_basic_block=TiledMap::BasicBlock::K_TYPE_SPIKE;
 
                     //create the node to scene
 
-                    Sprite *sprite = Sprite::createWithSpriteFrameName("liquidLavaTop_mid.png");
-                    sprite->setScale(0.5f,0.5f);
-                    sprite->setPosition(posicionChunkX*35,posicionChunkY*35);
+                    Sprite *sprite=Sprite::createWithTexture(textureSpike, Rect(0,0,K_SIZE_IMAGE_SPRITE,K_SIZE_IMAGE_SPRITE));
+                    sprite->setScale(K_FACTOR_SCALE,K_FACTOR_SCALE);
+                    sprite->setPosition(posicionChunkX*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE,posicionChunkY*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
+                    sprite->setAnchorPoint(Vec2(0,0));
+                    chunck._node->addChild(sprite, 0);
+
+                    //collisionable block
+                    Rect rr = sprite->getBoundingBox();
+                    auto blockCollisionable=TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y+5, rr.size.width + rr.origin.x, rr.size.height*0.8 + rr.origin.y,
+                                                                         type_basic_block,debugMode);
+
+                    chunck._node->addChild(blockCollisionable,1);
+                    chunck._collisionables.push_back(*blockCollisionable);
+                }
+
+                //Plataform for Jump Structure
+                if(block_type==4){
+
+                    type_basic_block=TiledMap::BasicBlock::K_TYPE_WALL;
+
+                    //create the node to scene
+
+                    Sprite *sprite=Sprite::createWithTexture(texturePlatform, Rect(0,0,K_SIZE_IMAGE_SPRITE,K_SIZE_IMAGE_SPRITE));
+                    sprite->setScale(K_FACTOR_SCALE,K_FACTOR_SCALE);
+                    sprite->setPosition(posicionChunkX*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE,posicionChunkY*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
                     sprite->setAnchorPoint(Vec2(0,0.2));
                     chunck._node->addChild(sprite, 0);
 
                     //collisionable block
                     Rect rr = sprite->getBoundingBox();
-                    auto blockCollisionable=TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y, rr.size.width + rr.origin.x, rr.size.height*0.8 + rr.origin.y,
-                                                                         type_basic_block);
+                    auto blockCollisionable=TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y+5, rr.size.width + rr.origin.x, rr.size.height*0.8 + rr.origin.y,
+                                                                         type_basic_block,debugMode);
 
                     chunck._node->addChild(blockCollisionable,1);
                     chunck._collisionables.push_back(*blockCollisionable);
@@ -235,6 +252,8 @@ TiledMapGenerator::generateNewChunk() const{
         chainMap +="\n";
     }
     std::cout<<chainMap;
+
+
 
 
 

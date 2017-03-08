@@ -48,7 +48,7 @@ bool PlayerTestScene::init()
 
 
 
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
+    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,false);
     //this->addChild(chunk._node);
     this->scheduleUpdate();
 
@@ -57,7 +57,7 @@ bool PlayerTestScene::init()
     m_scroll->addChild(chunk._node);
 
     this->addChild(m_scroll);
-    m_scroll->runAction(Follow::create(e));
+    m_scroll->runAction(Follow::create(test));
 
 
     return true;

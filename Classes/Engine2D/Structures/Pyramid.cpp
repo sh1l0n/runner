@@ -15,7 +15,7 @@ Structures::
 Pyramid::Pyramid() : Structures::BaseStructure()
 {
 	this->_width = K_DEFAULT_WIDTH;
-	this->_height = (this->_width+1)/2;
+	this->_height = (this->_width+1)/2+1;
 
 	this->_data.resize(this->_height);
 	unsigned int i,j, left = 0, right = this->_width-1;
@@ -37,7 +37,7 @@ Structures::
 Pyramid::Pyramid(unsigned short int width) : Structures::BaseStructure()
 {
 	this->_width = width;
-	this->_height = (this->_width-1)/2;
+	this->_height = (this->_width-1)/2+1;
 
 	this->_data.resize(this->_height);
 	unsigned int i,j, left = 0, right = this->_width-1;

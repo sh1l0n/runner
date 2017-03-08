@@ -12,7 +12,7 @@ namespace Structures {
     /**
 	* @short Class JumpEstructure, create an structure with damage floor and some platforms to jump along it
 	*/
-    class JumpEstructure: public BaseStructure {
+    class JumpStructure: public BaseStructure {
     private:
         /** @short Default height of the structure */
         const static unsigned short int K_DEFAULT_HEIGHT = 3;
@@ -34,9 +34,9 @@ namespace Structures {
 
     public:
         /** @short Creates a new jump structure with default values */
-        JumpEstructure();
+        JumpStructure();
         /** @short Creates a new jump structure with parameters if parameteres are not ok, get default values  */
-        JumpEstructure(const unsigned short int height, const unsigned  short int width,const unsigned short int max_distanceX,const unsigned short int max_distanceY);
+        JumpStructure(const unsigned short int height, const unsigned  short int width,const unsigned short int max_distanceX,const unsigned short int max_distanceY);
 
     };
 }
