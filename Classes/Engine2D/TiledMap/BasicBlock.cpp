@@ -7,8 +7,10 @@
 
 #include "BasicBlock.hpp"
 
+
+
 TiledMap::
-BasicBlock::BasicBlock() : Node() {
+BasicBlock::BasicBlock() : DrawNode() {
 
 }
 
@@ -19,14 +21,20 @@ BasicBlock::BasicBlock() : Node() {
  * @param width  the width
  * @param height the height
  */
-TiledMap::
-BasicBlock::BasicBlock(const float X, const float Y, const float width, const float height) : Node() {
+/*TiledMap::
+BasicBlock::BasicBlock(const float X, const float Y, const float width, const float height) : DrawNode() {
 
     this->_posX=X;
     this->_posY=Y;
     this->_width=width;
     this->_height=height;
-}
+    this->_rect= Rect(this->_posX,this->_posY,this->_width,this->_height);
+    Color4F white(1, 1, 1, 1);
+    this->drawRect(_rect.origin, _rect.size, white);
+    this->setAnchorPoint(Vec2(0,0));
+
+
+}*/
 
 /**
  * Copy Constructor
@@ -39,6 +47,7 @@ BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) {
     this->_posY= tileCollisionable._posY;
     this->_width= tileCollisionable._width;
     this->_height= tileCollisionable._height;
+    this->_rect=Rect(this->_posX,this->_posY,this->_width,this->_height);
 }
 
 
@@ -49,7 +58,7 @@ BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) {
 Rect
 TiledMap::
 BasicBlock::getBoundingBox() const {
-    return Rect(this->_posX,this->_posY,this->_width,this->_height);
+    return _rect;
 
 }
 
@@ -68,18 +77,29 @@ BasicBlock::operator=(const TiledMap::BasicBlock& tileCollisionable) {
 }
 
 
+
 TiledMap::BasicBlock*
 TiledMap::
-BasicBlock::create()
+BasicBlock::create(const float X, const float Y, const float width, const float height,const unsigned short int type)
 {
     TiledMap::BasicBlock* ret = new (std::nothrow) TiledMap::BasicBlock();
     if (ret && ret->init())
     {
         ret->autorelease();
+        ret->_posX=X;
+        ret->_posY=Y;
+        ret->_width=width;
+        ret->_height=height;
+        ret->_rect= Rect(ret->_posX,ret->_posY,ret->_width,ret->_height);
+        Color4F white(1, 1, 1, 1);
+        ret->drawRect(ret->_rect.origin,ret->_rect.size, white);
+        ret->setAnchorPoint(Vec2(0,0));
+        ret->_type=type;
     }
     else
     {
         CC_SAFE_DELETE(ret);
     }
+
     return ret;
 }

@@ -31,6 +31,13 @@ namespace TiledMap {
     /** @short Position Y start*/
     static const unsigned char K_POSITION_Y_START = 0x00 + K_HEIGHT_FLOOR;
 
+    /** @short Minimum positions free to put  structure:IMPORTANT!!! This Constant must be higher than ALL MIN VALES of structutres*/
+    static const unsigned short int K_MIN_VALUE_FOR_STRUCT =5;
+    /** @short Minimum value for REST btween structures*/
+    static const unsigned short int K_MIN_VALUE_REST =0;
+    /** @short Max value for REST btween structures*/
+    static const unsigned short int K_MAX_VALUE_REST =2;
+
     /**
     * Singleton class TiledMapGenerator for generate random maps
     */

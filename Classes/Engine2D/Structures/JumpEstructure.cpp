@@ -27,11 +27,11 @@ JumpEstructure::JumpEstructure() : Structures::BaseStructure()
     //spike floor
     for(i=0;i<_width;i++){
         this->_data[0][i]=3;
-        //TODO add to collisionable vector SPIKE
+
     }
     //wall in the begin of the structure
     this->_data[1][0]=1;
-    //TODO add to collisionable vector
+
     posX=0;
     posY=1;
     //Put blocks to pass the spike zone
@@ -51,7 +51,7 @@ JumpEstructure::JumpEstructure() : Structures::BaseStructure()
         int salto=rand()%(_maxXDisBlock + 1)+1;
         posX=posX+salto;
         this->_data[posY][posX]=1;
-        //TODO add to collisionable vector
+
 
 
     }
@@ -60,7 +60,7 @@ JumpEstructure::JumpEstructure() : Structures::BaseStructure()
 }
 
 Structures::
-JumpEstructure::JumpEstructure(const unsigned int height, const unsigned int width,const unsigned int max_distanceX,const unsigned int max_distanceY) : Structures::BaseStructure()
+JumpEstructure::JumpEstructure(const unsigned short int height, const unsigned short int width,const unsigned short int max_distanceX,const unsigned short int max_distanceY) : Structures::BaseStructure()
 {
     this->_height =height;
     this->_width = width;
@@ -78,11 +78,11 @@ JumpEstructure::JumpEstructure(const unsigned int height, const unsigned int wid
     //spike floor
     for(i=0;i<_width;i++){
         this->_data[0][i]=3;
-        //TODO add to collisionable vector SPIKE
+
     }
     //wall in the begin of the structure
     this->_data[1][0]=1;
-    //TODO add to collisionable vector
+
     posX=0;
     posY=1;
     //Put blocks to pass the spike zone
@@ -102,7 +102,7 @@ JumpEstructure::JumpEstructure(const unsigned int height, const unsigned int wid
         int salto=rand()%(_maxXDisBlock + 1)+1;
         posX=posX+salto;
         this->_data[posY][posX]=1;
-        //TODO add to collisionable vector
+
 
 
     }

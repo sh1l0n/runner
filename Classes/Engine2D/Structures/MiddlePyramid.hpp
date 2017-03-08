@@ -19,14 +19,20 @@ namespace Structures {
 	{
 		private:
 			/** @short Maximun height for the middle pyramid */
-			const static unsigned char K_MAX_HEIGHT = 0x06;
+			const static unsigned short int K_MAX_WIDTH = 6;
 
 			/** @short Minimun height for the middle pyramid */
-			const static unsigned char K_MIN_HEIGHT = 0x02;
+			const static unsigned short int K_MIN_WIDTH = 2;
+
+			/** @short default for the middle pyramid */
+			const static unsigned short int K_DEFAULT_WIDTH = 2;
+
 
 		public:
-			/** @short Creates a new middle pyramid structure */
+			/** @short Creates a new middle pyramid structure whith default value width*/
 		    MiddlePyramid();
+			/** @short Creates a new middle pyramid structure whith width parameter  */
+			MiddlePyramid(unsigned short int width);
 	};
 }
 

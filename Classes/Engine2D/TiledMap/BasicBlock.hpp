@@ -14,9 +14,10 @@ namespace TiledMap {
     /**
      * @brief Class of a collisionable object
      */
-    class BasicBlock : public Node {
+    class BasicBlock : public DrawNode {
 
         private:
+
 
             /** @short The local position X */
             float _posX;
@@ -30,16 +31,28 @@ namespace TiledMap {
             /** @short The height of the block */
             float _height;
 
+            /** @short The bounding box of the node */
+            Rect _rect;
+
+
+
+
         public:
-            BasicBlock();
+            const static unsigned short int K_TYPE_FLOOR = 2;
+            const static unsigned short int K_TYPE_WALL = 1;
+            const static unsigned short int K_TYPE_SPIKE = 3;
+            unsigned short int _type;
+
+             BasicBlock();
 
             /** @short Constructor */
-            BasicBlock(const float X, const float Y, const float width, const float height);
+           // BasicBlock(const float X, const float Y, const float width, const float height);
 
             /** @short Copy constructor */
             BasicBlock(const BasicBlock& titleCollisionable);
 
-            static BasicBlock* create();
+            static BasicBlock* create(const float X, const float Y, const float width, const float height, const unsigned short int type);
+                //static BasicBlock* create(const Rect rect, const unsigned short int type);
 
             /** @short Overload operator = */
             TiledMap::BasicBlock& operator=(const BasicBlock& tileCollisionable);

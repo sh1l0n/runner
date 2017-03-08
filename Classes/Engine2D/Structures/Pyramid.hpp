@@ -18,13 +18,18 @@ namespace Structures {
 	{
 		private:
 			/** @short Maximun height for the pyramid */
-			const static unsigned char K_MAX_HEIGHT = 0x06;
+			const static unsigned short int K_MAX_WIDTH = 11;
 
 			/** @short Minimun height for the pyramid */
-			const static unsigned char K_MIN_HEIGHT = 0x02;
+			const static unsigned short int K_MIN_WIDTH = 3;
+
+			/** @short Minimun height for the pyramid */
+			const static unsigned short int K_DEFAULT_WIDTH = 3;
 
 		public:
-			/** @short Creates a new pyramid structure */
+			/** @short Creates a new pyramid structure with defualt values */
 		    Pyramid();
+			/** @short Creates a new pyramid structure with parameter */
+			Pyramid(unsigned short int width);
 	};
 }

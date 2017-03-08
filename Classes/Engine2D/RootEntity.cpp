@@ -7,7 +7,7 @@
 RootEntity::RootEntity() {
     x, dx, lx = getPositionX();
     y, dy, ly = getPositionY();
-    motionX = 6.f;
+    motionX = 30.f;
     motionY = 0.f;
     stepTime, deltaCount = 0.f;
 

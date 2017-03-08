@@ -57,26 +57,8 @@ bool PlayerTestScene::init()
     m_scroll->addChild(chunk._node);
 
     this->addChild(m_scroll);
-    m_scroll->runAction(Follow::create(test));
-    /*TiledMap::T_CHUNK chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk();
+    m_scroll->runAction(Follow::create(e));
 
-    int i,j;
-    std::string chainMap = "";
-
-    for(i=TiledMap::K_HEIGHT-1; i>= 0; --i) {
-        for(j=0; j< TiledMap::K_WIDTH; ++j) {
-            chainMap+= std::to_string(chunk[i][j]);
-        }
-        chainMap +="\n";
-    }
-
-
-    std::cout<<chainMap;
-    Node *nodo1=TiledMap::TiledMapGenerator::getInstance()->createMapNode(chunk);
-    nodo1->setPosition(0,0);
-    this->addChild(nodo1);
-
-    this->scheduleUpdate();*/
 
     return true;
 }

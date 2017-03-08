@@ -14,8 +14,31 @@
 Structures::
 Pyramid::Pyramid() : Structures::BaseStructure()
 {
-	this->_height = rand() % K_MAX_HEIGHT + K_MIN_HEIGHT;
-	this->_width = (this->_height*2)-1;
+	this->_width = K_DEFAULT_WIDTH;
+	this->_height = (this->_width+1)/2;
+
+	this->_data.resize(this->_height);
+	unsigned int i,j, left = 0, right = this->_width-1;
+	for(i=0; i<this->_height; ++i) {
+		this->_data[i].resize(this->_width, false);
+		if(left==right) {
+			this->_data[i][right] = true;
+			break;
+		}
+		for(j=left; j<=right; ++j) {
+			this->_data[i][j] = true;
+		}
+		++left;
+		--right;
+	}
+}
+
+Structures::
+Pyramid::Pyramid(unsigned short int width) : Structures::BaseStructure()
+{
+	this->_width = width;
+	this->_height = (this->_width-1)/2;
+
 	this->_data.resize(this->_height);
 	unsigned int i,j, left = 0, right = this->_width-1;
 	for(i=0; i<this->_height; ++i) {
