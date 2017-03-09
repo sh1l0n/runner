@@ -11,15 +11,18 @@ using namespace std;
 Player::Player():RootEntity() {
     vx = 0;
     vy = 0;
-    accel = 0.5;
-    jump = 27;
-    friction = 0.3;
-    maxVel = 15;
-    gravity = 0.8;
+    accel = 3.f;
+    jump = 40.f;
+    jumpSpeed = 20.f;
+    friction = 1.f;
+    maxVel = 20.f;
+    gravity = 6.f;
     terminalVelocity = 5;
+    maxJump = 40.f;
     auxHeight = 0;
     floor = false;
     bend = false;
+    jumpTime = true;
 
     debug = true;
 
@@ -31,7 +34,8 @@ Player::Player():RootEntity() {
 }
 
 void Player::customupdate(float delta) {
-
+    ly = getY();
+    lx = getX();
     if(moveRight) {
         vx += accel;
         if(vx > maxVel ) vx = maxVel;
@@ -49,19 +53,26 @@ void Player::customupdate(float delta) {
     }
 
     //modo vuelo
-    /*if(moveUp){
-        floor = false;
-        vy += 1.5;
-    }*/
-
     if(moveUp){
-        if(floor){
-            vy += jump;
+        if(jumpTime){
+            //vy += jump;
+            if(vy < maxJump) {
+                vy += jumpSpeed;
+                jumpSpeed = jumpSpeed/2.2f;
+                log("%f", vy);
+            } else {
+                vy = maxJump;
+                jumpTime = false;
+            }
         }
         floor = false;
+    } else {
+        if(!floor) {
+            jumpTime = false;
+        }
     }
 
-    if(moveDown && floor && !bend){
+    if(moveDown && !bend){
         auxHeight = getHeight();
         setHeight(auxHeight/2);
         bend = true;
@@ -73,16 +84,19 @@ void Player::customupdate(float delta) {
     vy -= gravity;
 
     //FloorCollision
-    resolveFloorCollisions();
+    //resolveFloorCollisions();
 
+    resolveFloorCollisionsX();
     setMotionX(vx);
+
+    resolveFloorCollisionsY();
     setMotionY(vy);
     RootEntity::customupdate(delta);
 }
 
-void Player::customdraw(float delta) {
-    //drawNode->setPosition(vx-accel, vy-gravity);
-    RootEntity::customdraw(delta);
+void Player::customdraw(float delta, float deltaCount, float stepTime) {
+    drawNode->drawRect(Vec2(0 - getWidth()/2 , 0 - getHeight()/2 ), Vec2(getWidth()/2, getHeight()/2), Color4F::RED);
+    RootEntity::customdraw(delta, deltaCount, stepTime);
 }
 
 void Player::setFloorCollision(Vector<RootEntity *> floors) {
@@ -95,6 +109,7 @@ void Player::resolveFloorCollisions() {
 
        //Verical collision
         if(MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(), block)) {
+            //log("%f / %f / %f /%f",getCorrectPositionY(), vy, getCorrectPositionY() + vy, block->getCorrectPositionY() + block->getHeight());
 
             while(!MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + MathHelper::sign(vy), getWidth(), getHeight(), block))
             {
@@ -111,6 +126,56 @@ void Player::resolveFloorCollisions() {
             {
                 setX(getX() + MathHelper::sign(vx));
             }
+            vx = 0;
+        }
+    }
+}
+
+void Player::resolveFloorCollisionsY() {
+    for(int i = 0; i<floorVector.size(); i++) {
+        RootEntity *block = floorVector.at(i);
+        //Verical collision
+        if (MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(),
+                                      block)) {
+            //log("%f / %f / %f /%f", getCorrectPositionY(), vy, getCorrectPositionY() + vy,block->getCorrectPositionY() + block->getHeight());
+
+            if(getCorrectPositionY() + getHeight() > block->getCorrectPositionY()) {
+                floor = true;
+                jumpTime = true;
+                jumpSpeed = 30.f;
+                setY(block->getCorrectPositionY() + block->getHeight() + getHeight()/2);
+            } else {
+                jumpSpeed = 30.f;
+                jumpTime = false;
+                setY(block->getCorrectPositionY() - getHeight()/2);
+            }
+
+            /*while (!MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + MathHelper::sign(vy),
+                                              getWidth(), getHeight(), block)) {
+                setY(getY() + MathHelper::sign(vy));
+            }*/
+            vy = 0;
+        }
+    }
+}
+
+void Player::resolveFloorCollisionsX() {
+    for(int i = 0; i<floorVector.size(); i++) {
+        RootEntity* block = floorVector.at(i);
+
+        //Horizontal collision
+        if(MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block)) {
+
+            if(getCorrectPositionX() + getWidth() > block->getCorrectPositionX() + block->getWidth()/2.f) {
+                setX(block->getCorrectPositionX() + block->getWidth() + getWidth()/2);
+            } else {
+                setX(block->getCorrectPositionX() - getWidth()/2);
+            }
+            /*
+            while(!MathHelper::rectCollision(getCorrectPositionX() + MathHelper::sign(vx),getCorrectPositionY(), getWidth(), getHeight(), block))
+            {
+                setX(getX() + MathHelper::sign(vx));
+            }*/
             vx = 0;
         }
     }

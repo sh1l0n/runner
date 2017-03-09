@@ -24,6 +24,9 @@ public:
     CREATE_FUNC(PlayerTestScene);
 
 private:
+
+    float deltaCount, stepTime;
+
     Player *e;
     RootEntity *box;
 

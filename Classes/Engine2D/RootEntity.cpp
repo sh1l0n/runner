@@ -27,19 +27,9 @@ RootEntity::RootEntity() {
  */
 void RootEntity::customupdate(float delta) {
 
-    deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
-    //deltaCount += delta;
-
-    //fifteen frames per second
-    if(deltaCount >= 0.067) {
-        lx = x;
-        ly = y;
-
-        x = x + motionX;
-        y = y + motionY;
-        stepTime = deltaCount;
-        deltaCount = 0.f;
-    }
+    x = x + motionX;
+    y = y + motionY;
+    stepTime = deltaCount;
 }
 
 /*!
@@ -47,7 +37,7 @@ void RootEntity::customupdate(float delta) {
  * to generate smooth movements
  * @param delta frame duration in seconds
  */
-void RootEntity::customdraw(float delta) {
+void RootEntity::customdraw(float delta, float deltaCount, float stepTime) {
     float percenTick = 0.f;
 
     //step the first frame

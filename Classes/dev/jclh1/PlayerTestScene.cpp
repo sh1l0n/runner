@@ -53,7 +53,7 @@ bool PlayerTestScene::init()
 
     box = RootEntity::create();
     box->setSprite("test/Basepack/Tiles/box.png");
-    box->setPosition(280, 105);
+    box->setPosition(100, 200);
     box->debug = false;
     this->addChild(box);
     boxes.pushBack(box);
@@ -117,8 +117,17 @@ void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, coc
 
 
 void PlayerTestScene::update(float delta){
-    box->customupdate(delta);
-    box->customdraw(delta);
-    e->customupdate(delta);
-    e->customdraw(delta);
+    deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
+    //deltaCount += delta;
+
+    //fifteen frames per second
+    if(deltaCount >= 0.067) {
+        box->customupdate(delta);
+        e->customupdate(delta);
+        stepTime = deltaCount;
+        deltaCount = 0.f;
+    }
+
+    box->customdraw(delta, deltaCount, stepTime);
+    e->customdraw(delta, deltaCount, stepTime);
 }

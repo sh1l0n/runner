@@ -11,10 +11,9 @@ class RootEntity: public Node {
 private:
     float x, y;
     float dx, dy;
-    float lx, ly;
     float width, height;
     float motionX, motionY;
-    float deltaCount, stepTime;
+
     Sprite *sprite;
 
 protected:
@@ -23,11 +22,12 @@ protected:
 public:
     RootEntity();
     static RootEntity * create();
-
+    float lx, ly;
+    float deltaCount, stepTime;
     bool debug;
 
     virtual void customupdate(float delta);
-    virtual void customdraw(float delta);
+    virtual void customdraw(float delta, float deltaCount, float stepTime);
 
     //Getters
     float getCorrectPositionX();
