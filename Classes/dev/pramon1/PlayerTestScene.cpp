@@ -53,21 +53,27 @@ bool PlayerTestScene::init()
     this->scheduleUpdate();
 
     Node *m_scroll= Node::create();
-    m_scroll->addChild(test);
-    m_scroll->addChild(chunk._node);
 
-    //The backgroun
+
+
+    //The backgroung
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
+    Size sizeTexture = textureBackGround->getContentSize();
     Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
-                                                 Rect(0, 0, 1024, 512));
-
+                                                 Rect(0, 0, 1024 , 512));
     spriteBg->setScale(1, 1);
-
     spriteBg->setPosition(0, 0);
     spriteBg->setAnchorPoint(Vec2(0, 0));
-    this->addChild(spriteBg);
+    ParallaxNode* pn = ParallaxNode::create();
+    pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
 
 
+    m_scroll->addChild(pn, 0);
+    m_scroll->addChild(chunk._node, 1);
+    m_scroll->addChild(test, 2);
+
+
+    //The map and the player2
     this->addChild(m_scroll);
     m_scroll->runAction(Follow::create(test));
 
