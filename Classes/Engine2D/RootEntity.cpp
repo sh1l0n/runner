@@ -60,10 +60,6 @@ void RootEntity::customdraw(float delta) {
     dy = ly*(1.f-percenTick) + y * percenTick;
 
     Node::setPosition(dx, dy);
-
-    if(debug) {
-        drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(20, 20), Color4F::WHITE);
-    }
 }
 
 

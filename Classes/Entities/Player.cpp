@@ -22,6 +22,12 @@ Player::Player():RootEntity() {
     bend = false;
 
     debug = true;
+
+    if(debug) {
+        drawNode->drawRect(Vec2(0 - 20 , 0 - 20 ), Vec2(20, 20), Color4F::RED);
+        //drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(20, 20), Color4F::WHITE);
+    }
+
 }
 
 void Player::customupdate(float delta) {
@@ -68,13 +74,14 @@ void Player::customupdate(float delta) {
 
     //FloorCollision
     resolveFloorCollisions();
-    RootEntity::customupdate(delta);
 
     setMotionX(vx);
     setMotionY(vy);
+    RootEntity::customupdate(delta);
 }
 
 void Player::customdraw(float delta) {
+    //drawNode->setPosition(vx-accel, vy-gravity);
     RootEntity::customdraw(delta);
 }
 
@@ -88,6 +95,7 @@ void Player::resolveFloorCollisions() {
 
        //Verical collision
         if(MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(), block)) {
+
             while(!MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + MathHelper::sign(vy), getWidth(), getHeight(), block))
             {
                 setY(getY() + MathHelper::sign(vy));
