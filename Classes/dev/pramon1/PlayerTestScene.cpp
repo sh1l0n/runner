@@ -48,7 +48,7 @@ bool PlayerTestScene::init()
 
 
 
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,true);
+    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,false);
     //this->addChild(chunk._node);
     this->scheduleUpdate();
 

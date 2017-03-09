@@ -5,6 +5,8 @@
 
 #include "AppDelegate.h"
 #include "Engine2D/Structures/Structures.hpp"
+#include <stdlib.h>
+#include <time.h>
 
 USING_NS_CC;
 
@@ -15,6 +17,7 @@ static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 AppDelegate::AppDelegate()
 {
+    srand(time(NULL));
 }
 
 AppDelegate::~AppDelegate() 

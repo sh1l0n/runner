@@ -95,6 +95,8 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
     Texture2D *textureSpike = Director::getInstance()->getTextureCache()->addImage("liquidLavaTop_mid.png");
     Texture2D *texturePlatform = Director::getInstance()->getTextureCache()->addImage("stoneHalf.png");
 
+    Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
+
 
 
 
@@ -106,7 +108,7 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
         posX_generated=15;
     }
 
-    unsigned int space_avialable=K_WIDTH-posX_generated;
+   short int space_avialable=K_WIDTH-posX_generated;
 
 
 
@@ -115,6 +117,8 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
         Structures::BaseStructure *bs = Structures::getStructureMatrix(space_avialable);
         std::cout << bs->toString();
         std::cout << "\n\n\n\n";
+
+
 
 
 
@@ -127,7 +131,9 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
                 //Texture2D *texture;
                 unsigned short int type_basic_block;
                 //Map for debug
+
                 map[posicionChunkX][posicionChunkY] = block_type;
+
 
                 // Pyramids and Midle Pyramids
                 if(block_type==1 || block_type==5){
@@ -209,8 +215,8 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
             }
         }
 
-        posX_generated=posX_generated+bs->getWidth();
-        space_avialable=space_avialable-bs->getWidth();
+        posX_generated += bs->getWidth();
+        space_avialable -= bs->getWidth();
         //put a rest
         unsigned short int rest=rand()%(K_MAX_VALUE_REST-K_MIN_VALUE_REST + 1) +K_MIN_VALUE_REST;
         posX_generated=posX_generated+rest;
@@ -231,7 +237,7 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
     std::cout<<chainMap;
 
 
-    //ponemos el suelo
+    //put the floor
     unsigned int finSuelo = K_HEIGHT_FLOOR-1;
     for (i = 0; i<K_WIDTH; ++i) {
         for (j =0; j <=finSuelo; ++j) {
@@ -245,9 +251,8 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
             }else{
                 map[i][j]=6;
             }
-            
+
             //create the node to scene
-            //Sprite *sprite = Sprite::createWithSpriteFrameName("box.png");
             Sprite *sprite=Sprite::createWithTexture(textureFloor, Rect(0,0,K_SIZE_IMAGE_SPRITE,K_SIZE_IMAGE_SPRITE));
             sprite->setScale(K_FACTOR_SCALE,K_FACTOR_SCALE);
             sprite->setPosition(i*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE,j*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
@@ -268,6 +273,27 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
 
         }
     }
+
+
+    //put de background
+    int cont=0,pxWidth=K_WIDTH*K_SIZE_IMAGE_SPRITE;
+
+    while(cont<pxWidth){
+
+        Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
+                                                     Rect(0, 0, K_SIZE_IMAGE_BG_WIDTH, K_SIZE_IMAGE_BG_HEIGHT));
+
+        spriteBg->setScale(1, 1);
+        //spriteBg->setPosition(0,K_HEIGHT_FLOOR*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
+        spriteBg->setPosition(cont, 0);
+        spriteBg->setAnchorPoint(Vec2(0, 0));
+        chunck._node->addChild(spriteBg, -3);
+        cont+=K_SIZE_IMAGE_BG_WIDTH;
+        //debug
+        cont=pxWidth;
+
+    }
+
 
 
 

@@ -15,7 +15,7 @@
 namespace Structures {
 
 	/** @short The number of structures */
-	static const unsigned char K_NUMBER_STRUCTURES = 3;
+	static const unsigned int K_NUMBER_STRUCTURES = 3;
 
 	/** @short The maximum value for pyrami width */
 	static const unsigned char K_MAX_PYRAMID_WIDTH = 11;
@@ -54,8 +54,11 @@ namespace Structures {
 	*/
 	static BaseStructure* getStructureMatrix(int availableXSpace)
 	{
-		unsigned int typeStructure =  rand() % (K_NUMBER_STRUCTURES-1 +1) + 1;
-		//unsigned int typeStructure =2;
+
+		//int a=std::rand()+random(1,9);
+		int typeStructure = rand() % (K_NUMBER_STRUCTURES-1 +1) + 1;
+		//unsigned int typeStructure =std::random(1,K_NUMBER_STRUCTURES);
+
 		BaseStructure* structure = NULL;
 		unsigned short int max_width;
 		unsigned short int min_width;

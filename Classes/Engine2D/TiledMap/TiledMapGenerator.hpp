@@ -49,8 +49,13 @@ namespace TiledMap {
 
     /** @short image sprite size*/
     static const unsigned short int K_SIZE_IMAGE_SPRITE =70;
-    /** @short image sprite size*/
+    /** @short image sprite scale*/
     static const float K_FACTOR_SCALE =0.35f;
+    /** @short image background width size*/
+    static const unsigned short int K_SIZE_IMAGE_BG_WIDTH =1024;
+    /** @short image background height size*/
+    static const unsigned short int K_SIZE_IMAGE_BG_HEIGHT =512;
+
 
     /**
     * Singleton class TiledMapGenerator for generate random maps
