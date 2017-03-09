@@ -75,7 +75,7 @@ namespace TiledMap {
             /** @short Method for generate a new chunk */
             Chunck generateNewChunk(unsigned short int level,bool isInitial,bool debugMode) const;
 
-            Node* createMapNode(const T_CHUNK map) const;
+            //Node* createMapNode(const T_CHUNK map) const;
 
 
 

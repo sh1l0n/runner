@@ -44,11 +44,16 @@ Pyramid::Pyramid(unsigned short int width) : Structures::BaseStructure()
 	for(i=0; i<this->_height; ++i) {
 		this->_data[i].resize(this->_width, false);
 		if(left==right) {
-			this->_data[i][right] = true;
+			this->_data[i][right] = 1;
 			break;
 		}
 		for(j=left; j<=right; ++j) {
-			this->_data[i][j] = true;
+			if(j==left || j==right){
+				this->_data[i][j] = 1;
+			}else{
+				this->_data[i][j] = 5;
+			}
+
 		}
 		++left;
 		--right;

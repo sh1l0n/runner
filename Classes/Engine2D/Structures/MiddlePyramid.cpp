@@ -23,7 +23,13 @@ MiddlePyramid::MiddlePyramid() : Structures::BaseStructure()
 
 		this->_data[i].resize(this->_width, false);
 		for(j=startInRow; j<this->_width; ++j) {
-			this->_data[i][j] = true;
+			if(j==startInRow || j==this->_width-1){
+				this->_data[i][j] = 1;
+			}
+			else{
+				this->_data[i][j] = 5;
+			}
+
 		}
 
 		--startInRow;
@@ -42,7 +48,12 @@ MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructu
 
 		this->_data[i].resize(this->_width, false);
 		for(j=startInRow; j<this->_width; ++j) {
-			this->_data[i][j] = true;
+			if(j==startInRow || j==this->_width-1){
+				this->_data[i][j] = 1;
+			}
+			else{
+				this->_data[i][j] = 5;
+			}
 		}
 
 		--startInRow;
