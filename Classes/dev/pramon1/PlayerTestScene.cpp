@@ -48,13 +48,25 @@ bool PlayerTestScene::init()
 
 
 
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,false);
+    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,true);
     //this->addChild(chunk._node);
     this->scheduleUpdate();
 
     Node *m_scroll= Node::create();
     m_scroll->addChild(test);
     m_scroll->addChild(chunk._node);
+
+    //The backgroun
+    Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
+    Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
+                                                 Rect(0, 0, 1024, 512));
+
+    spriteBg->setScale(1, 1);
+
+    spriteBg->setPosition(0, 0);
+    spriteBg->setAnchorPoint(Vec2(0, 0));
+    this->addChild(spriteBg);
+
 
     this->addChild(m_scroll);
     m_scroll->runAction(Follow::create(test));

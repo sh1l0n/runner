@@ -90,12 +90,16 @@ namespace Structures {
 				structure = new Pyramid(width);
 				break;
 			case 3:
-				//min  and max values for this estructure
-				//TODO put this values in constants, distance x and y depends of jump distance
-				//min height=3 min width=3 min distance x 1 min distance y=1
-				//max height=10 max width=60 max distance x 3 max distance y=2
+
+                if(availableXSpace<K_MAX_JUMP_STRUCT_WIDTH){
+
+                    max_width=availableXSpace;
+                }else{
+                    max_width=K_MAX_JUMP_STRUCT_WIDTH;
+                }
+
 				unsigned int height = rand()%(Structures::K_MAX_JUMP_STRUCT_HEIGHT-K_MIN_JUMP_STRUCT_HEIGHT + 1) +3;
-				width = rand()%(K_MAX_JUMP_STRUCT_WIDTH-K_MIM_JUMP_STRUCT_WIDTH + 1) +K_MIM_JUMP_STRUCT_WIDTH;
+				width = rand()%(max_width-K_MIM_JUMP_STRUCT_WIDTH + 1) +K_MIM_JUMP_STRUCT_WIDTH;
 				unsigned int max_x_block = rand()%(K_MAX_X_JUMP_HEIGHT-1 + 1) +1;
 				unsigned int max_y_block = rand()%(K_MAX_Y_JUMP_HEIGHT-1 + 1) +1;
 

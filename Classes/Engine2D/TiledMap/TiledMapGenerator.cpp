@@ -111,16 +111,14 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
    short int space_avialable=K_WIDTH-posX_generated;
 
 
-
+    Structures::BaseStructure *bs;
     //Parse bs to debug map, scene and collisionable vector
     while (space_avialable>K_MIN_VALUE_FOR_STRUCT){
-        Structures::BaseStructure *bs = Structures::getStructureMatrix(space_avialable);
+
+
+        bs = Structures::getStructureMatrix(space_avialable);
         std::cout << bs->toString();
         std::cout << "\n\n\n\n";
-
-
-
-
 
         unsigned short int block_type;
         for (i = 0; i < bs->getWidth(); i++) {
@@ -207,11 +205,6 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
                 }
 
 
-
-
-
-
-
             }
         }
 
@@ -222,19 +215,23 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
         posX_generated=posX_generated+rest;
         space_avialable=space_avialable-rest;
 
-
-    }
-    //debug print the map
-    int k,h;
-    std::string chainMap = "";
-
-    for(k=TiledMap::K_HEIGHT-1; k>= 0; --k) {
-        for(h=0; h< TiledMap::K_WIDTH; ++h) {
-            chainMap+= std::to_string(map[h][k]);
+        if (bs!=NULL) {
+            delete bs;
+            bs = NULL;
         }
-        chainMap +="\n";
     }
-    std::cout<<chainMap;
+
+    if(bs!=NULL) {
+        std::cout << "NOT null\n";
+        std::cout << bs->toString() << "\n";
+    }
+    else {
+        std::cout << "bs is null\n";
+    }
+
+
+
+
 
 
     //put the floor
@@ -275,32 +272,21 @@ TiledMapGenerator::generateNewChunk(unsigned short int level,bool isInitial,bool
     }
 
 
-    //put de background
-    int cont=0,pxWidth=K_WIDTH*K_SIZE_IMAGE_SPRITE;
 
-    while(cont<pxWidth){
 
-        Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
-                                                     Rect(0, 0, K_SIZE_IMAGE_BG_WIDTH, K_SIZE_IMAGE_BG_HEIGHT));
 
-        spriteBg->setScale(1, 1);
-        //spriteBg->setPosition(0,K_HEIGHT_FLOOR*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
-        spriteBg->setPosition(cont, 0);
-        spriteBg->setAnchorPoint(Vec2(0, 0));
-        chunck._node->addChild(spriteBg, -3);
-        cont+=K_SIZE_IMAGE_BG_WIDTH;
-        //debug
-        cont=pxWidth;
 
-    }
+
+
 
 
 
 
 
     //debug print the map
-    //int k,h;
-    chainMap = "";
+    int k,h;
+
+    std::string chainMap = "";
 
     for(k=TiledMap::K_HEIGHT-1; k>= 0; --k) {
         for(h=0; h< TiledMap::K_WIDTH; ++h) {
