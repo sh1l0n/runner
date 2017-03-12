@@ -3,9 +3,6 @@
 //
 
 #include "PlayerTestScene.hpp"
-#include <iostream>
-#include "cocos2d.h"
-#include <string>
 #include "Engine2D/TiledMap/TiledMapGenerator.hpp"
 
 USING_NS_CC;
@@ -33,30 +30,28 @@ bool PlayerTestScene::init()
         return false;
     }
 
+
+    this->_posXStartNewChunck = 0;
+
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    e = RootEntity::create();
-    e->setSprite("CloseNormal.png");
-    e->setPosition(32, 200);
-    this->addChild(e);
 
-    test = Sprite::create("CloseNormal.png");
-    test->setPosition(32, 164);
-    this->addChild(test);
+    this->_player = RootEntity::create();
+    this->_player->setSprite("CloseNormal.png");
+    this->_player->setPosition(16, 200);
+   // this->_chunckVector.resize(2);
+    this->_posXStartNewChunck = 0;
 
 
+    // this->_chunckVector[0] = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,true);
+    //this->_chunckVector[1] = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,true);
 
-
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,true,true);
-    //this->addChild(chunk._node);
-    this->scheduleUpdate();
 
     Node *m_scroll= Node::create();
 
-
-
     //The backgroung
+    auto chunck = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1,0);
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
     Size sizeTexture = textureBackGround->getContentSize();
     Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
@@ -69,15 +64,11 @@ bool PlayerTestScene::init()
 
 
     m_scroll->addChild(pn, 0);
-    m_scroll->addChild(chunk._node, 1);
-    m_scroll->addChild(test, 2);
-
-
-    //The map and the player2
+    m_scroll->addChild(chunck._node, 1);
+    m_scroll->addChild(this->_player, 2);
+    this->runAction(Follow::create(this->_player));
     this->addChild(m_scroll);
-    m_scroll->runAction(Follow::create(test));
-
-
+    this->scheduleUpdate();
     return true;
 }
 
@@ -98,10 +89,7 @@ void PlayerTestScene::menuCloseCallback(cocos2d::Ref* pSender)
 }
 
 void PlayerTestScene::update(float delta){
-    testX+=1.2;
-    test->setPosition(testX, 164);
 
-    e->update(delta);
-    e->draw(delta);
-
+  //  test->update(delta);
+    //test->draw(delta);
 }

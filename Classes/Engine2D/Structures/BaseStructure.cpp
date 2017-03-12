@@ -60,11 +60,11 @@ BaseStructure::getData() const {
 */
 unsigned int
 Structures::
-BaseStructure::getDataAt(unsigned int row, unsigned int column) const
+BaseStructure::getDataAt(const unsigned int row, const  unsigned int column) const
 {
 	if(row>=0 && row<this->_height && column>=0 && column<this->_width) 
 		return this->_data[row][column];
-	else return false;
+	else return 0;
 }
 
 /**

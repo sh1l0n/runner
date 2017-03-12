@@ -54,7 +54,7 @@ namespace Structures {
 			std::vector< TiledMap::BasicBlock > getCollisionableVector() const;
 
 		    /** @short Get the info of a position in structure */
-            unsigned int getDataAt(unsigned int row, unsigned int column) const;
+            unsigned int getDataAt(const unsigned int row, const unsigned int column) const;
 
 			/** @short Convert this class in a string */
 			std::string toString() const;

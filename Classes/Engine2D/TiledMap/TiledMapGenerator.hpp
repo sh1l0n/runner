@@ -7,22 +7,17 @@
 
 #pragma once
 #include <vector>
-#include "cocos2d.h"
+#include <unordered_map>
 #include "Chunck.h"
 USING_NS_CC;
 
 namespace TiledMap {
 
-    //constant of map generator
-
     /** @short  Custom type for a chunk */
-    typedef std::vector<std::vector<int> > T_CHUNK;
-
-
+    typedef std::vector<std::vector<unsigned int> > T_CHUNK;
 
     /** @short  Width for a chunk */
     static const unsigned char K_WIDTH = 0xD4; //212
-
 
     /** @short  Height for a chunk */
     static const unsigned char K_HEIGHT = 0x20; //32
@@ -30,31 +25,29 @@ namespace TiledMap {
     /** @short  Height of the floor */
     static const unsigned char K_HEIGHT_FLOOR = 0x02;
 
-    /** @short Position X start*/
-    static const unsigned char K_POSITION_X_START = 0x00;
-
-    /** @short Position Y start*/
-    static const unsigned char K_POSITION_Y_START = 0x00 + K_HEIGHT_FLOOR;
+    /** @short  Position of the floor collsioinable */
+    static const unsigned char K_POSITION_FLOOR_COLLISIONABLE = 0x01;
 
     /** @short Minimum positions free to put  structure:IMPORTANT!!! This Constant must be higher than ALL MIN VALES of structutres*/
-    static const unsigned short int K_MIN_VALUE_FOR_STRUCT =5;
+    static const unsigned char K_MIN_VALUE_FOR_STRUCT = 0x05;
+
     /** @short Minimum value for REST btween structures*/
-    static const unsigned short int K_MIN_VALUE_REST =0;
+    static const unsigned char K_MIN_VALUE_REST = 0x00;
+
     /** @short Max value for REST btween structures*/
-    static const unsigned short int K_MAX_VALUE_REST =2;
-
-
-
-    //Constants for sprite render
+    static const unsigned char K_MAX_VALUE_REST = 0x06;
 
     /** @short image sprite size*/
-    static const unsigned short int K_SIZE_IMAGE_SPRITE =70;
+    static const unsigned char  K_SIZE_IMAGE_SPRITE = 0x46; //70;
+
     /** @short image sprite scale*/
-    static const float K_FACTOR_SCALE =0.35f;
+    static const float K_FACTOR_SCALE = 0.35f;
+
     /** @short image background width size*/
-    static const unsigned short int K_SIZE_IMAGE_BG_WIDTH =1024;
+    static const unsigned short K_SIZE_IMAGE_BG_WIDTH = 0x0400; //1024
+
     /** @short image background height size*/
-    static const unsigned short int K_SIZE_IMAGE_BG_HEIGHT =512;
+    static const unsigned short K_SIZE_IMAGE_BG_HEIGHTH = 0x0200; //512
 
 
     /**
@@ -62,27 +55,25 @@ namespace TiledMap {
     */
     class TiledMapGenerator {
 
-        private:
-            /** @short instance of tile map generator */
-            static TiledMapGenerator* _instance;
+    private:
 
+        /** @short Map of textures */
+        std::unordered_map<unsigned int, Texture2D *> _mapTextures;
 
-            /** @short Constructor */
-            inline TiledMapGenerator() {};
+        /** @short instance of tile map generator */
+        static TiledMapGenerator *_instance;
 
-        public:
-            /** @short Destructor */
-            ~TiledMapGenerator();
+        /** @short Constructor */
+        TiledMapGenerator();
 
-            /** @short Method for get the instance and access to object methods */
-            static TiledMapGenerator* getInstance();
+    public:
+        /** @short Destructor */
+        ~TiledMapGenerator();
 
-            /** @short Method for generate a new chunk */
-            Chunck generateNewChunk(unsigned short int level,bool isInitial,bool debugMode) const;
+        /** @short Method for get the instance and access to object methods */
+        static TiledMapGenerator *getInstance();
 
-            //Node* createMapNode(const T_CHUNK map) const;
-
-
-
+        /** @short Method for generate a new chunk */
+        Chunck generateNewChunk(const unsigned int level, const unsigned long posXInitial);
     };
 }

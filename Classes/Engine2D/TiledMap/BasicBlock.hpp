@@ -11,6 +11,14 @@ USING_NS_CC;
 
 namespace TiledMap {
 
+    enum TypeBlock {
+        NONE = 0x00,
+        WALL = 0x01,
+        FLOOR = 0x02,
+        SPIKE = 0x03
+    };
+
+
     /**
      * @brief Class of a collisionable object
      */
@@ -36,23 +44,16 @@ namespace TiledMap {
 
 
 
-
         public:
-            const static unsigned short int K_TYPE_FLOOR = 2;
-            const static unsigned short int K_TYPE_WALL = 1;
-            const static unsigned short int K_TYPE_SPIKE = 3;
-            unsigned short int _type;
+
+            TypeBlock  _type;
 
              BasicBlock();
-
-            /** @short Constructor */
-           // BasicBlock(const float X, const float Y, const float width, const float height);
 
             /** @short Copy constructor */
             BasicBlock(const BasicBlock& titleCollisionable);
 
-            static BasicBlock* create(const float X, const float Y, const float width, const float height, const unsigned short int type, const bool debug_mode);
-                //static BasicBlock* create(const Rect rect, const unsigned short int type);
+            static BasicBlock* create(const float X, const float Y, const float width, const float height, const TypeBlock type);
 
             /** @short Overload operator = */
             TiledMap::BasicBlock& operator=(const BasicBlock& tileCollisionable);

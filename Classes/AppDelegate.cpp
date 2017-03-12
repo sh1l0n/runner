@@ -1,7 +1,5 @@
 
-#include "dev/pramon1/PlayerTestScene.hpp"
-
-#include "dev/jman1/jman1_TestScene.hpp"
+#include "dev/jman1/PlayerTestScene.hpp"
 
 #include "AppDelegate.h"
 #include "Engine2D/Structures/Structures.hpp"

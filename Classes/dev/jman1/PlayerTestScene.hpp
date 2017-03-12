@@ -19,8 +19,8 @@ public:
     CREATE_FUNC(PlayerTestScene);
 
 private:
-    RootEntity *e;
-    cocos2d::Sprite *test;
-    float testX = 0;
+    RootEntity* _player;
+    int _posXStartNewChunck;
+    //std::vector<TiledMap::Chunck> _chunckVector;
 };
 
