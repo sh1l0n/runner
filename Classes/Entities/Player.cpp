@@ -9,8 +9,7 @@
 using namespace std;
 
 Player::Player():RootEntity() {
-    vx = 0;
-    vy = 0;
+    vx, vy = 0;
     accel = 3.f;
     jump = 40.f;
     jumpSpeed = 20.f;
@@ -33,8 +32,14 @@ Player::Player():RootEntity() {
 
 }
 
+/*!
+ * RootEntity custom update method reimplementation
+ * @param delta
+ */
 void Player::customupdate(float delta) {
-    this->beginUpdate();
+    this->beginUpdate(); //must be called on every update reimplementation
+
+    // Right movement
     if(moveRight) {
         vx += accel;
         if(vx > maxVel ) vx = maxVel;
@@ -43,6 +48,7 @@ void Player::customupdate(float delta) {
         else if(vx < friction && vx > 0) vx = 0;
     }
 
+    // Left movement
     if(moveLeft) {
         vx -= accel;
         if(vx < -maxVel) vx = -maxVel;
@@ -51,7 +57,7 @@ void Player::customupdate(float delta) {
         else if(vx > -friction && vx < 0) vx = 0;
     }
 
-    // Salto
+    // Jump
     if(moveUp){
         if(jumpTime){
             if(vy < maxJump) {
@@ -69,6 +75,7 @@ void Player::customupdate(float delta) {
         }
     }
 
+    // Bend
     if(moveDown && !bend){
         auxHeight = getHeight();
         setHeight(auxHeight/2);
@@ -78,22 +85,34 @@ void Player::customupdate(float delta) {
         bend = false;
     }
 
+    // Applies the gravity
     vy -= gravity;
 
-    resolveFloorCollisionsX();
+    resolveFloorCollisionsX(); // horizontal collisions
     setMotionX(vx);
 
-    resolveFloorCollisionsY();
+    resolveFloorCollisionsY(); // vertical collisions
     setMotionY(vy);
 
     RootEntity::customupdate(delta);
 }
 
+
+/*!
+ * RootEntity custom draw method reimplementation
+ * @param delta
+ * @param deltaCount
+ * @param stepTime
+ */
 void Player::customdraw(float delta, float deltaCount, float stepTime) {
     drawNode->drawRect(Vec2(0 - getWidth()/2 , 0 - getHeight()/2 ), Vec2(getWidth()/2, getHeight()/2), Color4F::RED);
     RootEntity::customdraw(delta, deltaCount, stepTime);
 }
 
+/*!
+ * Sets the collisionable objects array
+ * @param floors
+ */
 void Player::setFloorCollision(Vector<RootEntity *> floors) {
     floorVector = floors;
 }

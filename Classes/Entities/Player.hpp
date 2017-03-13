@@ -10,10 +10,32 @@
 
 class Player : public RootEntity {
 private:
-    float accel, maxVel, friction, gravity, terminalVelocity, jump, auxHeight, maxJump, jumpSpeed;
-    float vx, vy;
+    //! x coordinate velocity
+    float vx;
+    //! y coordinate velocity
+    float vy;
+    //! Speed acceleration
+    float accel;
+    //! maximum horizontal velocity
+    float maxVel;
+    //! air friction
+    float friction;
+    //! gravity speed
+    float gravity;
+    //! Maximum vertical fall velocity
+    float terminalVelocity;
+    //! max jump speed
+    float jump;
+    //! Saves original heigh
+    float auxHeight;
+    //! Maximum jump speed
+    float maxJump;
+    //! jump speed
+    float jumpSpeed;
+
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
 
+    //! Vector which stores collisionable floor objects
     Vector<RootEntity*> floorVector;
     void resolveFloorCollisionsY();
     void resolveFloorCollisionsX();
