@@ -34,8 +34,7 @@ Player::Player():RootEntity() {
 }
 
 void Player::customupdate(float delta) {
-    ly = getY();
-    lx = getX();
+    this->beginUpdate();
     if(moveRight) {
         vx += accel;
         if(vx > maxVel ) vx = maxVel;
@@ -52,14 +51,12 @@ void Player::customupdate(float delta) {
         else if(vx > -friction && vx < 0) vx = 0;
     }
 
-    //modo vuelo
+    // Salto
     if(moveUp){
         if(jumpTime){
-            //vy += jump;
             if(vy < maxJump) {
                 vy += jumpSpeed;
                 jumpSpeed = jumpSpeed/2.2f;
-                log("%f", vy);
             } else {
                 vy = maxJump;
                 jumpTime = false;
@@ -83,14 +80,12 @@ void Player::customupdate(float delta) {
 
     vy -= gravity;
 
-    //FloorCollision
-    //resolveFloorCollisions();
-
     resolveFloorCollisionsX();
     setMotionX(vx);
 
     resolveFloorCollisionsY();
     setMotionY(vy);
+
     RootEntity::customupdate(delta);
 }
 
@@ -103,41 +98,13 @@ void Player::setFloorCollision(Vector<RootEntity *> floors) {
     floorVector = floors;
 }
 
-void Player::resolveFloorCollisions() {
-    for(int i = 0; i<floorVector.size(); i++) {
-        RootEntity* block = floorVector.at(i);
-
-       //Verical collision
-        if(MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(), block)) {
-            //log("%f / %f / %f /%f",getCorrectPositionY(), vy, getCorrectPositionY() + vy, block->getCorrectPositionY() + block->getHeight());
-
-            while(!MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + MathHelper::sign(vy), getWidth(), getHeight(), block))
-            {
-                setY(getY() + MathHelper::sign(vy));
-            }
-            vy = 0;
-            floor = true;
-        }
-
-        //Horizontal collision
-        if(MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block)) {
-
-            while(!MathHelper::rectCollision(getCorrectPositionX() + MathHelper::sign(vx),getCorrectPositionY(), getWidth(), getHeight(), block))
-            {
-                setX(getX() + MathHelper::sign(vx));
-            }
-            vx = 0;
-        }
-    }
-}
 
 void Player::resolveFloorCollisionsY() {
     for(int i = 0; i<floorVector.size(); i++) {
         RootEntity *block = floorVector.at(i);
-        //Verical collision
+        //Vertical collision
         if (MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(),
                                       block)) {
-            //log("%f / %f / %f /%f", getCorrectPositionY(), vy, getCorrectPositionY() + vy,block->getCorrectPositionY() + block->getHeight());
 
             if(getCorrectPositionY() + getHeight() > block->getCorrectPositionY()) {
                 floor = true;
@@ -150,10 +117,6 @@ void Player::resolveFloorCollisionsY() {
                 setY(block->getCorrectPositionY() - getHeight()/2);
             }
 
-            /*while (!MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + MathHelper::sign(vy),
-                                              getWidth(), getHeight(), block)) {
-                setY(getY() + MathHelper::sign(vy));
-            }*/
             vy = 0;
         }
     }
@@ -171,11 +134,7 @@ void Player::resolveFloorCollisionsX() {
             } else {
                 setX(block->getCorrectPositionX() - getWidth()/2);
             }
-            /*
-            while(!MathHelper::rectCollision(getCorrectPositionX() + MathHelper::sign(vx),getCorrectPositionY(), getWidth(), getHeight(), block))
-            {
-                setX(getX() + MathHelper::sign(vx));
-            }*/
+
             vx = 0;
         }
     }

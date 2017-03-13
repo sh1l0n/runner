@@ -9,12 +9,26 @@ using namespace std;
 
 RootEntity::RootEntity() {
     debug = false;
+    /*!
+     * x, y:    Logic x, y position
+     * dx, dy:  drawing x, y position
+     * lx, ly:  Last frame x, y position
+     */
     x, dx, lx = getPositionX();
     y, dy, ly = getPositionY();
-    width, height = 0;
-    motionX = 0.f;
-    motionY = 0.f;
-    stepTime, deltaCount = 0.f;
+
+
+    width, height = 0; // Bounding box width and height
+    motionX, motionY = 0; // Motion (speed) for x and y coordinates.
+
+    stepTime = 0.f; // Duration between each update iteration (in milliseconds)
+
+    /*!
+     * deltaCount accumulates the time (in milliseconds) between each update iteration. It starts in 0 every time a
+     * new update iteration begins and is incremented 'delta' millisecons  for each drawing frame. (delta is the amount
+     * of time which every draw frame takes)
+     */
+    deltaCount = 0.f;
 
     drawNode = DrawNode::create();
     this->addChild(drawNode);
@@ -33,6 +47,16 @@ void RootEntity::customupdate(float delta) {
 }
 
 /*!
+ * This method needs to be called at the very beginning of any update reimplementation. It saves the last frame x y
+ * coordinates that needs to be used on drawing interpolation.
+ */
+void RootEntity::beginUpdate() {
+    lx = x;
+    ly = y;
+}
+
+
+/*!
  * All drawing functions should be here to be executed 60 frames per second. This method uses frame interpolation
  * to generate smooth movements
  * @param delta frame duration in seconds
@@ -40,7 +64,7 @@ void RootEntity::customupdate(float delta) {
 void RootEntity::customdraw(float delta, float deltaCount, float stepTime) {
     float percenTick = 0.f;
 
-    //step the first frame
+    //skip the first frame to avoid 0 division
     if(stepTime!=0) {
         percenTick = deltaCount / stepTime;
     } else {
@@ -56,7 +80,7 @@ void RootEntity::customdraw(float delta, float deltaCount, float stepTime) {
 //SETTERS
 /*!
  * Sets motion x (horizontal movement)
- * @param motionX
+ * @param motionX Horizontal speed movement
  */
 void RootEntity::setMotionX(float motionX) {
     RootEntity::motionX = motionX;
@@ -64,28 +88,34 @@ void RootEntity::setMotionX(float motionX) {
 
 /*!
  * Sets motion y (vertical movement)
- * @param motionY
+ * @param motionY Vertical speed movement
  */
 void RootEntity::setMotionY(float motionY) {
     RootEntity::motionY = motionY;
 }
 
 /*!
- * Set x y position (no interpolated)
- * @param x
- * @param y
+ * Sets x position (interpolated)
+ * @param x Logic x position
  */
 void RootEntity::setX(float x){
     this->x = x;
-    //this->lx = x;
-    //this->dx = x;
 }
 
+
+/*!
+ * Sets y postion (interpolated)
+ * @param y Logic y position
+ */
 void RootEntity::setY(float y){
     this->y = y;
-    //this->ly = y;
-    //this->dy = y;
 }
+
+/*!
+ * Sets x y logic position (NO interpolated)
+ * @param x Logic y position
+ * @param y Logic x position
+ */
 void RootEntity::setPosition(float x, float y) {
     this->x = x;
     this->y = y;
@@ -97,8 +127,8 @@ void RootEntity::setPosition(float x, float y) {
 }
 
 /*!
- * Image loaded on the player and set the bounding box
- * @param filename player image name
+ * Adds a sprite node and sets the bounding box using the provided image width and height
+ * @param filename Image utl
  */
 void RootEntity::setSprite(const std::string &filename) {
     sprite = Sprite::create(filename);
@@ -107,11 +137,37 @@ void RootEntity::setSprite(const std::string &filename) {
     this->addChild(sprite);
 }
 
+/*!
+ * Sets boundig box width
+ * @param width
+ */
+void RootEntity::setWidth(float width) {
+    this->width = width;
+}
+
+/*!
+ * Sets boundig box height
+ * @param width
+ */
 void RootEntity::setHeight(float height) {
     this->height = height;
 }
 
 //GETTERS
+
+/*!
+ * Gets left bottom corner logic x position
+ */
+float RootEntity::getCorrectPositionX() {
+    return this->x - this->width/2;
+}
+
+/*!
+ * Gets left bottom corner logic y position
+ */
+float RootEntity::getCorrectPositionY() {
+    return this->y - this->height/2;
+}
 
 float RootEntity::getX() {
     return this->x;
@@ -140,19 +196,6 @@ float RootEntity::getHeight() {
 bool RootEntity::isDebug() {
     return this->debug;
 }
-
-/*!
- * Get horitzontal center position of the player
- */
-float RootEntity::getCorrectPositionX() {
-    return this->x - this->width/2;
-}
-
-float RootEntity::getCorrectPositionY() {
-    return this->y - this->height/2;
-}
-
-
 
 RootEntity * RootEntity::create()
 {

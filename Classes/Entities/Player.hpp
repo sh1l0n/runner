@@ -15,7 +15,6 @@ private:
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
 
     Vector<RootEntity*> floorVector;
-    void resolveFloorCollisions();
     void resolveFloorCollisionsY();
     void resolveFloorCollisionsX();
 public:

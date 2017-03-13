@@ -17,6 +17,7 @@ private:
     Sprite *sprite;
 
 protected:
+    void beginUpdate();
     DrawNode *drawNode;
 
 public:
@@ -32,8 +33,6 @@ public:
     //Getters
     float getCorrectPositionX();
     float getCorrectPositionY();
-    float getCorrectLastPositionX();
-    float getCorrectLastPositionY();
     float getMotionX();
     float getMotionY();
     float getX();
@@ -49,6 +48,7 @@ public:
     void setMotionX(float motionX);
     void setMotionY(float motionY);
     void setSprite(const std::string &filename);
+    void setWidth(float width);
     void setHeight(float height);
 };
 
