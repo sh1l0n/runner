@@ -12,13 +12,14 @@
 * @brief Creates a pyramid structure with a random height
 */
 Structures::
-Pyramid::Pyramid() : Structures::BaseStructure() 
+Pyramid::Pyramid() : Structures::BaseStructure()
 {
-	this->_height = rand() % K_MAX_HEIGHT + K_MIN_HEIGHT;
-	this->_width = (this->_height*2)-1;
+	this->_width = K_DEFAULT_WIDTH;
+	this->_height = (this->_width+1)/2+1;
+
 	this->_data.resize(this->_height);
 	unsigned int i,j, left = 0, right = this->_width-1;
-	for(i=this->_height-1; i>=0; --i) {
+	for(i=0; i<this->_height; ++i) {
 		this->_data[i].resize(this->_width, false);
 		if(left==right) {
 			this->_data[i][right] = true;
@@ -31,3 +32,31 @@ Pyramid::Pyramid() : Structures::BaseStructure()
 		--right;
 	}
 }
+
+Structures::
+Pyramid::Pyramid(unsigned short int width) : Structures::BaseStructure()
+{
+	this->_width = width;
+	this->_height = (this->_width-1)/2+1;
+
+	this->_data.resize(this->_height);
+	unsigned int i,j, left = 0, right = this->_width-1;
+	for(i=0; i<this->_height; ++i) {
+		this->_data[i].resize(this->_width, false);
+		if(left==right) {
+			this->_data[i][right] = 1;
+			break;
+		}
+		for(j=left; j<=right; ++j) {
+			if(j==left || j==right){
+				this->_data[i][j] = 1;
+			}else{
+				this->_data[i][j] = 5;
+			}
+
+		}
+		++left;
+		--right;
+	}
+}
+

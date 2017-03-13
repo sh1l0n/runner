@@ -7,7 +7,7 @@
 RootEntity::RootEntity() {
     x, dx, lx = getPositionX();
     y, dy, ly = getPositionY();
-    motionX = 6.f;
+    motionX = 30.f;
     motionY = 0.f;
     stepTime, deltaCount = 0.f;
 
@@ -16,6 +16,23 @@ RootEntity::RootEntity() {
     y = 200.f;
 }
 
+/**
+ * Copy Constructor
+ * @param tileCollisionable object for copy
+ */
+RootEntity::RootEntity(const RootEntity& object) {
+    this->x = object.x;
+    this->y = object.y;
+    this->dx = object.dx;
+    this->dy = object.dy;
+    this->lx = object.lx;
+    this->ly = object.ly;
+    this->motionX = object.motionX;
+    this->motionY = object.motionY;
+    float motionX, motionY;
+    float deltaCount, stepTime, time, totalTime;
+    Sprite *sprite;
+}
 
 
 /*!

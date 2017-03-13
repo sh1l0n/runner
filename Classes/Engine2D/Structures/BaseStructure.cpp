@@ -5,7 +5,7 @@
  * @brief  BaseStructure class implementation
  */
 
-#include "base_structure.hpp"
+#include "BaseStructure.hpp"
 
 /**
 * @brief Constructor of class BaseStructre
@@ -47,7 +47,7 @@ BaseStructure::getWidth() const {
 *	@brief Getter
 *	@retval DATA info structure
 */
-std::vector< std::vector<bool> > 
+std::vector< std::vector<unsigned int> >
 Structures::
 BaseStructure::getData() const {
 	return this->_data;
@@ -58,13 +58,13 @@ BaseStructure::getData() const {
 *	@param [in] column the column in the structure
 *	@retval VALUE the value in this position
 */
-bool
+unsigned int
 Structures::
-BaseStructure::getDataAt(unsigned int row, unsigned int column) const
+BaseStructure::getDataAt(const unsigned int row, const  unsigned int column) const
 {
 	if(row>=0 && row<this->_height && column>=0 && column<this->_width) 
 		return this->_data[row][column];
-	else return false;
+	else return 0;
 }
 
 /**
@@ -75,13 +75,21 @@ std::string
 Structures::
 BaseStructure::toString() const
 {
+
 	std::string chain = "Width: " + std::to_string(this->_width) + "\n";
 	chain += "Height: " + std::to_string(this->_height) + "\n";
-	for(unsigned int i=0;i<this->_height;++i) {
+	//metohod to string print rows in inverse order, from heght to 0
+	for(int i=_height-1;i>=0;--i) {
 		for(unsigned int j=0;j<this->_width;++j) {
-			chain+= this->getDataAt(i, j)?"1 ":"0 ";
+			chain+=std::to_string(this->getDataAt(i, j));
 		}
 		chain+="\n";
 	}
 	return chain;
+}
+
+std::vector< TiledMap::BasicBlock >
+Structures::
+BaseStructure::getCollisionableVector() const{
+	return this->_vectorCollisionables;
 }

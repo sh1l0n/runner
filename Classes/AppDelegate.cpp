@@ -1,6 +1,10 @@
-#include "dev/jclh1/PlayerTestScene.hpp"
+
+#include "dev/jman1/PlayerTestScene.hpp"
+
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "Engine2D/Structures/Structures.hpp"
+#include <stdlib.h>
+#include <time.h>
 
 USING_NS_CC;
 
@@ -11,6 +15,7 @@ static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 AppDelegate::AppDelegate()
 {
+    srand(time(NULL));
 }
 
 AppDelegate::~AppDelegate() 
@@ -76,6 +81,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     auto scene = PlayerTestScene::createScene();
+
 
     // run
     director->runWithScene(scene);

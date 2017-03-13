@@ -8,3 +8,4 @@ proj.*
 bin
 Classes/AppDelegate*
 Classes/HelloWordScene*
+CMakeLists.txt
