@@ -9,32 +9,47 @@ USING_NS_CC;
 
 class RootEntity: public Node {
 private:
-
     float x, y;
     float dx, dy;
-    float lx, ly;
+    float width, height;
     float motionX, motionY;
-    float deltaCount, stepTime;
+
     Sprite *sprite;
+
+protected:
+    void beginUpdate();
+    DrawNode *drawNode;
 
 public:
     RootEntity();
     RootEntity(const RootEntity& object);
     static RootEntity * create();
+    float lx, ly;
+    float deltaCount, stepTime;
+    bool debug;
 
-    void update(float delta);
-    void draw(float delta);
+    virtual void customupdate(float delta);
+    virtual void customdraw(float delta, float deltaCount, float stepTime);
 
     //Getters
-    void setPosition(float x, float y);
-    float getMotionX() const;
-    void setMotionY(float motionY);
-    void setSprite(const std::string &filename);
+    float getCorrectPositionX();
+    float getCorrectPositionY();
+    float getMotionX();
+    float getMotionY();
+    float getX();
+    float getY();
+    float getWidth();
+    float getHeight();
+    bool isDebug();
 
     //Setters
+    void setPosition(float x, float y);
+    void setX(float x);
+    void setY(float y);
     void setMotionX(float motionX);
-    float getMotionY() const;
-
-
+    void setMotionY(float motionY);
+    void setSprite(const std::string &filename);
+    void setWidth(float width);
+    void setHeight(float height);
 };
 
