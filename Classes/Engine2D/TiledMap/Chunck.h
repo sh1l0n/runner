@@ -5,7 +5,7 @@
 #pragma  once
 
 #include "cocos2d.h"
-#include <Engine2D/RootEntity.hpp>
+#include "Engine2D/RootEntity.hpp"
 #include "BasicBlock.hpp"
 
 USING_NS_CC;
@@ -15,7 +15,7 @@ namespace TiledMap {
 
     public:
         Node *_node;
-        std::vector<BasicBlock> _collisionables;
+        Vector<BasicBlock*> _collisionables;
         Chunck();
         ~Chunck();
     };

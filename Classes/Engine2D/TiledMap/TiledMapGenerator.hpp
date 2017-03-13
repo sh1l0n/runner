@@ -20,7 +20,7 @@ namespace TiledMap {
     static const unsigned char K_WIDTH = 0xD4; //212
 
     /** @short  Height for a chunk */
-    static const unsigned char K_HEIGHT = 0x20; //32
+    static const unsigned char K_HEIGHT = 0x10; //16
 
     /** @short  Height of the floor */
     static const unsigned char K_HEIGHT_FLOOR = 0x02;

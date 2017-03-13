@@ -7,6 +7,7 @@
 
 
 #include <Engine2D/RootEntity.hpp>
+#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
 
 class Player : public RootEntity {
 private:
@@ -36,7 +37,7 @@ private:
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
 
     //! Vector which stores collisionable floor objects
-    Vector<RootEntity*> floorVector;
+    Vector<TiledMap::BasicBlock*> floorVector;
     void resolveFloorCollisionsY();
     void resolveFloorCollisionsX();
 public:
@@ -45,7 +46,7 @@ public:
 
     void customupdate(float delta) override;
     void customdraw(float delta, float deltaCount, float stepTime) override;
-    void setFloorCollision(Vector<RootEntity*> floors);
+    void setFloorCollision(Vector<TiledMap::BasicBlock*> floors);
 
     void onKeyLeft();
     void onKeyRight();

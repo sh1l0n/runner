@@ -113,27 +113,27 @@ void Player::customdraw(float delta, float deltaCount, float stepTime) {
  * Sets the collisionable objects array
  * @param floors
  */
-void Player::setFloorCollision(Vector<RootEntity *> floors) {
+void Player::setFloorCollision(Vector<TiledMap::BasicBlock *> floors) {
     floorVector = floors;
 }
 
 
 void Player::resolveFloorCollisionsY() {
     for(int i = 0; i<floorVector.size(); i++) {
-        RootEntity *block = floorVector.at(i);
+        TiledMap::BasicBlock *block = floorVector.at(i);
         //Vertical collision
         if (MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(),
                                       block)) {
 
-            if(getCorrectPositionY() + getHeight() > block->getCorrectPositionY()) {
+            if(getCorrectPositionY() + getHeight() > block->getY()) {
                 floor = true;
                 jumpTime = true;
                 jumpSpeed = 30.f;
-                setY(block->getCorrectPositionY() + block->getHeight() + getHeight()/2);
+                setY(block->getY() + block->getHeight() + getHeight()/2);
             } else {
                 jumpSpeed = 30.f;
                 jumpTime = false;
-                setY(block->getCorrectPositionY() - getHeight()/2);
+                setY(block->getY() - getHeight()/2);
             }
 
             vy = 0;
@@ -143,15 +143,15 @@ void Player::resolveFloorCollisionsY() {
 
 void Player::resolveFloorCollisionsX() {
     for(int i = 0; i<floorVector.size(); i++) {
-        RootEntity* block = floorVector.at(i);
+        TiledMap::BasicBlock *block = floorVector.at(i);
 
         //Horizontal collision
         if(MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block)) {
 
-            if(getCorrectPositionX() + getWidth() > block->getCorrectPositionX() + block->getWidth()/2.f) {
-                setX(block->getCorrectPositionX() + block->getWidth() + getWidth()/2);
+            if(getCorrectPositionX() + getWidth() > block->getX() + block->getWidth()/2.f) {
+                setX(block->getX() + block->getWidth() + getWidth()/2);
             } else {
-                setX(block->getCorrectPositionX() - getWidth()/2);
+                setX(block->getX() - getWidth()/2);
             }
 
             vx = 0;

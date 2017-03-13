@@ -7,6 +7,7 @@
 
 #pragma once
 #include "cocos2d.h"
+#include <string.h>
 USING_NS_CC;
 
 namespace TiledMap {
@@ -60,6 +61,14 @@ namespace TiledMap {
 
             /** @short Get the global bounding box */
             Rect getBoundingBox() const;
+
+            float getX() const;
+            float getY() const;
+            float getWidth() const;
+            float getHeight() const;
+
+            std::string toString() const;
+
     };
 }
 

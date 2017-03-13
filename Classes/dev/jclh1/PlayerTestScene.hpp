@@ -5,6 +5,7 @@
 #pragma once
 
 #include <Entities/Player.hpp>
+#include <Engine2D/TiledMap/BasicBlock.hpp>
 #include "../../Engine2D/RootEntity.hpp"
 #include "cocos2d.h"
 
@@ -30,7 +31,7 @@ private:
     Player *e;
     RootEntity *box;
 
-    Vector<RootEntity*> boxes;
+    Vector<TiledMap::BasicBlock*> boxes;
 
 };
 

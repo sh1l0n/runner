@@ -155,10 +155,11 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                              Rect(0, 0, K_SIZE_IMAGE_SPRITE, K_SIZE_IMAGE_SPRITE));
 
 
-                    spriteToLoad->setScale(K_FACTOR_SCALE, K_FACTOR_SCALE);
                     spriteToLoad->setAnchorPoint(Vec2(0, 0));
                     spriteToLoad->setPosition(positionXCurrentChunck * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE,
                                               positionYCurrentChunck * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE);
+                    spriteToLoad->setScale(K_FACTOR_SCALE, K_FACTOR_SCALE);
+
                     currentChunck._node->addChild(spriteToLoad, 0);
 
                     //##############################################################################
@@ -166,6 +167,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                     //and check that is collisionable or not
                     //##############################################################################
                     rectForBoundingBoxCollisionable = spriteToLoad->getBoundingBox();
+
+
                     switch (basicBlockTypeCurrent) {
                         case 1:
                             rectForBoundingBoxCollisionable = spriteToLoad->getBoundingBox();
@@ -209,7 +212,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 //##############################################################################
                 if (basicBlockCollisionable != NULL) {
                     currentChunck._node->addChild(basicBlockCollisionable, 1);
-                    currentChunck._collisionables.push_back(*basicBlockCollisionable);
+                    currentChunck._collisionables.pushBack(basicBlockCollisionable);
                 }
             }
         }
@@ -255,7 +258,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                        rr.size.height + rr.origin.y,
                                                                        TiledMap::TypeBlock::FLOOR);
                 currentChunck._node->addChild(blockCollisionable, 1);
-                currentChunck._collisionables.push_back(*blockCollisionable);
+                currentChunck._collisionables.pushBack(blockCollisionable);
             }
 
         }

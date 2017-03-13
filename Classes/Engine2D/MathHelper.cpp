@@ -15,9 +15,11 @@
     return false;
 }*/
 
-bool MathHelper::rectCollision(float x, float y, float width, float height, RootEntity *e2) {
-    if(x + width > e2->getCorrectPositionX()  && x < e2->getCorrectPositionX() + e2->getWidth()) {
-        if (y + height > e2->getCorrectPositionY() &&  y < e2->getCorrectPositionY() + e2->getHeight()) {
+bool MathHelper::rectCollision(float x, float y, float width, float height, TiledMap::BasicBlock *e2) {
+    //std::cout << e2->toString() << "\n";
+    log("%f" , e2->getWidth());
+    if(x + width > e2->getX() && x < e2->getX() + e2->getWidth()) {
+        if (y + height > e2->getY() &&  y < e2->getY() + e2->getHeight()) {
             return true;
         }
     }

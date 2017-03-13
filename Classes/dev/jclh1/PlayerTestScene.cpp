@@ -6,6 +6,7 @@
 
 #include "PlayerTestScene.hpp"
 #include <Engine2D/MathHelper.hpp>
+#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
 
 USING_NS_CC;
 
@@ -39,40 +40,32 @@ bool PlayerTestScene::init()
 
     e = Player::create();
     e->setSprite("CloseNormal.png");
-    e->setPosition(32, 200);
-    this->addChild(e);
+    e->setPosition(200, 200);
 
-    for(int i = 0; i<10 ; i++) {
-        box = RootEntity::create();
-        box->setSprite("test/Basepack/Tiles/box.png");
-        box->setPosition(70*i, 35);
-        box->debug = false;
-        this->addChild(box);
-        boxes.pushBack(box);
-    }
+    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+    Node *m_scroll= Node::create();
 
-    box = RootEntity::create();
-    box->setSprite("test/Basepack/Tiles/box.png");
-    box->setPosition(100, 200);
-    box->debug = false;
-    this->addChild(box);
-    boxes.pushBack(box);
-    box = RootEntity::create();
-    box->setSprite("test/Basepack/Tiles/box.png");
-    box->setPosition(350, 105);
-    box->debug = false;
-    this->addChild(box);
-    boxes.pushBack(box);
-    box = RootEntity::create();
-    box->setSprite("test/Basepack/Tiles/box.png");
-    box->setPosition(350, 175);
-    box->debug = false;
-    this->addChild(box);
-    boxes.pushBack(box);
+    //The backgroung
+    Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
+    Size sizeTexture = textureBackGround->getContentSize();
+    Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
+                                                 Rect(0, 0, 1024 , 512));
+    spriteBg->setScale(1, 1);
+    spriteBg->setPosition(0, 0);
+    spriteBg->setAnchorPoint(Vec2(0, 0));
+    ParallaxNode* pn = ParallaxNode::create();
+    pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
 
-    boxes.pushBack(box);
 
-    e->setFloorCollision(boxes);
+    m_scroll->addChild(pn, 0);
+    m_scroll->addChild(chunk._node, 1);
+    m_scroll->addChild(e, 2);
+    m_scroll->runAction(Follow::create(e));
+
+    //The map and the player2
+    this->addChild(m_scroll, 0);
+
+    e->setFloorCollision(chunk._collisionables);
 
     eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
     eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
@@ -121,13 +114,11 @@ void PlayerTestScene::update(float delta){
     //deltaCount += delta;
 
     //fifteen frames per second
-    if(deltaCount >= 0.067) {
-        box->customupdate(delta);
+    if(deltaCount >= 0.067f) {
         e->customupdate(delta);
         stepTime = deltaCount;
         deltaCount = 0.f;
     }
 
-    box->customdraw(delta, deltaCount, stepTime);
     e->customdraw(delta, deltaCount, stepTime);
 }
