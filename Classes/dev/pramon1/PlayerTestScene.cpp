@@ -2,11 +2,11 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#include "PlayerTestScene.hpp"
 #include <iostream>
-#include "cocos2d.h"
-#include <string>
-#include "Engine2D/TiledMap/TiledMapGenerator.hpp"
+
+#include "PlayerTestScene.hpp"
+#include <Engine2D/MathHelper.hpp>
+#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
 
 USING_NS_CC;
 
@@ -36,17 +36,11 @@ bool PlayerTestScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    e = RootEntity::create();
+    auto eventListener = EventListenerKeyboard::create();
+
+    e = Player::create();
     e->setSprite("CloseNormal.png");
-    e->setPosition(32, 200);
-    this->addChild(e);
-
-    test = Sprite::create("CloseNormal.png");
-    test->setPosition(32, 164);
-    this->addChild(test);
-
-
-
+    e->setPosition(200, 200);
 
     TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
     Node *m_scroll= Node::create();
@@ -65,40 +59,66 @@ bool PlayerTestScene::init()
 
     m_scroll->addChild(pn, 0);
     m_scroll->addChild(chunk._node, 1);
-    m_scroll->addChild(test, 2);
-    m_scroll->runAction(Follow::create(test));
+    m_scroll->addChild(e, 2);
+    m_scroll->runAction(Follow::create(e));
 
     //The map and the player2
-    this->addChild(m_scroll);
+    this->addChild(m_scroll, 0);
 
+    e->setFloorCollision(chunk._collisionables);
+
+    eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
+    eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 
     this->scheduleUpdate();
-
-
     return true;
 }
 
-
-void PlayerTestScene::menuCloseCallback(cocos2d::Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+    switch(keyCode) {
+        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+            e->onKeyLeft();
+            break;
+        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+            e->onKeyRight();
+            break;
+        case EventKeyboard::KeyCode::KEY_UP_ARROW:
+            e->onKeyUp();
+            break;
+        case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+            e->onKeyDown();
+            break;
+    }
+}
+void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+    switch(keyCode) {
+        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+            e->onKeyLeftRelease();
+            break;
+        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+            e->onKeyRightRelease();
+            break;
+        case EventKeyboard::KeyCode ::KEY_UP_ARROW:
+            e->onKeyUpRelease();
+            break;
+        case EventKeyboard::KeyCode ::KEY_DOWN_ARROW:
+            e->onKeyDownRelease();
+            break;
+    }
 }
 
+
 void PlayerTestScene::update(float delta){
-    testX+=1.2;
-    test->setPosition(testX, 164);
+    deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
+    //deltaCount += delta;
 
-    e->update(delta);
-    e->draw(delta);
+    //fifteen frames per second
+    if(deltaCount >= 0.067f) {
+        e->customupdate(delta);
+        stepTime = deltaCount;
+        deltaCount = 0.f;
+    }
 
+    e->customdraw(delta, deltaCount, stepTime);
 }
