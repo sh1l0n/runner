@@ -175,7 +175,7 @@ set(GAME_HEADERS
         Classes/Engine2D/RootEntity.hpp
         Classes/dev/jclh1/PlayerTestScene.hpp
         Classes/Entities/Player.hpp
-        Classes/Engine2D/MathHelper.hpp)
+        Classes/Engine2D/MathHelper.hpp Classes/dev/maje2/MainMenu.cpp Classes/dev/maje2/MainMenu.hpp)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})

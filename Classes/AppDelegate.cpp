@@ -5,6 +5,7 @@
 #include "Engine2D/Structures/Structures.hpp"
 #include <stdlib.h>
 #include <time.h>
+#include <dev/maje2/MainMenu.hpp>
 
 USING_NS_CC;
 
@@ -80,8 +81,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = PlayerTestScene::createScene();
-
+    //auto scene = PlayerTestScene::createScene();
+    auto scene = MainMenu::createScene();
 
     // run
     director->runWithScene(scene);
