@@ -42,15 +42,15 @@ bool MainMenu::init() {
     auto exitLabel = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 24);
     auto closeItem = MenuItemLabel::create(exitLabel, CC_CALLBACK_1(MainMenu::closeMenuCallback, this));
 
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-
+    //closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,origin.y + closeItem->getContentSize().height/2));
+    playItem->setPosition(Vec2(-140,-80));
+    closeItem->setPosition(Vec2(70,-80));
     auto menu = Menu::create(playItem, closeItem, NULL);
 
-    menu->alignItemsVertically();
-    this->addChild(menu, 1);
+    //menu->alignItemsVertically();
+    this->addChild(menu, 3);
 
-    auto label = Label::createWithTTF("Runner", "fonts/Marker Felt.ttf", 24);
+    auto label = Label::createWithTTF("Runner", "fonts/Marker Felt.ttf", 36);
 
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
@@ -60,33 +60,76 @@ bool MainMenu::init() {
     this->addChild(label, 2);
 
     // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("box.png");
-    auto sprite2 = Sprite::create("box.png");
-    auto sprite3 = Sprite::create("box.png");
-    auto sprite4 = Sprite::create("box.png");
 
+    //grass
+    auto grassBase = getSubImage(576,360);
+    auto grassBase2 = getSubImage(576,288);
+    auto grassBase3 = getSubImage(576,288);
+    auto grassBase4 = getSubImage(576,288);
+    auto grassBase5 = getSubImage(576,288);
+    auto grassBase6 = getSubImage(576,216);
+    putImagePosition(grassBase,65,0,1);
+    putImagePosition(grassBase2,135,0,1);
+    putImagePosition(grassBase3,205,0,1);
+    putImagePosition(grassBase4,275,0,1);
+    putImagePosition(grassBase5,345,0,1);
+    putImagePosition(grassBase6,415,0,1);
+    //pyramid
+    auto box = getSubImage(144,504);
+    auto box2 = getSubImage(144,504);
+    auto box3 = getSubImage(144,504);
+    auto box4 = getSubImage(144,504);
+    auto box5 = getSubImage(144,504);
+    auto box6 = getSubImage(144,504);
+    auto box7 = getSubImage(144,504);
+    auto box8 = getSubImage(144,504);
+    auto box9 = getSubImage(144,504);
+    putImagePosition(box,65,70,1);
+    putImagePosition(box2,135,70,1);
+    putImagePosition(box3,205,70,1);
+    putImagePosition(box4,275,70,1);
+    putImagePosition(box5,345,70,1);
+    putImagePosition(box6,135,140,1);
+    putImagePosition(box7,205,140,1);
+    putImagePosition(box8,275,140,1);
+    putImagePosition(box9,205,210,1);
+    //cactus
+    Texture2D *textureSprite = Director::getInstance()->getTextureCache()->addImage("tiles_spritesheet.png");
+    auto cactus = Sprite::createWithTexture(textureSprite,Rect(842,720,60,140));
+    putImagePosition(cactus,420,105,1);
+    //signs
+    auto sign = getSubImage(288,432);
+    auto sign2 = getSubImage(288,432);
+    putImagePosition(sign,100,70,2);
+    putImagePosition(sign2,310,70,2);
+    //door
+    auto doorTop = getSubImage(648,360);
+    auto doorMid = getSubImage(648,432);
+    putImagePosition(doorTop,205,140,2);
+    putImagePosition(doorMid,205,70,2);
+    //torch
+    auto torch = getSubImage(72,144);
+    auto torch2 = getSubImage(72,144);
+    putImagePosition(torch,135,140,2);
+    putImagePosition(torch2,275,140,2);
+    //bridge
+    auto bridge = getSubImage(288,720);
+    putImagePosition(bridge,350,190,2);
+
+    //player
+    auto player = getSubImage(432,360);
+    putImagePosition(player,350,212,3);
 
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
     Size sizeTexture = textureBackGround->getContentSize();
     Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
-                                                 Rect(0, 0, 480 , 320));
+                                                 Rect(0, 0, visibleSize.width , visibleSize.height));
     this->addChild(spriteBg, 0);
     spriteBg->setScale(1, 1);
     spriteBg->setPosition(0, 0);
     spriteBg->setAnchorPoint(Vec2(0, 0));
     ParallaxNode* pn = ParallaxNode::create();
     pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
-    // position the sprite on the center of the screen
-    sprite->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 + 80)); //Down
-    sprite2->setPosition(Vec2(visibleSize.width/2 - 80, visibleSize.height/2));  //Left
-    sprite3->setPosition(Vec2(visibleSize.width/2 + 80, visibleSize.height/2));//Right
-    sprite4->setPosition(Vec2(visibleSize.width/2, visibleSize.height/2 - 80));  //Up
-
-    // add the sprite as a child to this layer
-    this->addChild(sprite, 1);
-    this->addChild(sprite2, 1);
-    this->addChild(sprite3, 1);
-    this->addChild(sprite4, 1);
 
     return true;
 }
@@ -102,4 +145,17 @@ void MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
 void MainMenu::playMenuCallback(cocos2d::Ref *sender) {
 
     Director::getInstance()->replaceScene(TransitionFade::create(1.f, PlayerTestScene::createScene()));
+}
+
+Sprite * MainMenu::getSubImage(int x, int y){
+
+    Texture2D *textureSprite = Director::getInstance()->getTextureCache()->addImage("tiles_spritesheet.png");
+    auto sprite = Sprite::createWithTexture(textureSprite,Rect(x,y,K_DEFAULT_SIZE_SPRITE,K_DEFAULT_SIZE_SPRITE));
+
+    return sprite;
+}
+
+void MainMenu::putImagePosition(Sprite *sprite, int x, int y, int pos) {
+    sprite->setPosition(Vec2(x,y));
+    this->addChild(sprite, pos);
 }
