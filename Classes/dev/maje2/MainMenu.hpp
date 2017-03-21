@@ -7,8 +7,14 @@
 
 #include "cocos2d.h"
 
+/**
+* Size of the sprites
+*/
 const static unsigned short int K_DEFAULT_SIZE_SPRITE = 70;
 
+/**
+* Class MainMenu for generating the first scene
+*/
 class MainMenu : public cocos2d::Layer{
 public:
     static cocos2d::Scene* createScene();
