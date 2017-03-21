@@ -27,28 +27,16 @@ bool MainMenu::init() {
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    /////////////////////////////
-    // 2. add a menu item with "X" image, which is clicked to quit the program
-    //    you may modify it.
-
-    // add a "close" icon to exit the progress. it's an autorelease object
-    /*auto closeItem = MenuItemImage::create(
-            "CloseNormal.png",
-            "CloseSelected.png",
-            CC_CALLBACK_1(MainMenu::closeMenuCallback, this));*/
-
     auto playLabel = Label::createWithTTF("Play!", "fonts/Marker Felt.ttf", 24);
     auto playItem = MenuItemLabel::create(playLabel, CC_CALLBACK_1(MainMenu::playMenuCallback, this));
     auto exitLabel = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 24);
     auto closeItem = MenuItemLabel::create(exitLabel, CC_CALLBACK_1(MainMenu::closeMenuCallback, this));
 
-    //closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,origin.y + closeItem->getContentSize().height/2));
-    playItem->setPosition(Vec2(-140,-80));
-    closeItem->setPosition(Vec2(70,-80));
+    closeItem->setPosition(Vec2(-140,-80));
+    playItem->setPosition(Vec2(140,-80));
     auto menu = Menu::create(playItem, closeItem, NULL);
 
-    //menu->alignItemsVertically();
-    this->addChild(menu, 3);
+    this->addChild(menu, 4);
 
     auto label = Label::createWithTTF("Runner", "fonts/Marker Felt.ttf", 36);
 
@@ -84,41 +72,61 @@ bool MainMenu::init() {
     auto box7 = getSubImage(144,504);
     auto box8 = getSubImage(144,504);
     auto box9 = getSubImage(144,504);
-    putImagePosition(box,65,70,1);
-    putImagePosition(box2,135,70,1);
-    putImagePosition(box3,205,70,1);
-    putImagePosition(box4,275,70,1);
-    putImagePosition(box5,345,70,1);
-    putImagePosition(box6,135,140,1);
-    putImagePosition(box7,205,140,1);
-    putImagePosition(box8,275,140,1);
-    putImagePosition(box9,205,210,1);
+    auto box10 = getSubImage(288,72);
+    putImagePosition(box10,350,75,1);
+    auto box11 = getSubImage(288,72);
+    putImagePosition(box11,280,145,1);
+    auto box12 = getSubImage(288,72);
+    putImagePosition(box12,210,215,1);
+    auto box13 = getSubImage(288,72);
+    putImagePosition(box13,140,145,1);
+    auto box14 = getSubImage(288,72);
+    putImagePosition(box14,70,75,1);
+    auto box15 = getSubImage(288,72);
+    putImagePosition(box15,140,75,1);
+    auto box16 = getSubImage(288,72);
+    putImagePosition(box16,280,75,1);
+    auto box17 = getSubImage(288,72);
+    putImagePosition(box17,210,145,1);
+    auto box18 = getSubImage(288,72);
+    putImagePosition(box18,210,75,1);
+    putImagePosition(box,65,70,2);
+    putImagePosition(box2,135,70,2);
+    putImagePosition(box3,205,70,2);
+    putImagePosition(box4,275,70,2);
+    putImagePosition(box5,345,70,2);
+    putImagePosition(box6,135,140,2);
+    putImagePosition(box7,205,140,2);
+    putImagePosition(box8,275,140,2);
+    putImagePosition(box9,205,210,2);
     //cactus
     Texture2D *textureSprite = Director::getInstance()->getTextureCache()->addImage("tiles_spritesheet.png");
     auto cactus = Sprite::createWithTexture(textureSprite,Rect(842,720,60,140));
-    putImagePosition(cactus,420,105,1);
+    putImagePosition(cactus,420,105,2);
     //signs
     auto sign = getSubImage(288,432);
     auto sign2 = getSubImage(288,432);
-    putImagePosition(sign,100,70,2);
-    putImagePosition(sign2,310,70,2);
+    auto sign3 = getSubImage(288,288);
+    putImagePosition(sign,100,70,3);
+    putImagePosition(sign2,380,70,3);
+    putImagePosition(sign3,280,70,3);
     //door
     auto doorTop = getSubImage(648,360);
     auto doorMid = getSubImage(648,432);
-    putImagePosition(doorTop,205,140,2);
-    putImagePosition(doorMid,205,70,2);
+    putImagePosition(doorTop,205,140,3);
+    putImagePosition(doorMid,205,70,3);
     //torch
     auto torch = getSubImage(72,144);
     auto torch2 = getSubImage(72,144);
-    putImagePosition(torch,135,140,2);
-    putImagePosition(torch2,275,140,2);
+    putImagePosition(torch,135,140,3);
+    putImagePosition(torch2,275,140,3);
     //bridge
     auto bridge = getSubImage(288,720);
-    putImagePosition(bridge,350,190,2);
+    putImagePosition(bridge,350,190,3);
 
     //player
     auto player = getSubImage(432,360);
-    putImagePosition(player,350,212,3);
+    putImagePosition(player,350,212,4);
 
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
     Size sizeTexture = textureBackGround->getContentSize();
