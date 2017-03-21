@@ -70,9 +70,10 @@ namespace Structures {
 	static BaseStructure* getStructureMatrix(int availableXSpace)
 	{
 
-		//int a=std::rand()+random(1,9);
+
 		int typeStructure = rand() % (K_NUMBER_STRUCTURES-1 +1) + 1;
-		//unsigned int typeStructure =std::random(1,K_NUMBER_STRUCTURES);
+		//int typeStructure = 4;
+
 
 		BaseStructure* structure = NULL;
 		unsigned short int max_width;

@@ -117,6 +117,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
         //Create a structure and include it in the matrix
         //##############################################################################
         currentStructure = Structures::getStructureMatrix(freeSpaceInCurrentChunck);
+        std::cout<<currentStructure->toString();
 
         for (i = 0; i < currentStructure->getWidth(); ++i) {
             for (j = 0; j < currentStructure->getHeight(); ++j) {
@@ -127,6 +128,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 positionXCurrentChunck = i + positionXGeneratedCurrentChunck;
                 positionYCurrentChunck = j + K_HEIGHT_FLOOR;
                 mapForTextures[positionXCurrentChunck][positionYCurrentChunck] = basicBlockTypeCurrent;
+                basicBlockCollisionable= nullptr;
 
 
                 //##############################################################################
