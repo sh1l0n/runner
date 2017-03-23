@@ -37,14 +37,13 @@ bool PlayerTestScene::init()
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     auto eventListener = EventListenerKeyboard::create();
-
+    //the player
     e = Player::create();
     e->setSprite("CloseNormal.png");
     e->setPosition(200, 200);
-
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
-    Node *m_scroll= Node::create();
-
+    //speed control
+    speedM = SpeedMarker::create();
+    speedM->setPosition(200, 160);
     //The backgroung
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
     Size sizeTexture = textureBackGround->getContentSize();
@@ -57,15 +56,36 @@ bool PlayerTestScene::init()
     pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
 
 
+    //m_scroll is the main node to do the camera follow
+    Node *m_scroll= Node::create();
     m_scroll->addChild(pn, 0);
-    m_scroll->addChild(chunk._node, 1);
     m_scroll->addChild(e, 2);
-    m_scroll->runAction(Follow::create(e));
+    m_scroll->addChild(speedM, 2);
+    m_scroll->runAction(Follow::create(speedM));
 
-    //The map and the player2
+
+    //Initialze Infinite map generator with 2 maps
+    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+    world1=chunk._node;
+    //new chunk
+    worldSizePx=TiledMap::K_WIDTH*TiledMap::K_SIZE_IMAGE_SPRITE*TiledMap::K_FACTOR_SCALE;
+
+    numWorld=1;
+
+    chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 1);
+    world2=chunk._node;
+    world2->setPosition(worldSizePx,0);
+
+
+    m_scroll->addChild(world1, 1);
+    m_scroll->addChild(world2, 1);
+
+
+
+    //The map
     this->addChild(m_scroll, 0);
-
     e->setFloorCollision(chunk._collisionables);
+
 
     eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
     eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
@@ -111,14 +131,28 @@ void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, coc
 
 void PlayerTestScene::update(float delta){
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
+    //para comprobar si hay que generar el mapa lo hacemos cada 100 ciclos
+    deltaCountForMap+=0.002;
+
     //deltaCount += delta;
 
     //fifteen frames per second
     if(deltaCount >= 0.067f) {
         e->customupdate(delta);
+        speedM->customupdate(delta);
         stepTime = deltaCount;
         deltaCount = 0.f;
     }
 
+    if(deltaCountForMap >= 0.2f) {
+        std::cout<<speedM->getPositionX();
+        //std::cout<<worldSizePx;
+        std::cout<<"\n";
+        deltaCountForMap = 0.f;
+    }
+
+
+
     e->customdraw(delta, deltaCount, stepTime);
+    speedM->customdraw(delta, deltaCount, stepTime);
 }

@@ -5,6 +5,7 @@
 
 
 #include <Entities/Player.hpp>
+#include <Entities/SpeedMarker.hpp>
 #include <Engine2D/TiledMap/BasicBlock.hpp>
 #include "../../Engine2D/RootEntity.hpp"
 #include "cocos2d.h"
@@ -26,10 +27,16 @@ class PlayerTestScene: public Layer {
 
     private:
 
-    float deltaCount, stepTime;
+    float deltaCount, stepTime,deltaCountForMap;
 
+    int numWorld;
+    int worldSizePx;
     Player *e;
+    SpeedMarker *speedM;
     RootEntity *box;
+
+    Node *world1;
+    Node *world2;
 
     Vector<TiledMap::BasicBlock*> boxes;
 
