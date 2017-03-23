@@ -130,8 +130,8 @@ void RootEntity::setPosition(float x, float y) {
  * Adds a sprite node and sets the bounding box using the provided image width and height
  * @param filename Image utl
  */
-void RootEntity::setSprite(const std::string &filename) {
-    sprite = Sprite::create(filename);
+void RootEntity::setSprite(Sprite *sprite) {
+    this->sprite = sprite;
     this->width = sprite->getContentSize().width;
     this->height = sprite->getContentSize().height;
     this->addChild(sprite);
