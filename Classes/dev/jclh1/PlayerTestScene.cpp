@@ -39,7 +39,7 @@ bool PlayerTestScene::init()
     auto eventListener = EventListenerKeyboard::create();
 
     e = Player::create();
-    e->setSprite("CloseNormal.png");
+    // e->setSprite("test/Basepack/player/p1_stand.png");
     e->setPosition(200, 200);
 
     TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);

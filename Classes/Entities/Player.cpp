@@ -6,8 +6,6 @@
 #include <Engine2D/MathHelper.hpp>
 #include "Player.hpp"
 
-using namespace std;
-
 Player::Player():RootEntity() {
     vx, vy = 0;
     accel = 3.f;
@@ -23,7 +21,19 @@ Player::Player():RootEntity() {
     bend = false;
     jumpTime = true;
 
-    debug = true;
+    debug = false;
+
+    SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
+    auto frames = getAnimation("p1_walk%02d.png", 8);
+    auto sprite = Sprite::createWithSpriteFrame(frames.front());
+    this->setSprite(sprite);
+
+
+    this->animation = Animation::createWithSpriteFrames(frames, 1.0f/20);
+    sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
+    this->setWidth(sprite->getContentSize().width-32);
+    this->setHeight(sprite->getContentSize().height-6);
+
 
     if(debug) {
         drawNode->drawRect(Vec2(0 - 20 , 0 - 20 ), Vec2(20, 20), Color4F::RED);
@@ -105,7 +115,11 @@ void Player::customupdate(float delta) {
  * @param stepTime
  */
 void Player::customdraw(float delta, float deltaCount, float stepTime) {
-    drawNode->drawRect(Vec2(0 - getWidth()/2 , 0 - getHeight()/2 ), Vec2(getWidth()/2, getHeight()/2), Color4F::RED);
+    if(this->debug) {
+        drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(getWidth() / 2, getHeight() / 2),
+                           Color4F::RED);
+    }
+   // walk->setPosition(this->getX(), this->getY());
     RootEntity::customdraw(delta, deltaCount, stepTime);
 }
 
@@ -203,4 +217,18 @@ Player * Player::create()
         CC_SAFE_DELETE(ret);
     }
     return ret;
+}
+
+Vector<SpriteFrame*> Player::getAnimation(const char *format, int count)
+{
+    auto spritecache = SpriteFrameCache::getInstance();
+    Vector<SpriteFrame*> animFrames;
+    char str[100];
+    for(int i = 1; i <= count; i++)
+    {
+        sprintf(str, format, i);
+        cocos2d::log(str);
+        animFrames.pushBack(spritecache->getSpriteFrameByName(str));
+    }
+    return animFrames;
 }

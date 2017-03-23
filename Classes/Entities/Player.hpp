@@ -5,9 +5,12 @@
 #ifndef MYGAME_PLAYER_H
 #define MYGAME_PLAYER_H
 
-
+#include <iostream>
 #include <Engine2D/RootEntity.hpp>
 #include <Engine2D/TiledMap/TiledMapGenerator.hpp>
+
+#include "cocos2d.h"
+USING_NS_CC;
 
 class Player : public RootEntity {
 private:
@@ -36,10 +39,23 @@ private:
 
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
 
+    //Textures
+    std::string texStand = "test/Basepack/player/p1_stand.png";
+    std::string texDuck = "test/Basepack/player/p1_duck.png";
+    std::string textHurt = "test/Basepack/player/p1_hurt.png";
+    std::string texJump = "test/Basepack/player/p1_jump.png";
+
+    //Animations
+    SpriteBatchNode* walk;
+    Sprite* sprWalk;
+
     //! Vector which stores collisionable floor objects
     Vector<TiledMap::BasicBlock*> floorVector;
     void resolveFloorCollisionsY();
     void resolveFloorCollisionsX();
+
+    Vector<SpriteFrame*> getAnimation(const char *format, int count);
+    Animation *animation;
 public:
     Player();
     static Player * create();
