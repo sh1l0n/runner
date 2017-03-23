@@ -70,7 +70,7 @@ bool PlayerTestScene::init()
     //new chunk
     worldSizePx=TiledMap::K_WIDTH*TiledMap::K_SIZE_IMAGE_SPRITE*TiledMap::K_FACTOR_SCALE;
 
-    numWorld=1;
+    numWorld=0;
 
     chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 1);
     world2=chunk._node;
@@ -134,6 +134,9 @@ void PlayerTestScene::update(float delta){
     //para comprobar si hay que generar el mapa lo hacemos cada 100 ciclos
     deltaCountForMap+=0.002;
 
+    int worldForPosition=0;
+
+
     //deltaCount += delta;
 
     //fifteen frames per second
@@ -145,7 +148,15 @@ void PlayerTestScene::update(float delta){
     }
 
     if(deltaCountForMap >= 0.2f) {
+        //comparamos la posicion del speed con el numero de mundo activo
+        //si la posición no corresponde con el mundo activo cambiamos
+        worldForPosition=speedM->getPositionX()/worldSizePx;
+        if(numWorld<worldForPosition){
+            std::cout<<"ahora cambiamos de mundo";
+            numWorld++;
+        }
         std::cout<<speedM->getPositionX();
+
         //std::cout<<worldSizePx;
         std::cout<<"\n";
         deltaCountForMap = 0.f;
