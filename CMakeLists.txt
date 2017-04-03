@@ -152,7 +152,7 @@ set(GAME_SRC
         Classes/Engine2D/TiledMap/BasicBlock.cpp
         Classes/Engine2D/TiledMap/Chunck.cpp
         Classes/Engine2D/RootEntity.cpp
-        Classes/dev/jclh1/PlayerTestScene.cpp
+        Classes/dev/pramon1/PlayerTestScene.cpp
         Classes/Entities/Player.cpp
         Classes/Engine2D/MathHelper.cpp
         ${PLATFORM_SPECIFIC_SRC}
@@ -173,9 +173,9 @@ set(GAME_HEADERS
         Classes/Engine2D/TiledMap/Chunck.h
         Classes/Utils/Constants.h
         Classes/Engine2D/RootEntity.hpp
-        Classes/dev/jclh1/PlayerTestScene.hpp
+        Classes/dev/pramon1/PlayerTestScene.hpp
         Classes/Entities/Player.hpp
-        Classes/Engine2D/MathHelper.hpp)
+        Classes/Engine2D/MathHelper.hpp Classes/Engine2D/Structures/GapStructure.cpp Classes/Engine2D/Structures/GapStructure.hpp Classes/Entities/SpeedMarker.cpp Classes/Entities/SpeedMarker.hpp)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})

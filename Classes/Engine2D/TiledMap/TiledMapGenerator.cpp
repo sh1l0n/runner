@@ -73,7 +73,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     //Create auxiliar variables and initialize a few of their
     //##############################################################################
     unsigned int i;
-    unsigned int j;
+    int j;
     int freeSpaceInCurrentChunck;
     unsigned int positionXCurrentChunck;
     unsigned int positionYCurrentChunck;
@@ -117,6 +117,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
         //Create a structure and include it in the matrix
         //##############################################################################
         currentStructure = Structures::getStructureMatrix(freeSpaceInCurrentChunck);
+        std::cout<<currentStructure->toString();
 
         for (i = 0; i < currentStructure->getWidth(); ++i) {
             for (j = 0; j < currentStructure->getHeight(); ++j) {
@@ -127,6 +128,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 positionXCurrentChunck = i + positionXGeneratedCurrentChunck;
                 positionYCurrentChunck = j + K_HEIGHT_FLOOR;
                 mapForTextures[positionXCurrentChunck][positionYCurrentChunck] = basicBlockTypeCurrent;
+                basicBlockCollisionable= nullptr;
 
 
                 //##############################################################################
@@ -236,20 +238,38 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     //##############################################################################
 
     for(i=0; i<K_WIDTH; ++i) {
-        for(j=0; j<K_HEIGHT_FLOOR; ++j) {
+        for(j=K_HEIGHT_FLOOR-1; j>=0; --j) {
 
             if(j==K_POSITION_FLOOR_COLLISIONABLE && mapForTextures[i][j+1] == 0) {
                 mapForTextures[i][j]=2;
             }
             else{
-                mapForTextures[i][j]=6;
+                if(mapForTextures[i][j]!=7){
+                    mapForTextures[i][j]=6;
+                }
+
+            }
+            //put 0 for gap Structures
+            unsigned int k;
+            if(j==K_HEIGHT_FLOOR-1){
+                if(mapForTextures[i][j+1]==7){
+                    //There is a Gap
+                    for(k=0;k<=K_HEIGHT_FLOOR;k++){
+                        mapForTextures[i][k]=7;
+                    }
+                }
             }
 
-            spriteToLoad = Sprite::createWithTexture(this->_mapTextures[2], Rect(0,0,K_SIZE_IMAGE_SPRITE,K_SIZE_IMAGE_SPRITE));
-            spriteToLoad->setScale(K_FACTOR_SCALE,K_FACTOR_SCALE);
-            spriteToLoad->setPosition(i*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE,j*K_FACTOR_SCALE*K_SIZE_IMAGE_SPRITE);
-            spriteToLoad->setAnchorPoint(Vec2(0,0));
-            currentChunck._node->addChild(spriteToLoad, 0);
+            //we put the floor sprite if is not 0 (gap)
+            if(mapForTextures[i][j]==2 || mapForTextures[i][j]==6){
+                spriteToLoad = Sprite::createWithTexture(this->_mapTextures[2],
+                                                         Rect(0, 0, K_SIZE_IMAGE_SPRITE, K_SIZE_IMAGE_SPRITE));
+                spriteToLoad->setScale(K_FACTOR_SCALE, K_FACTOR_SCALE);
+                spriteToLoad->setPosition(i * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE,
+                                          j * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE);
+                spriteToLoad->setAnchorPoint(Vec2(0, 0));
+                currentChunck._node->addChild(spriteToLoad, 0);
+            }
 
             if(mapForTextures[i][j]==2) {
                 Rect rr = spriteToLoad->getBoundingBox();
