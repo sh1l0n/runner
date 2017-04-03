@@ -57,7 +57,7 @@ bool PlayerTestScene::init()
 
 
     //m_scroll is the main node to do the camera follow
-    Node *m_scroll= Node::create();
+    m_scroll= Node::create();
     m_scroll->addChild(pn, 0);
     m_scroll->addChild(e, 2);
     m_scroll->addChild(speedM, 2);
@@ -65,15 +65,15 @@ bool PlayerTestScene::init()
 
 
     //Initialze Infinite map generator with 2 maps
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
-    world1=chunk._node;
+    chunk1 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+    world1=chunk1._node;
     //new chunk
     worldSizePx=TiledMap::K_WIDTH*TiledMap::K_SIZE_IMAGE_SPRITE*TiledMap::K_FACTOR_SCALE;
 
     numWorld=0;
 
-    chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 1);
-    world2=chunk._node;
+    chunk2 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 1);
+    world2=chunk2._node;
     world2->setPosition(worldSizePx,0);
 
 
@@ -84,7 +84,19 @@ bool PlayerTestScene::init()
 
     //The map
     this->addChild(m_scroll, 0);
-    e->setFloorCollision(chunk._collisionables);
+
+    //The GUI its over m_scroll
+    m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);
+
+
+    m_labelPuntuacion->setPosition(Vec2(origin.x + visibleSize.width/2,
+                                        origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+
+    m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
+    this->addChild(m_labelPuntuacion);
+
+    //we asign chunk1 bwcause world 1 is the active world
+    e->setFloorCollision(chunk1._collisionables);
 
 
     eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
@@ -141,19 +153,60 @@ void PlayerTestScene::update(float delta){
 
     //fifteen frames per second
     if(deltaCount >= 0.067f) {
+        m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
         e->customupdate(delta);
         speedM->customupdate(delta);
         stepTime = deltaCount;
+
         deltaCount = 0.f;
     }
 
     if(deltaCountForMap >= 0.2f) {
+
         //comparamos la posicion del speed con el numero de mundo activo
         //si la posición no corresponde con el mundo activo cambiamos
         worldForPosition=speedM->getPositionX()/worldSizePx;
         if(numWorld<worldForPosition){
-            std::cout<<"ahora cambiamos de mundo";
             numWorld++;
+            std::cout<<"ahora cambiamos al mundo: "+numWorld;
+            std::cout<<"\n";
+            if(numWorld%2==1){
+                //rehacemos el mundo1
+                //m_scroll->removeChild(world1,true);
+                //world1->release();
+
+                //world1->retain();
+                m_scroll->removeChild(world1);
+                chunk1 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+                world1=chunk1._node;
+                world1->setPosition(worldSizePx*(numWorld+1),0);
+
+                m_scroll->addChild(world1);
+
+                //ahora cargamos los colisionables del chiunk 2
+                e->setFloorCollision(chunk2._collisionables);
+                //world1->release();
+
+                //world1->release();
+            }
+            if(numWorld%2==0){
+                //rehacemos el mundo2
+                //m_scroll->removeChild(world1,true);
+                //world1->release();
+
+                //world1->retain();
+                m_scroll->removeChild(world2);
+                chunk2 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+                world2=chunk2._node;
+                world2->setPosition(worldSizePx*(numWorld+1),0);
+
+                m_scroll->addChild(world2);
+                e->setFloorCollision(chunk1._collisionables);
+                //world1->release();
+
+                //world1->release();
+            }
+
         }
         std::cout<<speedM->getPositionX();
 

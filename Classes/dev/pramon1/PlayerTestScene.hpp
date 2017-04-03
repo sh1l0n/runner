@@ -5,9 +5,12 @@
 
 
 #include <Entities/Player.hpp>
+
 #include <Entities/SpeedMarker.hpp>
 #include <Engine2D/TiledMap/BasicBlock.hpp>
 #include "../../Engine2D/RootEntity.hpp"
+
+
 #include "cocos2d.h"
 
 USING_NS_CC;
@@ -34,10 +37,15 @@ class PlayerTestScene: public Layer {
     Player *e;
     SpeedMarker *speedM;
     RootEntity *box;
+    //GUI *gui;
+    Label *m_labelPuntuacion;
+    float puntuacion;
 
+    Node *m_scroll;
     Node *world1;
     Node *world2;
-
+    TiledMap::Chunck chunk1;
+    TiledMap::Chunck chunk2;
     Vector<TiledMap::BasicBlock*> boxes;
 
 };
