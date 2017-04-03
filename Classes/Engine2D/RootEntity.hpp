@@ -48,8 +48,9 @@ public:
     void setY(float y);
     void setMotionX(float motionX);
     void setMotionY(float motionY);
-    void setSprite(const std::string &filename);
+    void setSprite(Sprite *sprite);
     void setWidth(float width);
     void setHeight(float height);
+    void scaleSprite(float sx, float sy) ;
 };
 

@@ -1,22 +1,18 @@
 //
-// Created by Master Móviles on 27/2/17.
+// Created by Pablo Ramon on 23/3/17.
 //
 
-#ifndef MYGAME_PLAYER_H
-#define MYGAME_PLAYER_H
+#ifndef MYGAME_SPEEDMARKER_H
+#define MYGAME_SPEEDMARKER_H
 
-#include <iostream>
 #include <Engine2D/RootEntity.hpp>
 #include <Engine2D/TiledMap/TiledMapGenerator.hpp>
 
-#include "cocos2d.h"
-USING_NS_CC;
-
-class Player : public RootEntity {
+class SpeedMarker : public RootEntity {
 private:
     //! x coordinate velocity
     float vx;
-    //! y coordinate velocity
+   /* //! y coordinate velocity
     float vy;
     //! Speed acceleration
     float accel;
@@ -39,31 +35,17 @@ private:
 
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
 
-    //Textures
-    std::string texStand = "test/Basepack/player/p1_stand.png";
-    std::string texDuck = "test/Basepack/player/p1_duck.png";
-    std::string textHurt = "test/Basepack/player/p1_hurt.png";
-    std::string texJump = "test/Basepack/player/p1_jump.png";
-
-    //Animations
-    SpriteBatchNode* walk;
-    Sprite* sprWalk;
-
     //! Vector which stores collisionable floor objects
     Vector<TiledMap::BasicBlock*> floorVector;
     void resolveFloorCollisionsY();
-    void resolveFloorCollisionsX();
-
-    Vector<SpriteFrame*> getAnimation(const char *format, int count);
-    Animation *animation;
-    float animationSpeed;
+    void resolveFloorCollisionsX();*/
 public:
-    Player();
-    static Player * create();
+    SpeedMarker();
+    static SpeedMarker * create();
 
     void customupdate(float delta) override;
     void customdraw(float delta, float deltaCount, float stepTime) override;
-    void setFloorCollision(Vector<TiledMap::BasicBlock*> floors);
+   /* void setFloorCollision(Vector<TiledMap::BasicBlock*> floors);
 
     void onKeyLeft();
     void onKeyRight();
@@ -72,8 +54,8 @@ public:
     void onKeyLeftRelease();
     void onKeyRightRelease();
     void onKeyUpRelease();
-    void onKeyDownRelease();
+    void onKeyDownRelease();*/
 };
 
 
-#endif //MYGAME_PLAYER_H
+#endif //MYGAME_SPEEDMARKER_H

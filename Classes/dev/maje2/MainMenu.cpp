@@ -177,6 +177,9 @@ void MainMenu::playMenuCallback(cocos2d::Ref *sender) {
     audio->preloadEffect("open_door_1.mp3");
     audio->playEffect("open_door_1.mp3");
 
+    CocosDenshion::SimpleAudioEngine *backgroundAudio = CocosDenshion::SimpleAudioEngine::getInstance();
+    backgroundAudio->playBackgroundMusic("dkc2-04-jib-jig.mp3", true);
+    
     auto doorClosedTop = getSubImage(648,216);
     auto doorClosedMid = getSubImage(648,288);
     putImagePosition(doorClosedTop,205,140,3);

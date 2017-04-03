@@ -34,16 +34,13 @@ bool PlayerTestScene::init()
         return false;
     }
 
-    CocosDenshion::SimpleAudioEngine *backgroundAudio = CocosDenshion::SimpleAudioEngine::getInstance();
-    backgroundAudio->playBackgroundMusic("dkc2-04-jib-jig.mp3", true);
-
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
     auto eventListener = EventListenerKeyboard::create();
 
     e = Player::create();
-    e->setSprite("CloseNormal.png");
+    // e->setSprite("test/Basepack/player/p1_stand.png");
     e->setPosition(200, 200);
 
     TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);

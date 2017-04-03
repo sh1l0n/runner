@@ -2,11 +2,11 @@
 // Created by juancarlos on 26/02/17.
 //
 
-#include "PlayerTestScene.hpp"
 #include <iostream>
-#include "cocos2d.h"
-#include <string>
-#include "Engine2D/TiledMap/TiledMapGenerator.hpp"
+
+#include "PlayerTestScene.hpp"
+#include <Engine2D/MathHelper.hpp>
+#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
 
 USING_NS_CC;
 
@@ -36,21 +36,13 @@ bool PlayerTestScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    e = RootEntity::create();
-    e->setSprite("CloseNormal.png");
-    e->setPosition(32, 200);
-    this->addChild(e);
-
-    test = Sprite::create("CloseNormal.png");
-    test->setPosition(32, 164);
-    this->addChild(test);
-
-
-
-
-    TiledMap::Chunck chunk = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
-    Node *m_scroll= Node::create();
-
+    auto eventListener = EventListenerKeyboard::create();
+    //the player
+    e = Player::create();
+    e->setPosition(200, 200);
+    //speed control
+    speedM = SpeedMarker::create();
+    speedM->setPosition(200, 160);
     //The backgroung
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
     Size sizeTexture = textureBackGround->getContentSize();
@@ -63,42 +55,168 @@ bool PlayerTestScene::init()
     pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
 
 
+    //m_scroll is the main node to do the camera follow
+    m_scroll= Node::create();
     m_scroll->addChild(pn, 0);
-    m_scroll->addChild(chunk._node, 1);
-    m_scroll->addChild(test, 2);
-    m_scroll->runAction(Follow::create(test));
+    m_scroll->addChild(e, 2);
+    m_scroll->addChild(speedM, 2);
+    // m_scroll->runAction(Follow::create(speedM));
+    m_scroll->runAction(Follow::create(e));
 
-    //The map and the player2
-    this->addChild(m_scroll);
 
+    //Initialze Infinite map generator with 2 maps
+    chunk1 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+    world1=chunk1._node;
+    //new chunk
+    worldSizePx=TiledMap::K_WIDTH*TiledMap::K_SIZE_IMAGE_SPRITE*TiledMap::K_FACTOR_SCALE;
+
+    numWorld=0;
+
+    chunk2 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 1);
+    world2=chunk2._node;
+    world2->setPosition(worldSizePx,0);
+
+
+    m_scroll->addChild(world1, 1);
+    m_scroll->addChild(world2, 1);
+
+
+
+    //The map
+    this->addChild(m_scroll, 0);
+
+    //The GUI its over m_scroll
+    m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);
+
+
+    m_labelPuntuacion->setPosition(Vec2(origin.x + visibleSize.width/2,
+                                        origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+
+    m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
+    this->addChild(m_labelPuntuacion);
+
+    //we asign chunk1 bwcause world 1 is the active world
+    e->setFloorCollision(chunk1._collisionables);
+
+
+    eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
+    eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 
     this->scheduleUpdate();
-
-
     return true;
 }
 
-
-void PlayerTestScene::menuCloseCallback(cocos2d::Ref* pSender)
-{
-    //Close the cocos2d-x game scene and quit the application
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
-
-    /*To navigate back to native iOS screen(if present) without quitting the application  ,do not use Director::getInstance()->end() and exit(0) as given above,instead trigger a custom event created in RootViewController.mm as below*/
-
-    //EventCustom customEndEvent("game_scene_close_event");
-    //_eventDispatcher->dispatchEvent(&customEndEvent);
+void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+    switch(keyCode) {
+        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+            e->onKeyLeft();
+            break;
+        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+            e->onKeyRight();
+            break;
+        case EventKeyboard::KeyCode::KEY_UP_ARROW:
+            e->onKeyUp();
+            break;
+        case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+            e->onKeyDown();
+            break;
+    }
+}
+void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+    switch(keyCode) {
+        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+            e->onKeyLeftRelease();
+            break;
+        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+            e->onKeyRightRelease();
+            break;
+        case EventKeyboard::KeyCode ::KEY_UP_ARROW:
+            e->onKeyUpRelease();
+            break;
+        case EventKeyboard::KeyCode ::KEY_DOWN_ARROW:
+            e->onKeyDownRelease();
+            break;
+    }
 }
 
+
 void PlayerTestScene::update(float delta){
-    testX+=1.2;
-    test->setPosition(testX, 164);
+    deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
+    //para comprobar si hay que generar el mapa lo hacemos cada 100 ciclos
+    deltaCountForMap+=0.002;
 
-    e->update(delta);
-    e->draw(delta);
+    int worldForPosition=0;
 
+
+    //deltaCount += delta;
+
+    //fifteen frames per second
+    if(deltaCount >= 0.067f) {
+        m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
+        e->customupdate(delta);
+        speedM->customupdate(delta);
+        stepTime = deltaCount;
+
+        deltaCount = 0.f;
+    }
+
+    if(deltaCountForMap >= 0.2f) {
+
+        //comparamos la posicion del speed con el numero de mundo activo
+        //si la posición no corresponde con el mundo activo cambiamos
+        worldForPosition=speedM->getPositionX()/worldSizePx;
+        if(numWorld<worldForPosition){
+            numWorld++;
+            std::cout<<"ahora cambiamos al mundo: "+numWorld;
+            std::cout<<"\n";
+            if(numWorld%2==1){
+                //rehacemos el mundo1
+                //m_scroll->removeChild(world1,true);
+                //world1->release();
+
+                //world1->retain();
+                m_scroll->removeChild(world1);
+                chunk1 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+                world1=chunk1._node;
+                world1->setPosition(worldSizePx*(numWorld+1),0);
+
+                m_scroll->addChild(world1);
+
+                //ahora cargamos los colisionables del chiunk 2
+                e->setFloorCollision(chunk2._collisionables);
+                //world1->release();
+
+                //world1->release();
+            }
+            if(numWorld%2==0){
+                //rehacemos el mundo2
+                //m_scroll->removeChild(world1,true);
+                //world1->release();
+
+                //world1->retain();
+                m_scroll->removeChild(world2);
+                chunk2 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
+                world2=chunk2._node;
+                world2->setPosition(worldSizePx*(numWorld+1),0);
+
+                m_scroll->addChild(world2);
+                e->setFloorCollision(chunk1._collisionables);
+                //world1->release();
+
+                //world1->release();
+            }
+
+        }
+        std::cout<<speedM->getPositionX();
+
+        //std::cout<<worldSizePx;
+        std::cout<<"\n";
+        deltaCountForMap = 0.f;
+    }
+
+
+
+    e->customdraw(delta, deltaCount, stepTime);
+    speedM->customdraw(delta, deltaCount, stepTime);
 }
