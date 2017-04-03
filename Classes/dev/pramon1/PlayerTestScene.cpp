@@ -39,7 +39,6 @@ bool PlayerTestScene::init()
     auto eventListener = EventListenerKeyboard::create();
     //the player
     e = Player::create();
-    e->setSprite("CloseNormal.png");
     e->setPosition(200, 200);
     //speed control
     speedM = SpeedMarker::create();
@@ -61,7 +60,8 @@ bool PlayerTestScene::init()
     m_scroll->addChild(pn, 0);
     m_scroll->addChild(e, 2);
     m_scroll->addChild(speedM, 2);
-    m_scroll->runAction(Follow::create(speedM));
+    // m_scroll->runAction(Follow::create(speedM));
+    m_scroll->runAction(Follow::create(e));
 
 
     //Initialze Infinite map generator with 2 maps

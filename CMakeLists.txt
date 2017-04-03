@@ -175,7 +175,11 @@ set(GAME_HEADERS
         Classes/Engine2D/RootEntity.hpp
         Classes/dev/pramon1/PlayerTestScene.hpp
         Classes/Entities/Player.hpp
-        Classes/Engine2D/MathHelper.hpp Classes/Engine2D/Structures/GapStructure.cpp Classes/Engine2D/Structures/GapStructure.hpp Classes/Entities/SpeedMarker.cpp Classes/Entities/SpeedMarker.hpp)
+        Classes/Engine2D/MathHelper.hpp
+        Classes/Engine2D/Structures/GapStructure.cpp
+        Classes/Engine2D/Structures/GapStructure.hpp
+        Classes/Entities/SpeedMarker.cpp
+        Classes/Entities/SpeedMarker.hpp)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})
