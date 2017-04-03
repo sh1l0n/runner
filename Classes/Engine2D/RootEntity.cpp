@@ -145,6 +145,11 @@ void RootEntity::setWidth(float width) {
     this->width = width;
 }
 
+void RootEntity::scaleSprite(float sx, float sy) {
+    this->sprite->setScale(sx, sy);
+}
+
+
 /*!
  * Sets boundig box height
  * @param width

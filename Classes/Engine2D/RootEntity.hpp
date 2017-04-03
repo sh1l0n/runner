@@ -51,5 +51,6 @@ public:
     void setSprite(Sprite *sprite);
     void setWidth(float width);
     void setHeight(float height);
+    void scaleSprite(float sx, float sy) ;
 };
 

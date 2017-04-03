@@ -56,6 +56,7 @@ private:
 
     Vector<SpriteFrame*> getAnimation(const char *format, int count);
     Animation *animation;
+    float animationSpeed;
 public:
     Player();
     static Player * create();

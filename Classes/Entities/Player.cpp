@@ -20,26 +20,25 @@ Player::Player():RootEntity() {
     floor = false;
     bend = false;
     jumpTime = true;
+    animationSpeed = 0;
 
     debug = false;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
-    auto frames = getAnimation("p1_walk%02d.png", 8);
+    auto frames = getAnimation("p1_walk%02d.png", 6);
     auto sprite = Sprite::createWithSpriteFrame(frames.front());
     this->setSprite(sprite);
 
-
-    this->animation = Animation::createWithSpriteFrames(frames, 1.0f/20);
+    this->animation = Animation::createWithSpriteFrames(frames, 1.0f/8);
     sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
-    this->setWidth(sprite->getContentSize().width-32);
-    this->setHeight(sprite->getContentSize().height-6);
-
+    this->setWidth((sprite->getContentSize().width-32)/2);
+    this->setHeight((sprite->getContentSize().height-6)/2);
+    this->scaleSprite(0.5f, 0.5f);
 
     if(debug) {
         drawNode->drawRect(Vec2(0 - 20 , 0 - 20 ), Vec2(20, 20), Color4F::RED);
         //drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(20, 20), Color4F::WHITE);
     }
-
 }
 
 /*!
@@ -143,11 +142,20 @@ void Player::resolveFloorCollisionsY() {
                 floor = true;
                 jumpTime = true;
                 jumpSpeed = 30.f;
-                setY(block->getY() + block->getHeight() + getHeight()/2);
+                if(vy < 0){
+                    setY(block->getY() + block->getHeight() + getHeight()/2);
+                } else {
+                    setY(block->getY() - getHeight()/2);
+                }
+
             } else {
                 jumpSpeed = 30.f;
                 jumpTime = false;
-                setY(block->getY() - getHeight()/2);
+                if(vy > 0) {
+                    setY(block->getY() - getHeight() / 2);
+                } else {
+                    setY(block->getY() + block->getHeight() + getHeight()/2);
+                }
             }
 
             vy = 0;
@@ -163,9 +171,18 @@ void Player::resolveFloorCollisionsX() {
         if(MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block)) {
 
             if(getCorrectPositionX() + getWidth() > block->getX() + block->getWidth()/2.f) {
-                setX(block->getX() + block->getWidth() + getWidth()/2);
+                if(vx < 0) {
+                    setX(block->getX() + block->getWidth() + getWidth() / 2);
+                } else {
+                    setX(block->getX() - getWidth()/2);
+                }
             } else {
-                setX(block->getX() - getWidth()/2);
+                if(vx > 0) {
+                    setX(block->getX() - getWidth()/2);
+                } else {
+                    setX(block->getX() + block->getWidth() + getWidth() / 2);
+                }
+
             }
 
             vx = 0;
