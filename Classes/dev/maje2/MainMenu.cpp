@@ -3,6 +3,7 @@
 //
 
 #include <dev/jclh1/PlayerTestScene.hpp>
+#include <audio/include/SimpleAudioEngine.h>
 #include "MainMenu.hpp"
 
 using namespace cocos2d;
@@ -171,7 +172,16 @@ void MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
 
 void MainMenu::playMenuCallback(cocos2d::Ref *sender) {
 
-    Director::getInstance()->replaceScene(TransitionFade::create(1.f, PlayerTestScene::createScene()));
+    CocosDenshion::SimpleAudioEngine *audio = CocosDenshion::SimpleAudioEngine::getInstance();
+
+    audio->preloadEffect("open_door_1.mp3");
+    audio->playEffect("open_door_1.mp3");
+
+    auto doorClosedTop = getSubImage(648,216);
+    auto doorClosedMid = getSubImage(648,288);
+    putImagePosition(doorClosedTop,205,140,3);
+    putImagePosition(doorClosedMid,205,70,3);
+    Director::getInstance()->replaceScene(TransitionFade::create(3.f, PlayerTestScene::createScene()));
 }
 
 //##############################################################################

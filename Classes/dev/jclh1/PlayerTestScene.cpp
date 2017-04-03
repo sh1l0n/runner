@@ -7,6 +7,7 @@
 #include "PlayerTestScene.hpp"
 #include <Engine2D/MathHelper.hpp>
 #include <Engine2D/TiledMap/TiledMapGenerator.hpp>
+#include <audio/include/SimpleAudioEngine.h>
 
 USING_NS_CC;
 
@@ -32,6 +33,9 @@ bool PlayerTestScene::init()
     {
         return false;
     }
+
+    CocosDenshion::SimpleAudioEngine *backgroundAudio = CocosDenshion::SimpleAudioEngine::getInstance();
+    backgroundAudio->playBackgroundMusic("dkc2-04-jib-jig.mp3", true);
 
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
