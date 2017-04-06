@@ -155,6 +155,9 @@ set(GAME_SRC
         Classes/dev/pramon1/PlayerTestScene.cpp
         Classes/Entities/Player.cpp
         Classes/Engine2D/MathHelper.cpp
+        Classes/dev/maje2/MainMenu.cpp
+        Classes/Entities/SpeedMarker.cpp
+        Classes/Engine2D/Structures/GapStructure.cpp
         ${PLATFORM_SPECIFIC_SRC}
 )
 
@@ -176,12 +179,9 @@ set(GAME_HEADERS
         Classes/dev/pramon1/PlayerTestScene.hpp
         Classes/Entities/Player.hpp
         Classes/Engine2D/MathHelper.hpp
-        Classes/dev/maje2/MainMenu.cpp
         Classes/dev/maje2/MainMenu.hpp
         Classes/Engine2D/MathHelper.hpp
-        Classes/Engine2D/Structures/GapStructure.cpp
         Classes/Engine2D/Structures/GapStructure.hpp
-        Classes/Entities/SpeedMarker.cpp
         Classes/Entities/SpeedMarker.hpp)
 
 if( ANDROID )
