@@ -114,9 +114,6 @@ void PlayerTestScene::update(float delta){
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
     //deltaCount += delta;
 
-    if(e->getPositionY()== -200){
-
-    }
     //fifteen frames per second
     if(deltaCount >= 0.067f) {
         e->customupdate(delta);

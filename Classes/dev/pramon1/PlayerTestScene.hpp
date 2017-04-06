@@ -21,32 +21,29 @@ class PlayerTestScene: public Layer {
     virtual bool init();
     void menuCloseCallback(cocos2d::Ref* pSender);
     static cocos2d::Scene* createScene();
-
-    virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
-    virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
+    virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    virtual void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
 
     void update(float) override;
     CREATE_FUNC(PlayerTestScene);
 
     private:
 
-    float deltaCount, stepTime,deltaCountForMap;
+        float deltaCount, stepTime,deltaCountForMap;
 
-    int numWorld;
-    int worldSizePx;
-    Player *e;
-    SpeedMarker *speedM;
-    RootEntity *box;
-    //GUI *gui;
-    Label *m_labelPuntuacion;
-    float puntuacion;
-
-    Node *m_scroll;
-    Node *world1;
-    Node *world2;
-    TiledMap::Chunck chunk1;
-    TiledMap::Chunck chunk2;
-    Vector<TiledMap::BasicBlock*> boxes;
-
+        int numWorld;
+        int worldSizePx;
+        Player *e;
+        SpeedMarker *speedM;
+        RootEntity *box;
+        //GUI *gui;
+        Label *m_labelPuntuacion;
+        float puntuacion;
+        Node *m_scroll;
+        Node *world1;
+        Node *world2;
+        TiledMap::Chunck chunk1;
+        TiledMap::Chunck chunk2;
+        Vector<TiledMap::BasicBlock*> boxes;
 };
 

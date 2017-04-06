@@ -36,7 +36,6 @@ bool PlayerTestScene::init()
     auto visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    auto eventListener = EventListenerKeyboard::create();
     //the player
     e = Player::create();
     e->setPosition(200, 200);
@@ -53,6 +52,7 @@ bool PlayerTestScene::init()
     spriteBg->setAnchorPoint(Vec2(0, 0));
     ParallaxNode* pn = ParallaxNode::create();
     pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
+
 
 
     //m_scroll is the main node to do the camera follow
@@ -99,47 +99,41 @@ bool PlayerTestScene::init()
     e->setFloorCollision(chunk1._collisionables);
 
 
-    eventListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
-    eventListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
 
+    EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
+    eventListener->setSwallowTouches(true);
+    eventListener->onTouchBegan = CC_CALLBACK_2(PlayerTestScene::onTouchBegan, this);
+    eventListener->onTouchEnded = CC_CALLBACK_2(PlayerTestScene::onTouchEnded, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
     this->scheduleUpdate();
     return true;
 }
 
-void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
-    switch(keyCode) {
-        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            e->onKeyLeft();
-            break;
-        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            e->onKeyRight();
-            break;
-        case EventKeyboard::KeyCode::KEY_UP_ARROW:
-            e->onKeyUp();
-            break;
-        case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-            e->onKeyDown();
-            break;
+
+bool
+PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
+
+    unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
+    if(touch->getLocation().x>=min_width) {
+        e->onKeyUp();
     }
-}
-void PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
-    switch(keyCode) {
-        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            e->onKeyLeftRelease();
-            break;
-        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            e->onKeyRightRelease();
-            break;
-        case EventKeyboard::KeyCode ::KEY_UP_ARROW:
-            e->onKeyUpRelease();
-            break;
-        case EventKeyboard::KeyCode ::KEY_DOWN_ARROW:
-            e->onKeyDownRelease();
-            break;
+    else {
+        e->onKeyDown();
     }
+    return true;
 }
 
+void
+PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
+
+    unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
+    if(touch->getLocation().x>=min_width) {
+        e->onKeyUpRelease();
+    }
+    else {
+        e->onKeyDownRelease();
+    }
+}
 
 void PlayerTestScene::update(float delta){
     deltaCount += 0.016; // FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
