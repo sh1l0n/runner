@@ -182,7 +182,7 @@ set(GAME_HEADERS
         Classes/dev/maje2/MainMenu.hpp
         Classes/Engine2D/MathHelper.hpp
         Classes/Engine2D/Structures/GapStructure.hpp
-        Classes/Entities/SpeedMarker.hpp)
+        Classes/Entities/SpeedMarker.hpp Classes/Entities/Sound.cpp Classes/Entities/Sound.hpp)
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})

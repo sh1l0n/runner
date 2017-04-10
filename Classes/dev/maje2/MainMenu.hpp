@@ -5,6 +5,7 @@
 #ifndef MYGAME_MAINMENU_HPP
 #define MYGAME_MAINMENU_HPP
 
+#include <audio/include/SimpleAudioEngine.h>
 #include "cocos2d.h"
 
 /**
@@ -18,6 +19,7 @@ const static unsigned short int K_DEFAULT_SIZE_SPRITE = 70;
 class MainMenu : public cocos2d::Layer{
 public:
     static cocos2d::Scene* createScene();
+    //static CocosDenshion::SimpleAudioEngine* audio;
 
     virtual bool init();
 

@@ -4,6 +4,7 @@
 
 #include <dev/jclh1/PlayerTestScene.hpp>
 #include <audio/include/SimpleAudioEngine.h>
+#include <Entities/Sound.hpp>
 #include "MainMenu.hpp"
 
 using namespace cocos2d;
@@ -171,14 +172,10 @@ void MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
 //##############################################################################
 
 void MainMenu::playMenuCallback(cocos2d::Ref *sender) {
+    
+    Entities::Sound::getInstance()->playSound("open_door.mp3");
 
-    CocosDenshion::SimpleAudioEngine *audio = CocosDenshion::SimpleAudioEngine::getInstance();
-
-    audio->preloadEffect("open_door_1.mp3");
-    audio->playEffect("open_door_1.mp3");
-
-    CocosDenshion::SimpleAudioEngine *backgroundAudio = CocosDenshion::SimpleAudioEngine::getInstance();
-    backgroundAudio->playBackgroundMusic("dkc2-04-jib-jig.mp3", true);
+    Entities::Sound::getInstance()->playBackground("background.mp3");
     
     auto doorClosedTop = getSubImage(648,216);
     auto doorClosedMid = getSubImage(648,288);

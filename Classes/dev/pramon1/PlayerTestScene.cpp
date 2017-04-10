@@ -7,6 +7,8 @@
 #include "PlayerTestScene.hpp"
 #include <Engine2D/MathHelper.hpp>
 #include <Engine2D/TiledMap/TiledMapGenerator.hpp>
+#include <dev/maje2/MainMenu.hpp>
+#include <Entities/Sound.hpp>
 
 USING_NS_CC;
 
@@ -116,6 +118,7 @@ void PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, coco
             e->onKeyRight();
             break;
         case EventKeyboard::KeyCode::KEY_UP_ARROW:
+            Entities::Sound::getInstance()->playSound("jump.wav");
             e->onKeyUp();
             break;
         case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
@@ -148,7 +151,14 @@ void PlayerTestScene::update(float delta){
 
     int worldForPosition=0;
 
-
+    if(e->getPositionY()<= -400){
+        log("Entra: %f",e->getPositionY());
+        Director::getInstance()->pause();
+        Entities::Sound::getInstance()->clearSounds();
+        Entities::Sound::getInstance()->stopBackground("background.mp3");
+        Entities::Sound::getInstance()->clearSounds();
+        //MainMenu::audio->stopAllEffects();
+    }
     //deltaCount += delta;
 
     //fifteen frames per second
