@@ -28,7 +28,7 @@ namespace TiledMap {
     /** @short  Position of the floor collsioinable */
     static const unsigned char K_POSITION_FLOOR_COLLISIONABLE = 0x01;
 
-    /** @short Minimum positions free to put  structure:IMPORTANT!!! This Constant must be higher than ALL MIN VALES of structutres*/
+    /** @short Minimum positions free to put  structure:IMPORTANT!!! This Constant must be higher than ALL MIN VALES of structutres */
     static const unsigned char K_MIN_VALUE_FOR_STRUCT = 0x05;
 
     /** @short Minimum value for REST btween structures*/
@@ -38,7 +38,7 @@ namespace TiledMap {
     static const unsigned char K_MAX_VALUE_REST = 0x06;
 
     /** @short image sprite size*/
-    static const unsigned char  K_SIZE_IMAGE_SPRITE = 0x46; //70;
+    static const unsigned char K_SIZE_IMAGE_SPRITE = 0x46; //70;
 
     /** @short image sprite scale*/
     static const float K_FACTOR_SCALE = 0.35f;
@@ -74,6 +74,6 @@ namespace TiledMap {
         static TiledMapGenerator *getInstance();
 
         /** @short Method for generate a new chunk */
-        Chunck generateNewChunk(const unsigned int level, const unsigned long posXInitial);
+        Chunck* generateNewChunk(const unsigned int level, const unsigned long posXInitial);
     };
 }

@@ -3,9 +3,9 @@
 //
 
 #include "audio/include/SimpleAudioEngine.h"
-#include "../pramon1/PlayerTestScene.hpp"
-#include "../../Entities/Sound.hpp"
 #include "MainMenu.hpp"
+#include "PlayerTestScene.hpp"
+#include "../Entities/Sound.hpp"
 
 using namespace cocos2d;
 
@@ -13,7 +13,9 @@ using namespace cocos2d;
 //Generate the scene with the main menu
 //##############################################################################
 
-cocos2d::Scene *MainMenu::createScene() {
+cocos2d::Scene*
+Scenes::
+MainMenu::createScene() {
 
     auto scene = Scene::create();
 
@@ -28,7 +30,9 @@ cocos2d::Scene *MainMenu::createScene() {
 //Generate the menu whose structures and sprites are defined in different layers
 //##############################################################################
 
-bool MainMenu::init() {
+bool
+Scenes::
+MainMenu::init() {
 
     if(!Layer::init()){
         return false;
@@ -160,7 +164,9 @@ bool MainMenu::init() {
 //Stops the game when user click on sign close
 //##############################################################################
 
-void MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
+void
+Scenes::
+MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
     Director::getInstance()->end();
 
     #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
@@ -172,7 +178,9 @@ void MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
 //Starts the game when user click on sign start
 //##############################################################################
 
-void MainMenu::playMenuCallback(cocos2d::Ref *sender) {
+void
+Scenes::
+MainMenu::playMenuCallback(cocos2d::Ref *sender) {
     
     Entities::Sound::getInstance()->playSound("open_door.mp3");
 
@@ -182,14 +190,16 @@ void MainMenu::playMenuCallback(cocos2d::Ref *sender) {
     auto doorClosedMid = getSubImage(648,288);
     putImagePosition(doorClosedTop,205,140,3);
     putImagePosition(doorClosedMid,205,70,3);
-    Director::getInstance()->replaceScene(TransitionFade::create(3.f, PlayerTestScene::createScene()));
+    Director::getInstance()->replaceScene(TransitionFade::create(3.f, Scenes::PlayerTestScene::createScene()));
 }
 
 //##############################################################################
 //Generate sprite from the sprite sheet
 //##############################################################################
 
-Sprite * MainMenu::getSubImage(int x, int y){
+Sprite*
+Scenes::
+MainMenu::getSubImage(int x, int y){
 
     Texture2D *textureSprite = Director::getInstance()->getTextureCache()->addImage("tiles_spritesheet.png");
     auto sprite = Sprite::createWithTexture(textureSprite,Rect(x,y,K_DEFAULT_SIZE_SPRITE,K_DEFAULT_SIZE_SPRITE));
@@ -201,7 +211,9 @@ Sprite * MainMenu::getSubImage(int x, int y){
 //Set the position of the sprite and index in the scene
 //##############################################################################
 
-void MainMenu::putImagePosition(Sprite *sprite, int x, int y, int pos) {
+void
+Scenes::
+MainMenu::putImagePosition(Sprite *sprite, int x, int y, int pos) {
     sprite->setPosition(Vec2(x,y));
     this->addChild(sprite, pos);
 }

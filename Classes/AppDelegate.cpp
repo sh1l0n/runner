@@ -1,9 +1,6 @@
 
-#include "dev/pramon1/PlayerTestScene.hpp"
-#include "dev/maje2/MainMenu.hpp"
-
+#include "Scenes/MainMenu.hpp"
 #include "AppDelegate.h"
-//#include "Engine2D/Structures/Structures.hpp"
 #include <stdlib.h>
 #include <time.h>
 
@@ -83,7 +80,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = PlayerTestScene::createScene();
-    auto scene = MainMenu::createScene();
+    auto scene = Scenes::MainMenu::createScene();
 
     // run
     director->runWithScene(scene);

@@ -11,9 +11,10 @@
 #include "cocos2d.h"
 
 /**
- * @brief
+ * @brief Instance
  */
 TiledMap::TiledMapGenerator* TiledMap::TiledMapGenerator::_instance = NULL;
+
 //INformation about codes of MAP generator
 //1-> Block Collisionable RIGID  with sprite wall (Pyramid yan Middle Pyramid Collisionable)
 //2->Block Collisionable RIGID whith sprite floor
@@ -21,8 +22,6 @@ TiledMap::TiledMapGenerator* TiledMap::TiledMapGenerator::_instance = NULL;
 //4->Block Collisionable RIGID with plataform sprite
 //5->Block No Collisionable with sprite  with sprite wall (Py and MIDPY not collisionable)
 //6->Clock No Collisionable with sprite floor
-
-
 TiledMap::
 TiledMapGenerator::TiledMapGenerator() {
     this->_mapTextures.reserve(6);
@@ -65,7 +64,7 @@ TiledMapGenerator::~TiledMapGenerator() {
  * This method contains and pseudo-random algorithm for generate random chuncks with random structures.
  * @return a new random chunck
  */
-TiledMap::Chunck
+TiledMap::Chunck*
 TiledMap::
 TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned long posXInitial) {
 
@@ -82,7 +81,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     unsigned int basicBlockTypeCurrent;
     int rest;
     TiledMap::T_CHUNK mapForTextures;
-    TiledMap::Chunck currentChunck = TiledMap::Chunck();
+    TiledMap::Chunck* currentChunck = new TiledMap::Chunck();
     Structures::BaseStructure *currentStructure = NULL;
     Sprite *spriteToLoad = NULL;
     Rect rectForBoundingBoxCollisionable;
@@ -162,7 +161,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                               positionYCurrentChunck * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE);
                     spriteToLoad->setScale(K_FACTOR_SCALE, K_FACTOR_SCALE);
 
-                    currentChunck._node->addChild(spriteToLoad, 0);
+                    currentChunck->_node->addChild(spriteToLoad, 0);
 
                     //##############################################################################
                     //When the sprite is loaded, only now, we have the size of this sprite
@@ -213,8 +212,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 // If the node is collisionable add the object and delete pointer from memory
                 //##############################################################################
                 if (basicBlockCollisionable != NULL) {
-                    currentChunck._node->addChild(basicBlockCollisionable, 1);
-                    currentChunck._collisionables.pushBack(basicBlockCollisionable);
+                    currentChunck->_node->addChild(basicBlockCollisionable, 1);
+                    currentChunck->_collisionables.pushBack(basicBlockCollisionable);
                 }
             }
         }
@@ -268,7 +267,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 spriteToLoad->setPosition(i * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE,
                                           j * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE);
                 spriteToLoad->setAnchorPoint(Vec2(0, 0));
-                currentChunck._node->addChild(spriteToLoad, 0);
+                currentChunck->_node->addChild(spriteToLoad, 0);
             }
 
             if(mapForTextures[i][j]==2) {
@@ -277,8 +276,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                        rr.size.width + rr.origin.x,
                                                                        rr.size.height + rr.origin.y,
                                                                        TiledMap::TypeBlock::FLOOR);
-                currentChunck._node->addChild(blockCollisionable, 1);
-                currentChunck._collisionables.pushBack(blockCollisionable);
+                currentChunck->_node->addChild(blockCollisionable, 1);
+                currentChunck->_collisionables.pushBack(blockCollisionable);
             }
 
         }
