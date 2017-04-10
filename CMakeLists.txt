@@ -141,8 +141,8 @@ if ( MACOSX )
   )
 endif ( MACOSX )
 set(GAME_SRC
-  Classes/AppDelegate.cpp
-
+        ${PLATFORM_SPECIFIC_SRC}
+        Classes/AppDelegate.cpp
         Classes/Engine2D/RootEntity.cpp
         Classes/Engine2D/Structures/BaseStructure.cpp
         Classes/Engine2D/Structures/MiddlePyramid.cpp
@@ -158,19 +158,18 @@ set(GAME_SRC
         Classes/dev/maje2/MainMenu.cpp
         Classes/Entities/SpeedMarker.cpp
         Classes/Engine2D/Structures/GapStructure.cpp
-        ${PLATFORM_SPECIFIC_SRC}
-)
+        Classes/Entities/Sound.cpp
+        )
 
 set(GAME_HEADERS
-  Classes/AppDelegate.h
-
+        ${PLATFORM_SPECIFIC_HEADERS}
+        Classes/AppDelegate.h
         Classes/Engine2D/RootEntity.hpp
         Classes/Engine2D/Structures/BaseStructure.hpp
         Classes/Engine2D/Structures/MiddlePyramid.hpp
         Classes/Engine2D/Structures/Pyramid.hpp
         Classes/Engine2D/Structures/Structures.hpp
         Classes/Engine2D/TiledMap/TiledMapGenerator.hpp
-        ${PLATFORM_SPECIFIC_HEADERS}
         Classes/Engine2D/Structures/JumpStructure.hpp
         Classes/Engine2D/TiledMap/BasicBlock.hpp
         Classes/Engine2D/TiledMap/Chunck.h
@@ -182,7 +181,9 @@ set(GAME_HEADERS
         Classes/dev/maje2/MainMenu.hpp
         Classes/Engine2D/MathHelper.hpp
         Classes/Engine2D/Structures/GapStructure.hpp
-        Classes/Entities/SpeedMarker.hpp Classes/Entities/Sound.cpp Classes/Entities/Sound.hpp)
+        Classes/Entities/SpeedMarker.hpp
+        Classes/Entities/Sound.hpp
+        )
 
 if( ANDROID )
     add_library(${APP_NAME} SHARED ${GAME_SRC} ${GAME_HEADERS})

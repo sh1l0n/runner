@@ -118,6 +118,7 @@ void Player::customdraw(float delta, float deltaCount, float stepTime) {
         drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(getWidth() / 2, getHeight() / 2),
                            Color4F::RED);
     }
+    
    // walk->setPosition(this->getX(), this->getY());
     RootEntity::customdraw(delta, deltaCount, stepTime);
 }
