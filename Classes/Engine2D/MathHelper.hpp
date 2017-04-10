@@ -2,11 +2,8 @@
 // Created by Master Móviles on 6/3/17.
 //
 
-#ifndef MYGAME_MATHHELPER_H
-#define MYGAME_MATHHELPER_H
-
-#include "RootEntity.hpp"
-#include <Engine2D/TiledMap/BasicBlock.hpp>
+#pragma once
+#include "TiledMap/BasicBlock.hpp"
 
 class MathHelper {
 
@@ -16,5 +13,3 @@ public:
 
 };
 
-
-#endif //MYGAME_MATHHELPER_H

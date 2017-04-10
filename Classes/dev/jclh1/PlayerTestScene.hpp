@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include <Entities/Player.hpp>
-#include <Engine2D/TiledMap/BasicBlock.hpp>
+#include "../../Entities/Player.hpp"
+#include "../../Engine2D/TiledMap/BasicBlock.hpp"
 #include "../../Engine2D/RootEntity.hpp"
 #include "cocos2d.h"
 

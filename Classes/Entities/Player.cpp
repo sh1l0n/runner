@@ -3,7 +3,7 @@
 //
 
 #include <iostream>
-#include <Engine2D/MathHelper.hpp>
+#include "../Engine2D/MathHelper.hpp"
 #include "Player.hpp"
 
 Player::Player():RootEntity() {

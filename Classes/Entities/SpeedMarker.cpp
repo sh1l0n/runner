@@ -5,9 +5,8 @@
 #include "SpeedMarker.hpp"
 
 #include <iostream>
-#include <Engine2D/MathHelper.hpp>
+#include "../Engine2D/MathHelper.hpp"
 #include "Player.hpp"
-
 using namespace std;
 
 SpeedMarker::SpeedMarker():RootEntity() {

@@ -5,8 +5,8 @@
 #ifndef MYGAME_SPEEDMARKER_H
 #define MYGAME_SPEEDMARKER_H
 
-#include <Engine2D/RootEntity.hpp>
-#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
+#include "../Engine2D/RootEntity.hpp"
+#include "../Engine2D/TiledMap/TiledMapGenerator.hpp"
 
 class SpeedMarker : public RootEntity {
 private:

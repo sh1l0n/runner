@@ -6,8 +6,8 @@
 #define MYGAME_PLAYER_H
 
 #include <iostream>
-#include <Engine2D/RootEntity.hpp>
-#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
+#include "../Engine2D/RootEntity.hpp"
+#include "../Engine2D/TiledMap/TiledMapGenerator.hpp"
 
 #include "cocos2d.h"
 USING_NS_CC;

@@ -2,9 +2,9 @@
 // Created by Master Móviles on 20/03/2017.
 //
 
-#include <dev/jclh1/PlayerTestScene.hpp>
-#include <audio/include/SimpleAudioEngine.h>
-#include <Entities/Sound.hpp>
+#include "audio/include/SimpleAudioEngine.h"
+#include "../pramon1/PlayerTestScene.hpp"
+#include "../../Entities/Sound.hpp"
 #include "MainMenu.hpp"
 
 using namespace cocos2d;
@@ -145,12 +145,13 @@ bool MainMenu::init() {
     Size sizeTexture = textureBackGround->getContentSize();
     Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
                                                  Rect(0, 0, visibleSize.width , visibleSize.height));
-    this->addChild(spriteBg, 0);
+    //this->addChild(spriteBg, 0);
     spriteBg->setScale(1, 1);
     spriteBg->setPosition(0, 0);
     spriteBg->setAnchorPoint(Vec2(0, 0));
-    ParallaxNode* pn = ParallaxNode::create();
-    pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
+    this->addChild(spriteBg, 0);
+    //ParallaxNode* pn = ParallaxNode::create();
+    //pn->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
 
     return true;
 }

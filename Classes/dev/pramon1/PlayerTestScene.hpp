@@ -4,10 +4,10 @@
 #pragma once
 
 
-#include <Entities/Player.hpp>
+#include "../../Entities/Player.hpp"
 
-#include <Entities/SpeedMarker.hpp>
-#include <Engine2D/TiledMap/BasicBlock.hpp>
+#include "../../Entities/SpeedMarker.hpp"
+#include "../../Engine2D/TiledMap/BasicBlock.hpp"
 #include "../../Engine2D/RootEntity.hpp"
 
 

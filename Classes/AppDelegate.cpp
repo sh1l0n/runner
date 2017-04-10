@@ -1,11 +1,12 @@
 
-#include "dev/jclh1/PlayerTestScene.hpp"
+#include "dev/pramon1/PlayerTestScene.hpp"
+#include "dev/maje2/MainMenu.hpp"
 
 #include "AppDelegate.h"
-#include "Engine2D/Structures/Structures.hpp"
+//#include "Engine2D/Structures/Structures.hpp"
 #include <stdlib.h>
 #include <time.h>
-#include <dev/maje2/MainMenu.hpp>
+
 
 USING_NS_CC;
 
@@ -54,7 +55,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    //director->setDisplayStats(true);
+    director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);

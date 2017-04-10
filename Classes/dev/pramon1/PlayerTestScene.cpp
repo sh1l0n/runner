@@ -5,10 +5,9 @@
 #include <iostream>
 
 #include "PlayerTestScene.hpp"
-#include <Engine2D/MathHelper.hpp>
-#include <Engine2D/TiledMap/TiledMapGenerator.hpp>
-#include <dev/maje2/MainMenu.hpp>
-#include <Entities/Sound.hpp>
+#include "../../Engine2D/MathHelper.hpp"
+#include "../../Engine2D/TiledMap/TiledMapGenerator.hpp"
+#include "../../Entities/Sound.hpp"
 
 USING_NS_CC;
 

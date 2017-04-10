@@ -3,7 +3,7 @@
 //
 
 #include "PlayerTestScene.hpp"
-#include "Engine2D/TiledMap/TiledMapGenerator.hpp"
+#include "../../Engine2D/TiledMap/TiledMapGenerator.hpp"
 
 USING_NS_CC;
 
@@ -38,7 +38,7 @@ bool PlayerTestScene::init()
 
 
     this->_player = RootEntity::create();
-    this->_player->setSprite("CloseNormal.png");
+    this->_player->setSprite(Sprite::create("CloseNormal.png"));
     this->_player->setPosition(16, 200);
    // this->_chunckVector.resize(2);
     this->_posXStartNewChunck = 0;

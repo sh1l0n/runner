@@ -5,7 +5,6 @@
 #pragma  once
 
 #include "cocos2d.h"
-#include "Engine2D/RootEntity.hpp"
 #include "BasicBlock.hpp"
 
 USING_NS_CC;
