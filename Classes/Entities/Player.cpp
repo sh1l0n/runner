@@ -6,13 +6,15 @@
 #include "../Engine2D/MathHelper.hpp"
 #include "Player.hpp"
 
+USING_NS_CC;
+
 Player::Player():RootEntity() {
     vx, vy = 0;
     accel = 3.f;
     jump = 40.f;
     jumpSpeed = 20.f;
     friction = 1.f;
-    maxVel = 20.f;
+    maxVel = 7.f;
     gravity = 6.f;
     terminalVelocity = 5;
     maxJump = 40.f;
@@ -21,7 +23,7 @@ Player::Player():RootEntity() {
     bend = false;
     jumpTime = true;
     animationSpeed = 0;
-
+    moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime = false;
     debug = false;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
@@ -31,14 +33,9 @@ Player::Player():RootEntity() {
 
     this->animation = Animation::createWithSpriteFrames(frames, 1.0f/8);
     sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
-    this->setWidth((sprite->getContentSize().width-32)/2);
+    this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)/2);
     this->setHeight((sprite->getContentSize().height-6)/2);
     this->scaleSprite(0.5f, 0.5f);
-
-    if(debug) {
-        drawNode->drawRect(Vec2(0 - 20 , 0 - 20 ), Vec2(20, 20), Color4F::RED);
-        //drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(20, 20), Color4F::WHITE);
-    }
 }
 
 /*!
@@ -54,7 +51,7 @@ void Player::customupdate(float delta) {
         if(vx > maxVel ) vx = maxVel;
     } else if(!moveLeft) {
         if (vx >= friction) vx -= friction;
-        else if(vx < friction && vx > 0) vx = 0;
+        // else if(vx < friction && vx > 0) vx = 0;
     }
 
     // Left movement
@@ -63,7 +60,14 @@ void Player::customupdate(float delta) {
         if(vx < -maxVel) vx = -maxVel;
     } else if(!moveRight) {
         if(vx <= -friction) vx+=friction;
-        else if(vx > -friction && vx < 0) vx = 0;
+        // else if(vx > -friction && vx < 0) vx = 0;
+    }
+    
+    // horizontal movement
+    if (vx < maxVel) {
+        vx += 2.f;
+    } else {
+        vx = maxVel;
     }
 
     // Jump
@@ -85,14 +89,14 @@ void Player::customupdate(float delta) {
     }
 
     // Bend
-    if(moveDown && !bend){
+    /* if(moveDown && !bend){
         auxHeight = getHeight();
         setHeight(auxHeight/2);
         bend = true;
     }else if(!moveDown && bend){
         setHeight(auxHeight);
         bend = false;
-    }
+    } */
 
     // Applies the gravity
     vy -= gravity;
@@ -144,8 +148,10 @@ void Player::resolveFloorCollisionsY() {
                 jumpTime = true;
                 jumpSpeed = 30.f;
                 if(vy < 0){
+                    log("UP v-");
                     setY(block->getY() + block->getHeight() + getHeight()/2);
                 } else {
+                    log("UP v+");
                     setY(block->getY() - getHeight()/2);
                 }
 
@@ -153,8 +159,10 @@ void Player::resolveFloorCollisionsY() {
                 jumpSpeed = 30.f;
                 jumpTime = false;
                 if(vy > 0) {
+                    log("DOWN v+");
                     setY(block->getY() - getHeight() / 2);
                 } else {
+                    log("DOWN v-");
                     setY(block->getY() + block->getHeight() + getHeight()/2);
                 }
             }
@@ -185,7 +193,7 @@ void Player::resolveFloorCollisionsX() {
                 }
 
             }
-
+            
             vx = 0;
         }
     }
@@ -245,7 +253,7 @@ Vector<SpriteFrame*> Player::getAnimation(const char *format, int count)
     for(int i = 1; i <= count; i++)
     {
         sprintf(str, format, i);
-        cocos2d::log(str);
+        cocos2d::log("%s", str);
         animFrames.pushBack(spritecache->getSpriteFrameByName(str));
     }
     return animFrames;

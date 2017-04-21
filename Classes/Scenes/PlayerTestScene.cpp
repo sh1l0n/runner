@@ -73,9 +73,9 @@ PlayerTestScene::init()
     // Set node scroll
     this->_nodeScroll= Node::create();
     this->_nodeScroll->addChild(parallax, 0);
-    //this->_nodeScroll->addChild(this->player, 2);
+    this->_nodeScroll->addChild(this->player, 2);
     this->_nodeScroll->addChild(this->speedM, 2);
-    this->_nodeScroll->runAction(Follow::create(this->speedM));
+    this->_nodeScroll->runAction(Follow::create(this->player));
     this->addChild(this->_nodeScroll);
     
     //Set map controller
@@ -169,7 +169,7 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
         this->player->onKeyUp();
     }
     else {
-        this->player->onKeyDown();
+        // this->player->onKeyDown();
     }
     return true;
 }
@@ -182,7 +182,7 @@ PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
         this->player->onKeyUpRelease();
     }
     else {
-        this->player->onKeyDownRelease();
+       //  this->player->onKeyDownRelease();
     }
 }
 
@@ -190,7 +190,6 @@ void
 Scenes::
 PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
     Vec2 position = this->_sprite->getPosition();
-    log("hola");
     switch(keyCode) {
         case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
             log("left");
@@ -247,7 +246,7 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     // Check if player falled
     //##############################################################################
-    if(this->speedM->getPositionY()<= -400){
+    if(this->player->getPositionY()<= -400){
         log("Entra: %f",this->player->getPositionY());
         Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
@@ -260,16 +259,15 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     if(this->deltaCount >= 0.067f) {
         this->m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",this->speedM->getPositionX()));
-   //     this->player->customupdate(delta);
+        this->player->customupdate(delta);
         this->speedM->customupdate(delta);
         this->stepTime = this->deltaCount;
         this->deltaCount = 0.f;
     }
 
-    
-   // this->player->customdraw(delta, this->deltaCount, this->stepTime);
+    this->player->customdraw(delta, this->deltaCount, this->stepTime);
     //this->speedM->customdraw(delta, this->deltaCount, this->stepTime);
-    this->_mapController.update(this->speedM->getPositionX());
+    //this->_mapController.update(this->player->getPositionX());
     
     
     //this->player->getPositionX()
