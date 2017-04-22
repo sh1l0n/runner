@@ -10,6 +10,8 @@ Private inheritance here hides part of interface from Director.
 */
 class  AppDelegate : private cocos2d::Application
 {
+private:
+    cocos2d::Scene* scene;
 public:
     AppDelegate();
     virtual ~AppDelegate();

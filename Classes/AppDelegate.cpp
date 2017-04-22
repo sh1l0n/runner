@@ -1,5 +1,6 @@
 
 #include "Scenes/MainMenu.hpp"
+#include "Scenes/MainMenuPhone.hpp"
 #include "AppDelegate.h"
 #include <stdlib.h>
 #include <time.h>
@@ -52,7 +53,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
@@ -80,7 +81,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // create a scene. it's an autorelease object
     //auto scene = PlayerTestScene::createScene();
-    auto scene = Scenes::MainMenu::createScene();
+    //log("hola %d: caracola: %d comadrona: %d",CC_TARGET_PLATFORM,CC_PLATFORM_IOS,CC_PLATFORM_MAC);
+    
+    if(CC_TARGET_PLATFORM == CC_PLATFORM_MAC){
+        scene = Scenes::MainMenu::createScene();
+    }else{
+        scene = Scenes::MainMenuPhone::createScene();
+    }
 
     // run
     director->runWithScene(scene);

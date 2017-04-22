@@ -13,6 +13,7 @@ namespace Scenes {
     * Size of the sprites
     */
     const static unsigned short int K_DEFAULT_SIZE_SPRITE = 70;
+    const static unsigned short int K_DEFAULT_SIZE_SPRITE_PHONE = 35;
 
     /**
     * Class MainMenu for generating the first scene

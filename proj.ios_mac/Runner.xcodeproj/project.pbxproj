@@ -124,6 +124,7 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		C7311F921EABF957001DC0B0 /* MainMenuPhone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -274,6 +275,8 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuPhone.cpp; sourceTree = "<group>"; };
+		C7311F911EABF957001DC0B0 /* MainMenuPhone.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainMenuPhone.hpp; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -434,6 +437,8 @@
 				209E142F1E9C25C7007DB2A1 /* MainMenu.hpp */,
 				209E14301E9C25C7007DB2A1 /* PlayerTestScene.cpp */,
 				209E14311E9C25C7007DB2A1 /* PlayerTestScene.hpp */,
+				C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */,
+				C7311F911EABF957001DC0B0 /* MainMenuPhone.hpp */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -749,6 +754,7 @@
 				209E13D71E9C179B007DB2A1 /* JumpStructure.cpp in Sources */,
 				209E13E11E9C179B007DB2A1 /* TiledMapGenerator.cpp in Sources */,
 				209E13DB1E9C179B007DB2A1 /* Pyramid.cpp in Sources */,
+				C7311F921EABF957001DC0B0 /* MainMenuPhone.cpp in Sources */,
 				209E13E31E9C179B007DB2A1 /* Player.cpp in Sources */,
 				209E13D11E9C179B007DB2A1 /* RootEntity.cpp in Sources */,
 				209E13D51E9C179B007DB2A1 /* GapStructure.cpp in Sources */,

@@ -53,7 +53,7 @@ MainMenu::init() {
     this->addChild(menu, 4);
 
     //main tittle
-    auto label = Label::createWithTTF("Runner", "fonts/Marker Felt.ttf", 36);
+    auto label = Label::createWithTTF("Runner Random", "fonts/Marker Felt.ttf", 36);
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - label->getContentSize().height));
@@ -73,6 +73,22 @@ MainMenu::init() {
     putImagePosition(grassBase5,345,0,1);
     putImagePosition(grassBase6,415,0,1);
 
+    /*auto visibleSize2 = Director::getInstance()->getVisibleSize();
+    Vec2 origin2 = Director::getInstance()->getVisibleOrigin();
+    log("Width: %f",visibleSize2.width);
+    log("Height: %f",visibleSize2.height);
+    log("origin: %f",origin.x);
+    log("origin2: %f",origin.y);
+    auto spriteFrameCache = SpriteFrameCache::getInstance();
+    spriteFrameCache->addSpriteFramesWithFile("sprites.plist");
+    for(int i=0; i<5; i++){
+        auto m_pSprite1 = Sprite::createWithSpriteFrameName("grass.png");
+        m_pSprite1->setScale(2, 2);
+        log("Width: %f, Scale(px): %f",visibleSize2.width, m_pSprite1->getContentSize().width);
+        m_pSprite1->setPosition(origin.x+(m_pSprite1->getContentSize().width*m_pSprite1->getScale()*i), origin.y-m_pSprite1->getContentSize().height*0.75);
+        m_pSprite1->setAnchorPoint(Vec2(0, 0));
+        this->addChild(m_pSprite1,1);
+    }*/
     //pyramid structure
     auto box = getSubImage(144,504);
     auto box2 = getSubImage(144,504);
@@ -141,17 +157,21 @@ MainMenu::init() {
     putImagePosition(bridge,350,190,3);
 
     //player structure
-    auto player = getSubImage(432,360);
+    //auto player = getSubImage(432,360);
+    auto spriteFrameCache = SpriteFrameCache::getInstance();
+    spriteFrameCache->addSpriteFramesWithFile("player/player_walk.plist");
+    auto player = Sprite::createWithSpriteFrameName("p1_walk03.png");
+    //auto player = Sprite::create("HelloWorld.png");
     putImagePosition(player,350,212,4);
 
     //gets the background of the menu
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
-    Size sizeTexture = textureBackGround->getContentSize();
+    //Size sizeTexture = textureBackGround->getContentSize();
     Sprite *spriteBg = Sprite::createWithTexture(textureBackGround,
                                                  Rect(0, 0, visibleSize.width , visibleSize.height));
     //this->addChild(spriteBg, 0);
     spriteBg->setScale(1, 1);
-    spriteBg->setPosition(0, 0);
+    spriteBg->setPosition(origin.x, origin.y);
     spriteBg->setAnchorPoint(Vec2(0, 0));
     this->addChild(spriteBg, 0);
     //ParallaxNode* pn = ParallaxNode::create();
@@ -169,7 +189,7 @@ Scenes::
 MainMenu::closeMenuCallback(cocos2d::Ref *sender) {
     Director::getInstance()->end();
 
-    #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    #if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
         exit(0);
     #endif
 }
