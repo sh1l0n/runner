@@ -2,10 +2,7 @@
 // Created by Master Móviles on 20/03/2017.
 //
 
-#include "audio/include/SimpleAudioEngine.h"
 #include "MainMenu.hpp"
-#include "PlayerTestScene.hpp"
-#include "../Entities/Sound.hpp"
 
 using namespace cocos2d;
 

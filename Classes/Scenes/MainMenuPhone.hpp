@@ -8,10 +8,10 @@
 
 #pragma once
 
-#include <audio/include/SimpleAudioEngine.h>
+#include "audio/include/SimpleAudioEngine.h"
+#include "../Entities/Sound.hpp"
+#include "PlayerTestScene.hpp"
 #include "cocos2d.h"
-
-#include <stdio.h>
 
 namespace Scenes {
     
@@ -25,6 +25,9 @@ namespace Scenes {
      * Class MainMenu for generating the first scene
      */
     class MainMenuPhone : public cocos2d::Layer{
+    private:
+        const Size SIZE_PICTURE_IPHONE = Size(480,296);
+        const Size WINDOWS_SIZE_IPHONE = Director::getInstance()->getWinSize();
     public:
         static cocos2d::Scene* createScene();
         //static CocosDenshion::SimpleAudioEngine* audio;

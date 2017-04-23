@@ -4,7 +4,9 @@
 
 #pragma once
 
-#include <audio/include/SimpleAudioEngine.h>
+#include "audio/include/SimpleAudioEngine.h"
+#include "PlayerTestScene.hpp"
+#include "../Entities/Sound.hpp"
 #include "cocos2d.h"
 
 namespace Scenes {

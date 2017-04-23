@@ -165,7 +165,7 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
 
     unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
     if(touch->getLocation().x>=min_width) {
-        Entities::Sound::getInstance()->playSound("jump.wav");
+        Entities::Sound::getInstance()->playSound("Audio/jump.wav");
         this->player->onKeyUp();
     }
     else {

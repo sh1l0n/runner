@@ -43,7 +43,14 @@ MainMenuPhone::init() {
     closeItem->setPosition(Vec2(-140,-80));
     playItem->setPosition(Vec2(140,-80));
     auto menu = Menu::create(playItem, closeItem, NULL);
-    this->addChild(menu, 4);
+    this->addChild(menu, 1);
+    
+
+    auto menu_close = Sprite::create("menu_close.png");
+    //log("winSizeX: %f winSizeY: %f originX: %f originY: %f",winSize.width,winSize.height,origin.x,origin.y);
+    menu_close->setContentSize(SIZE_PICTURE_IPHONE);
+    menu_close->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);
+    this->addChild(menu_close,0);
     
     return true;
 }
@@ -70,13 +77,12 @@ void
 Scenes::
 MainMenuPhone::playMenuCallback(cocos2d::Ref *sender) {
     
-    /*Entities::Sound::getInstance()->playSound("open_door.mp3");
+    Entities::Sound::getInstance()->playSound("Audio/open_door.mp3");
     
-    Entities::Sound::getInstance()->playBackground("background.mp3");
-    
-    auto doorClosedTop = getSubImage(648,216);
-    auto doorClosedMid = getSubImage(648,288);
-    putImagePosition(doorClosedTop,205,140,3);
-    putImagePosition(doorClosedMid,205,70,3);
-    Director::getInstance()->replaceScene(TransitionFade::create(3.f, Scenes::PlayerTestScene::createScene()));*/
+    Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
+    auto menu_open = Sprite::create("menu_open.png");
+    menu_open->setContentSize(SIZE_PICTURE_IPHONE);
+    menu_open->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);
+    this->addChild(menu_open,0);
+    Director::getInstance()->replaceScene(TransitionFade::create(3.f, Scenes::PlayerTestScene::createScene()));
 }
