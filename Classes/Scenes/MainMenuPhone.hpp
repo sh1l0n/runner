@@ -29,6 +29,8 @@ namespace Scenes {
         const Size SIZE_PICTURE_IPHONE = Size(480,296);
         const Size WINDOWS_SIZE_IPHONE = Director::getInstance()->getWinSize();
     public:
+        MainMenuPhone();
+        ~MainMenuPhone();
         static cocos2d::Scene* createScene();
         //static CocosDenshion::SimpleAudioEngine* audio;
         

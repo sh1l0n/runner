@@ -6,6 +6,7 @@
 #include "../Engine2D/TiledMap/TiledMapController.h"
 #include "../Engine2D/RootEntity.hpp"
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
 USING_NS_CC;
 
@@ -34,9 +35,16 @@ namespace Scenes {
         
             void update(float) override;
         
+            void retryMenuCallback(cocos2d::Ref* sender);
+        
             CREATE_FUNC(PlayerTestScene);
 
         private:
+        
+            bool pause = false;
+        
+            const Size WINDOWS_SIZE_IPHONE = Director::getInstance()->getWinSize();
+            Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
             float deltaCount;
         
@@ -58,8 +66,16 @@ namespace Scenes {
         
             Label *m_labelPuntuacion;
         
+            Label *m_labelPause;
+        
             Node *_nodeScroll;
         
+            Label* retryLabel;
+        
+            MenuItemLabel* retryItem;
+        
             Vector<TiledMap::BasicBlock*> boxes;
+        
+            Menu* menu;
     };
 }

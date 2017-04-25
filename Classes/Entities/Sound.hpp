@@ -28,6 +28,7 @@ namespace Entities {
         void stopBackground(std::string sound);
         void playSound(std::string sound);
         void playBackground(std::string sound);
-
+        void pauseBackground();
+        void resumeBackground();
     };
 }

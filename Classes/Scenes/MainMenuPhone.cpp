@@ -10,6 +10,14 @@
 
 using namespace cocos2d;
 
+Scenes::MainMenuPhone::MainMenuPhone(){
+    
+}
+
+Scenes::MainMenuPhone::~MainMenuPhone(){
+    
+}
+
 //##############################################################################
 //Generate the scene with the main menu
 //##############################################################################

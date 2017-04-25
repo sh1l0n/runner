@@ -30,6 +30,16 @@ void Entities::Sound::playBackground(std::string sound){
     audio->playBackgroundMusic(sound.c_str(),true);
 }
 
+void Entities::Sound::pauseBackground(){
+    
+    audio->pauseBackgroundMusic();
+}
+
+void Entities::Sound::resumeBackground(){
+    
+    audio->resumeBackgroundMusic();
+}
+
 void Entities::Sound::clearSounds(){
 
     for(int i = 0; i<soundVector.size();i++){

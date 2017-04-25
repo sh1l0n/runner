@@ -92,20 +92,47 @@ PlayerTestScene::init()
     m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
     this->addChild(m_labelPuntuacion);
     
+    /*m_labelPause = Label::createWithTTF("Pause", "fonts/Marker Felt.ttf", 24);
+    //m_labelPause->setPosition(Vec2(origin.x + visibleSize.width/1.1,
+      //                            origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    auto pauseItem = MenuItemLabel::create(m_labelPause,NULL);
+    pauseItem->setPosition(Vec2(origin.x + visibleSize.width/2,
+                                origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    auto menu = Menu::create(pauseItem,NULL);
+    this->addChild(menu);*/
+    auto button = cocos2d::ui::Button::create("CloseNormal.png", "CloseSelected.png", "CloseNormal.png");
+    
+    //button->setTitleText("Button Text");
+    button->setPosition(Vec2(origin.x + visibleSize.width/1.05,
+                             origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    button->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
+        switch (type)
+        {
+            case ui::Widget::TouchEventType::BEGAN:
+                break;
+            case ui::Widget::TouchEventType::ENDED:
+                std::cout << "Button 1 clicked" << std::endl;
+                pause = true;
+                break;
+            default:
+                break;
+        }
+    });
+    
+    this->addChild(button);
+    //this->addChild(m_labelPause);
     
     //Set touch listeners
+    /*EventListenerKeyboard* eventKeyListener = EventListenerKeyboard::create();
+    eventKeyListener->onKeyPressed = CC_CALLBACK_2(PlayerTestScene::onKeyPressed, this);
+    eventKeyListener->onKeyReleased = CC_CALLBACK_2(PlayerTestScene::onKeyReleased, this);
+    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventKeyListener, this);*/
+    
     EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
     eventListener->setSwallowTouches(true);
     eventListener->onTouchBegan = CC_CALLBACK_2(PlayerTestScene::onTouchBegan, this);
     eventListener->onTouchEnded = CC_CALLBACK_2(PlayerTestScene::onTouchEnded, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
-    
-    /*
-    EventListenerKeyboard* eventListener = EventListenerKeyboard::create();
-    eventListener->onKeyPressed = CC_CALLBACK_2(Scenes::PlayerTestScene::onKeyPressed, this);
-    eventListener->onKeyReleased = CC_CALLBACK_2(Scenes::PlayerTestScene::onKeyReleased, this);
-    Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
-    */
     
     //Finalez and update UI
     this->scheduleUpdate();
@@ -177,6 +204,7 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
 void
 Scenes::
 PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
+    Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
     unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
     if(touch->getLocation().x>=min_width) {
         this->player->onKeyUpRelease();
@@ -185,6 +213,11 @@ PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
        //  this->player->onKeyDownRelease();
     }
 }
+
+/*void
+Scenes::
+PlayerTestScene::onKeyPausePressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
+}*/
 
 void
 Scenes::
@@ -235,6 +268,14 @@ PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d:
 
 void
 Scenes::
+PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
+    Director::getInstance()->resume();
+    Entities::Sound::getInstance()->resumeBackground();
+    this->removeChild(menu);
+}
+
+void
+Scenes::
 PlayerTestScene::update(float delta){
     
     //##############################################################################
@@ -242,16 +283,33 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     this->deltaCount += 0.016f;
     this->deltaCountForMap+=0.002f;
-    
     //##############################################################################
     // Check if player falled
     //##############################################################################
-    if(this->player->getPositionY()<= -400){
+    if(this->player->getPositionY()<= -400 || pause){
         log("Entra: %f",this->player->getPositionY());
         Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
-        Entities::Sound::getInstance()->stopBackground("background.mp3");
-        Entities::Sound::getInstance()->clearSounds();
+        
+        if(pause){
+            retryLabel = Label::createWithTTF("Retry", "fonts/Marker Felt.ttf", 24);
+            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
+            Entities::Sound::getInstance()->pauseBackground();
+            pause = false;
+        }else{
+            retryLabel = Label::createWithTTF("New Game", "fonts/Marker Felt.ttf", 24);
+            retryItem = MenuItemLabel::create(retryLabel,NULL);//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
+            Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
+        }
+        auto closeLabel = Label::createWithTTF("Close", "fonts/Marker Felt.ttf", 24);
+        auto closeItem = MenuItemLabel::create(closeLabel, NULL);//CC_CALLBACK_1(, this));
+        
+        // create menu, it's an autorelease object
+        menu = Menu::create(retryItem, closeItem, NULL);
+        //menu->setPosition(Vec2::ZERO);
+        menu->alignItemsVertically();
+        menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height);
+        this->addChild(menu, 1);
     }
 
     //##############################################################################
