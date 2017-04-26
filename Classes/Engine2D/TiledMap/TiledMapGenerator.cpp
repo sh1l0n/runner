@@ -213,7 +213,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 //##############################################################################
                 if (basicBlockCollisionable != NULL) {
                     currentChunck->_node->addChild(basicBlockCollisionable, 1);
-                    currentChunck->_collisionables.pushBack(basicBlockCollisionable);
+                    currentChunck->_collisionables.push_back(basicBlockCollisionable);
                 }
             }
         }
@@ -277,7 +277,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                        rr.size.height + rr.origin.y,
                                                                        TiledMap::TypeBlock::FLOOR);
                 currentChunck->_node->addChild(blockCollisionable, 1);
-                currentChunck->_collisionables.pushBack(blockCollisionable);
+                currentChunck->_collisionables.push_back(blockCollisionable);
             }
 
         }

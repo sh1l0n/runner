@@ -50,7 +50,7 @@ private:
     Sprite* sprWalk;
 
     //! Vector which stores collisionable floor objects
-    Vector<TiledMap::BasicBlock*> floorVector;
+    std::vector<TiledMap::BasicBlock*> floorVector;
     void resolveFloorCollisionsY();
     void resolveFloorCollisionsX();
 
@@ -63,7 +63,7 @@ public:
 
     void customupdate(float delta) override;
     void customdraw(float delta, float deltaCount, float stepTime) override;
-    void setFloorCollision(Vector<TiledMap::BasicBlock*> floors);
+    void setFloorCollision(std::vector<TiledMap::BasicBlock*> floors);
 
     void onKeyLeft();
     void onKeyRight();

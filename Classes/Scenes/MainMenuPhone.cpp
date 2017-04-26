@@ -24,11 +24,12 @@ Scenes::MainMenuPhone::~MainMenuPhone(){
 
 cocos2d::Scene*
 Scenes::
-MainMenuPhone::createScene() {
+MainMenuPhone::createScene(SceneControllerListener* listener) {
     
     auto scene = Scene::create();
     
     auto layer = MainMenuPhone::create();
+    layer->setListener(listener);
     
     scene->addChild(layer);
     
@@ -70,11 +71,16 @@ MainMenuPhone::init() {
 void
 Scenes::
 MainMenuPhone::closeMenuCallback(cocos2d::Ref *sender) {
-    Director::getInstance()->end();
-    
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+    if(this->listener!=NULL) {
+        this->listener->changeScene(Scenes::ESceneType::EXIT);
+    }
+}
+
+
+void
+Scenes::
+MainMenuPhone::setListener(SceneControllerListener* listener) {
+    this->listener = listener;
 }
 
 //##############################################################################
@@ -86,11 +92,12 @@ Scenes::
 MainMenuPhone::playMenuCallback(cocos2d::Ref *sender) {
     
     Entities::Sound::getInstance()->playSound("Audio/open_door.mp3");
-    
     Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
     auto menu_open = Sprite::create("menu_open.png");
     menu_open->setContentSize(SIZE_PICTURE_IPHONE);
     menu_open->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);
     this->addChild(menu_open,0);
-    Director::getInstance()->replaceScene(TransitionFade::create(3.f, Scenes::PlayerTestScene::createScene()));
+    if(this->listener!=NULL) {
+        this->listener->changeScene(ESceneType::GAMESCENE);
+    }
 }

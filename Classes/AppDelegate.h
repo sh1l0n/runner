@@ -2,16 +2,17 @@
 #define  _APP_DELEGATE_H_
 
 #include "cocos2d.h"
+#include "Scenes/SceneController.hpp"
 
 /**
 @brief    The cocos2d Application.
 
 Private inheritance here hides part of interface from Director.
 */
-class  AppDelegate : private cocos2d::Application
+class  AppDelegate : private cocos2d::Application, public Scenes::SceneControllerListener
 {
 private:
-    cocos2d::Scene* scene;
+    //cocos2d::Scene* scene;
 public:
     AppDelegate();
     virtual ~AppDelegate();
@@ -36,6 +37,9 @@ public:
     @param  the pointer of the application
     */
     virtual void applicationWillEnterForeground();
+    
+    
+    void changeScene(Scenes::ESceneType scene) override;
 };
 
 #endif // _APP_DELEGATE_H_

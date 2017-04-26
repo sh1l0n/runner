@@ -14,7 +14,7 @@ namespace TiledMap {
 
     public:
         Node *_node;
-        Vector<BasicBlock*> _collisionables;
+        std::vector<BasicBlock*> _collisionables;
         Chunck();
         ~Chunck();
     };

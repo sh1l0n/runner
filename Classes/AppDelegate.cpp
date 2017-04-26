@@ -1,5 +1,4 @@
 
-#include "Scenes/MainMenu.hpp"
 #include "Scenes/MainMenuPhone.hpp"
 #include "AppDelegate.h"
 #include <stdlib.h>
@@ -53,7 +52,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(false);
+    director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
@@ -78,19 +77,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     register_all_packages();
+    
+    
+    this->changeScene(Scenes::ESceneType::MAIN_MENU);
 
     // create a scene. it's an autorelease object
     //auto scene = PlayerTestScene::createScene();
     //log("hola %d: caracola: %d comadrona: %d",CC_TARGET_PLATFORM,CC_PLATFORM_IOS,CC_PLATFORM_MAC);
-    
-    if(CC_TARGET_PLATFORM == CC_PLATFORM_MAC){
-        scene = Scenes::MainMenu::createScene();
-    }else{
-        scene = Scenes::MainMenuPhone::createScene();
-    }
+   // scene = Scenes::MainMenuPhone::createScene();
 
     // run
-    director->runWithScene(scene);
+    //director->runWithScene(scene);
 
     return true;
 }
@@ -110,3 +107,53 @@ void AppDelegate::applicationWillEnterForeground() {
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
+
+
+
+
+
+
+
+void
+AppDelegate::changeScene(Scenes::ESceneType scene) {
+    
+    cocos2d::Scene* sceneToLoad;
+    
+    switch (scene) {
+        case Scenes::MAIN_MENU:
+            sceneToLoad = Scenes::MainMenuPhone::createScene(this);
+            break;
+        case Scenes::GAMESCENE:
+            sceneToLoad = Scenes::PlayerTestScene::createScene(this);
+            break;
+        case Scenes::PAUSE_MENU:
+            break;
+        case Scenes::GAMEOVER:
+            break;
+        case Scenes::EXIT:
+            Director::getInstance()->end();
+            #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+                exit(0);
+            #endif
+            break;
+        default:
+            break;
+    }
+    
+    if(Director::getInstance()->getRunningScene()==NULL) {
+        Director::getInstance()->runWithScene(sceneToLoad);
+    }
+    else
+    {
+//        Director::getInstance()->popScene();
+        //Director::getInstance()->runWithScene(sceneToLoad);
+//        Director::getInstance()->pushScene(sceneToLoad);
+//        Director::getInstance()->setNextScene();
+//        Director::getInstance()->drawScene();
+        Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
+        Director::getInstance()->resume();
+    }
+}
+
+
+

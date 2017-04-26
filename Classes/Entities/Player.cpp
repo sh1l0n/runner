@@ -9,7 +9,7 @@
 USING_NS_CC;
 
 Player::Player():RootEntity() {
-    vx, vy = 0;
+    vx= vy = 0;
     accel = 3.f;
     jump = 40.f;
     jumpSpeed = 20.f;
@@ -23,7 +23,7 @@ Player::Player():RootEntity() {
     bend = false;
     jumpTime = true;
     animationSpeed = 0;
-    moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime = false;
+    moveLeft = moveRight= moveUp= moveDown= floor= bend= jumpTime = false;
     debug = false;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
@@ -100,7 +100,7 @@ void Player::customupdate(float delta) {
 
     // Applies the gravity
     vy -= gravity;
-
+    
     resolveFloorCollisionsX(); // horizontal collisions
     setMotionX(vx);
 
@@ -108,6 +108,7 @@ void Player::customupdate(float delta) {
     setMotionY(vy);
 
     RootEntity::customupdate(delta);
+    std::cout<< "#" << floorVector.size() << std::endl;
 }
 
 
@@ -131,13 +132,13 @@ void Player::customdraw(float delta, float deltaCount, float stepTime) {
  * Sets the collisionable objects array
  * @param floors
  */
-void Player::setFloorCollision(Vector<TiledMap::BasicBlock *> floors) {
+void Player::setFloorCollision(std::vector<TiledMap::BasicBlock *> floors) {
     floorVector = floors;
 }
 
 
 void Player::resolveFloorCollisionsY() {
-    for(int i = 0; i<floorVector.size(); i++) {
+    for(int i = 0; i<floorVector.size(); ++i) {
         TiledMap::BasicBlock *block = floorVector.at(i);
         //Vertical collision
         if (MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(),
@@ -173,7 +174,7 @@ void Player::resolveFloorCollisionsY() {
 }
 
 void Player::resolveFloorCollisionsX() {
-    for(int i = 0; i<floorVector.size(); i++) {
+    for(int i = 0; i<floorVector.size(); ++i) {
         TiledMap::BasicBlock *block = floorVector.at(i);
 
         //Horizontal collision

@@ -7,6 +7,7 @@
 #include "../Engine2D/RootEntity.hpp"
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
+#include "SceneController.hpp"
 
 USING_NS_CC;
 
@@ -20,7 +21,9 @@ namespace Scenes {
         
             void menuCloseCallback(cocos2d::Ref* pSender);
         
-            static cocos2d::Scene* createScene();
+            void setListener(SceneControllerListener* listener);
+        
+            static cocos2d::Scene* createScene(SceneControllerListener* listener);
         
             virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
         
@@ -37,9 +40,13 @@ namespace Scenes {
         
             void retryMenuCallback(cocos2d::Ref* sender);
         
+            void gameOver(cocos2d::Ref *sender);
+        
             CREATE_FUNC(PlayerTestScene);
 
         private:
+        
+            SceneControllerListener* _listener;
         
             bool pause = false;
         

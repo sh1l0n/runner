@@ -40,8 +40,6 @@ namespace TiledMap {
             /** @short The height of the block */
             float _height;
 
-            /** @short The bounding box of the node */
-            Rect _rect;
 
 
 
@@ -49,15 +47,13 @@ namespace TiledMap {
 
             TypeBlock  _type;
 
-             BasicBlock();
-
-            /** @short Copy constructor */
             BasicBlock(const BasicBlock& titleCollisionable);
+            inline BasicBlock(){};
 
             static BasicBlock* create(const float X, const float Y, const float width, const float height, const TypeBlock type);
 
             /** @short Overload operator = */
-            TiledMap::BasicBlock& operator=(const BasicBlock& tileCollisionable);
+            //TiledMap::BasicBlock& operator=(const BasicBlock& tileCollisionable);
 
             /** @short Get the global bounding box */
             Rect getBoundingBox() const;
@@ -66,8 +62,12 @@ namespace TiledMap {
             float getY() const;
             float getWidth() const;
             float getHeight() const;
+            /** @short The bounding box of the node */
+            Rect _rect;
 
             std::string toString() const;
+        
+        CREATE_FUNC(BasicBlock);
 
     };
 }

@@ -11,25 +11,16 @@
 #include <iostream>
 
 TiledMap::
-BasicBlock::BasicBlock() : DrawNode() {
-
-}
-
-/**
- * Copy Constructor
- * @param tileCollisionable object for copy
- */
-TiledMap::
-BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) {
-
+BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) : DrawNode() {
     this->_posX= tileCollisionable._posX;
     this->_posY= tileCollisionable._posY;
     this->_width= tileCollisionable._width;
     this->_height= tileCollisionable._height;
     this->_type = tileCollisionable._type;
     this->_rect=Rect(this->_posX,this->_posY,this->_width,this->_height);
-}
+    std::cout<<this->_posX << "//" << this->_posY << "//" << this->_width << "//" << this->_height << std::endl;
 
+}
 
 /**
  * Getter
@@ -46,10 +37,11 @@ BasicBlock::getBoundingBox() const {
  * Overload operator =
  * @param tileCollisionable object for copy
  * @return object copyied
- */
+ *
 TiledMap::BasicBlock&
 TiledMap::
 BasicBlock::operator=(const TiledMap::BasicBlock& tileCollisionable) {
+    log("Hello\n");
     if(this != &tileCollisionable) {
         this->_posX= tileCollisionable._posX;
         this->_posY= tileCollisionable._posY;
@@ -57,9 +49,10 @@ BasicBlock::operator=(const TiledMap::BasicBlock& tileCollisionable) {
         this->_height= tileCollisionable._height - tileCollisionable._posY;
         this->_type = tileCollisionable._type;
         this->_rect.setRect(this->_posX,this->_posY,this->_width,this->_height);
+        std::cout<<this->_posX << "pp//" << this->_posY << "//" << this->_width << "//" << this->_height << std::endl;
     }
     return *this;
-}
+}*/
 
 
 
@@ -125,6 +118,7 @@ BasicBlock::getWidth() const {
 float
 TiledMap::
 BasicBlock::getHeight() const {
+    std::cout << "--" << this->_height - this->_posY << std::endl;
     return this->_height - this->_posY;
     //return 70.f;
 }

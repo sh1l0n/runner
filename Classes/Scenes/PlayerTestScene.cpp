@@ -8,10 +8,11 @@
 USING_NS_CC;
 
 cocos2d::Scene*
-Scenes::PlayerTestScene::createScene()
+Scenes::PlayerTestScene::createScene(Scenes::SceneControllerListener* listener)
 {
     cocos2d::Scene* scene = Scene::create();
-    cocos2d::Layer* layer = PlayerTestScene::create();
+    auto layer = PlayerTestScene::create();
+    layer->setListener(listener);
     scene->addChild(layer);
     return scene;
 }
@@ -186,6 +187,12 @@ PlayerTestScene::init()
     return true;
 }
 
+void
+Scenes::
+PlayerTestScene::setListener(Scenes::SceneControllerListener* listener) {
+    this->_listener = listener;
+}
+
 bool
 Scenes::
 PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
@@ -276,6 +283,12 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
 
 void
 Scenes::
+PlayerTestScene::gameOver(cocos2d::Ref *sender){
+    _listener->changeScene(Scenes::ESceneType::GAMESCENE);
+}
+
+void
+Scenes::
 PlayerTestScene::update(float delta){
     
     //##############################################################################
@@ -288,7 +301,7 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     if(this->player->getPositionY()<= -400 || pause){
         log("Entra: %f",this->player->getPositionY());
-        Director::getInstance()->pause();
+        //Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
         
         if(pause){
@@ -298,7 +311,7 @@ PlayerTestScene::update(float delta){
             pause = false;
         }else{
             retryLabel = Label::createWithTTF("New Game", "fonts/Marker Felt.ttf", 24);
-            retryItem = MenuItemLabel::create(retryLabel,NULL);//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
+            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(Scenes::PlayerTestScene::gameOver,this));//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
             Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
         }
         auto closeLabel = Label::createWithTTF("Close", "fonts/Marker Felt.ttf", 24);
