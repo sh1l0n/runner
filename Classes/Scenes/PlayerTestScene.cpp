@@ -75,12 +75,14 @@ PlayerTestScene::init()
     this->_nodeScroll->addChild(parallax, 0);
     this->_nodeScroll->addChild(this->player, 2);
     this->_nodeScroll->addChild(this->speedM, 2);
-    this->_nodeScroll->runAction(Follow::create(this->player));
+    this->_nodeScroll->runAction(Follow::create(this->speedM));
     this->addChild(this->_nodeScroll);
     
     //Set map controller
     log("Init map controller");
     this->_mapController = TiledMap::TiledMapController(this);
+    
+    
     
     
     m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);

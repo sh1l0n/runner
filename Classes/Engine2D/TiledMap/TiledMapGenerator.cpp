@@ -86,6 +86,36 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     Sprite *spriteToLoad = NULL;
     Rect rectForBoundingBoxCollisionable;
     TiledMap::BasicBlock *basicBlockCollisionable;
+    
+    //Pablo________________________________
+    //Adaptacion distintos dispositivos
+    auto director = Director::getInstance();
+    auto glview = director->getOpenGLView();
+    std::cout<<"win size X:"<<Director::getInstance()->getWinSize().width;
+    std::cout<<"win size Y:"<<Director::getInstance()->getWinSize().height;
+    std::cout<<"Frame size X:"<<glview->getFrameSize().width;
+    std::cout<<"Frame size Y:"<<glview->getFrameSize().height;
+
+    
+    unsigned int size_image_sprite=ConstanDevices::getInstance()->SIZE_IMAGE_SPRITE;
+    float factor_scale= ConstanDevices::getInstance()->FACTOR_SCALE;
+    
+    /*if(glview->getFrameSize().width>1000){
+        //iphone
+        size_image_sprite=K_SIZE_IMAGE_SPRITE_DESIGN/2;
+        factor_scale=0.5;
+        
+    }
+    
+    if(glview->getFrameSize().width>2000){
+        //ipad
+        size_image_sprite=K_SIZE_IMAGE_SPRITE_DESIGN/4;
+        factor_scale=0.5;
+
+    }*/
+    //Fin Pablo
+    
+    
 
     //##############################################################################
     //Initialize map for textures to 0's
@@ -153,13 +183,13 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
 
                 if(basicBlockType != TiledMap::TypeBlock::NONE) {
                     spriteToLoad = Sprite::createWithTexture(this->_mapTextures[basicBlockTypeCurrent],
-                                                             Rect(0, 0, K_SIZE_IMAGE_SPRITE, K_SIZE_IMAGE_SPRITE));
+                                                             Rect(0, 0, size_image_sprite, size_image_sprite));
 
 
                     spriteToLoad->setAnchorPoint(Vec2(0, 0));
-                    spriteToLoad->setPosition(positionXCurrentChunck * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE,
-                                              positionYCurrentChunck * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE);
-                    spriteToLoad->setScale(K_FACTOR_SCALE, K_FACTOR_SCALE);
+                    spriteToLoad->setPosition(positionXCurrentChunck * factor_scale * size_image_sprite,
+                                              positionYCurrentChunck * factor_scale * size_image_sprite);
+                    spriteToLoad->setScale(factor_scale, factor_scale);
 
                     currentChunck->_node->addChild(spriteToLoad, 0);
 
@@ -262,10 +292,10 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             //we put the floor sprite if is not 0 (gap)
             if(mapForTextures[i][j]==2 || mapForTextures[i][j]==6){
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[2],
-                                                         Rect(0, 0, K_SIZE_IMAGE_SPRITE, K_SIZE_IMAGE_SPRITE));
-                spriteToLoad->setScale(K_FACTOR_SCALE, K_FACTOR_SCALE);
-                spriteToLoad->setPosition(i * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE,
-                                          j * K_FACTOR_SCALE * K_SIZE_IMAGE_SPRITE);
+                                                         Rect(0, 0, size_image_sprite, size_image_sprite));
+                spriteToLoad->setScale(factor_scale, factor_scale);
+                spriteToLoad->setPosition(i * factor_scale * size_image_sprite,
+                                          j * factor_scale * size_image_sprite);
                 spriteToLoad->setAnchorPoint(Vec2(0, 0));
                 currentChunck->_node->addChild(spriteToLoad, 0);
             }

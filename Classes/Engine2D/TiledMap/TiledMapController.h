@@ -6,18 +6,19 @@
 #include <unordered_map>
 #include "Chunck.h"
 #include "TiledMapGenerator.hpp"
+#include "ConstantDevices.hpp"
 
 namespace TiledMap {
 
     const unsigned char K_NUMBERS_CHUNCKS_MEMORY = 0x03;
     
-    const int K_WORLD_SIZE_PX = (int)(K_WIDTH*K_SIZE_IMAGE_SPRITE*K_FACTOR_SCALE);
+    /*const int K_WORLD_SIZE_PX = (int)(K_WIDTH*K_SIZE_IMAGE_SPRITE_DESIGN*K_FACTOR_SCALE_DESIGN);
     
     const float K_FLAG_CHUNCK_PART_1 = K_WORLD_SIZE_PX/4.f;
     
     const float K_FLAG_CHUNCK_PART_2 = (2.f*K_WORLD_SIZE_PX)/4.f;
     
-    const float K_FLAG_CHUNCK_PART_3 = (3.f*K_WORLD_SIZE_PX)/4.f;
+    const float K_FLAG_CHUNCK_PART_3 = (3.f*K_WORLD_SIZE_PX)/4.f;*/
    
     const float K_FLAG_CHUNCK_THRESHOLD = 50;
 
@@ -61,6 +62,15 @@ namespace TiledMap {
             TiledMapControllerListener* _listener;
             ChunckIdentifiers getNextChunck() const;
             ChunckIdentifiers getLastChunck() const;
+        
+        
+            int K_WORLD_SIZE_PX;
+        
+            float K_FLAG_CHUNCK_PART_1;
+        
+            float K_FLAG_CHUNCK_PART_2;
+        
+            float K_FLAG_CHUNCK_PART_3;
         
         public:
             TiledMapController();

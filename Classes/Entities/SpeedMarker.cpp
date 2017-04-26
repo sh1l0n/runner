@@ -28,9 +28,10 @@ SpeedMarker::SpeedMarker():RootEntity() {
  */
 void SpeedMarker::customupdate(float delta) {
     this->beginUpdate(); //must be called on every update reimplementation
+    
 
-
-    setMotionX(vx);
+    this->setPositionX(this->getPositionX()+vx);
+    //setMotionX(vx);
     RootEntity::customupdate(delta);
 }
 

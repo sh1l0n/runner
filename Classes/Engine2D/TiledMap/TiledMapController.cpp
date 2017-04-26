@@ -5,6 +5,13 @@
 
 TiledMap::
 TiledMapController::TiledMapController() {
+    K_WORLD_SIZE_PX = (int)(K_WIDTH*ConstanDevices::getInstance()->SIZE_IMAGE_SPRITE*ConstanDevices::getInstance()->FACTOR_SCALE);
+    
+    K_FLAG_CHUNCK_PART_1 = K_WORLD_SIZE_PX/4.f;
+    
+    K_FLAG_CHUNCK_PART_2 = (2.f*K_WORLD_SIZE_PX)/4.f;
+    
+    K_FLAG_CHUNCK_PART_3 = (3.f*K_WORLD_SIZE_PX)/4.f;
     
 }
 
@@ -19,7 +26,7 @@ TiledMapController::TiledMapController(TiledMapControllerListener* listener) {
     this->_globalPosition = 0;
     this->_listener = listener;
     this->_chuncks[TiledMap::ChunckIdentifiers::A] = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(0, 0);
-    this->_globalPosition += TiledMap::K_WORLD_SIZE_PX;
+    this->_globalPosition += K_WORLD_SIZE_PX;
     this->_indexOfChuncksGenerated = 0;
     this->_chuncks[TiledMap::ChunckIdentifiers::B] = NULL;
     this->_chuncks[TiledMap::ChunckIdentifiers::C] = NULL;
@@ -102,7 +109,7 @@ TiledMapController::update(const int position) {
     const int localPosition = (K_WORLD_SIZE_PX*this->_indexOfChuncksGenerated);
     log("position!! %d  local: %d chunck number: %d, world size: %d", position, localPosition, this->_indexOfChuncksGenerated, K_WORLD_SIZE_PX);
     
-    if(!this->flags[0] && localPosition>=TiledMap::K_FLAG_CHUNCK_PART_1 && localPosition<TiledMap::K_FLAG_CHUNCK_PART_2)
+    if(!this->flags[0] && localPosition>=K_FLAG_CHUNCK_PART_1 && localPosition<K_FLAG_CHUNCK_PART_2)
     {
         TiledMap::ChunckIdentifiers lastState = this->getLastChunck();
         this->_listener->removeChunckFromScene(lastState);
@@ -113,7 +120,7 @@ TiledMapController::update(const int position) {
             this->_chuncks[lastState] = NULL;
         }
     }
-    else if(!this->flags[1] && localPosition>=TiledMap::K_FLAG_CHUNCK_PART_2 && localPosition<TiledMap::K_FLAG_CHUNCK_PART_3)
+    else if(!this->flags[1] && localPosition>=K_FLAG_CHUNCK_PART_2 && localPosition<K_FLAG_CHUNCK_PART_3)
     {
         TiledMap::ChunckIdentifiers nextState = this->getNextChunck();
         if (this->_chuncks[nextState] != NULL) {
@@ -121,7 +128,7 @@ TiledMapController::update(const int position) {
             this->_chuncks[nextState] = NULL;
         }
         this->_chuncks[nextState] = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(0, this->_globalPosition);
-        this->_globalPosition+=TiledMap::K_WORLD_SIZE_PX;
+        this->_globalPosition+=K_WORLD_SIZE_PX;
         this->flags[1] = true;
     }
     else if(this->flags[2] && localPosition>=K_FLAG_CHUNCK_PART_3)
