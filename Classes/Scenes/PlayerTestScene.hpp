@@ -48,7 +48,7 @@ namespace Scenes {
         
             SceneControllerListener* _listener;
         
-            bool pause = false;
+            bool pause = false, dead = false;
         
             const Size WINDOWS_SIZE_IPHONE = Director::getInstance()->getWinSize();
             Vec2 origin = Director::getInstance()->getVisibleOrigin();

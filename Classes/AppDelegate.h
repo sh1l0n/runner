@@ -12,6 +12,7 @@ Private inheritance here hides part of interface from Director.
 class  AppDelegate : private cocos2d::Application, public Scenes::SceneControllerListener
 {
 private:
+    bool mainMenu = false;
     //cocos2d::Scene* scene;
 public:
     AppDelegate();

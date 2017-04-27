@@ -284,7 +284,11 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
 void
 Scenes::
 PlayerTestScene::gameOver(cocos2d::Ref *sender){
+    Director::getInstance()->resume();
     _listener->changeScene(Scenes::ESceneType::GAMESCENE);
+    Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
+    //we put in a position >-400 for not entering in pause conditional again, so we can restart
+    this->player->setPositionY(200);
 }
 
 void
@@ -301,7 +305,7 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     if(this->player->getPositionY()<= -400 || pause){
         log("Entra: %f",this->player->getPositionY());
-        //Director::getInstance()->pause();
+        Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
         
         if(pause){
@@ -314,8 +318,8 @@ PlayerTestScene::update(float delta){
             retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(Scenes::PlayerTestScene::gameOver,this));//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
             Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
         }
-        auto closeLabel = Label::createWithTTF("Close", "fonts/Marker Felt.ttf", 24);
-        auto closeItem = MenuItemLabel::create(closeLabel, NULL);//CC_CALLBACK_1(, this));
+        auto closeLabel = Label::createWithTTF("Main Menu", "fonts/Marker Felt.ttf", 24);
+        auto closeItem = MenuItemLabel::create(closeLabel, NULL);
         
         // create menu, it's an autorelease object
         menu = Menu::create(retryItem, closeItem, NULL);
