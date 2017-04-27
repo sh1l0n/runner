@@ -13,6 +13,7 @@ class  AppDelegate : private cocos2d::Application, public Scenes::SceneControlle
 {
 private:
     bool mainMenu=false,exitMainMenu = false;
+    bool music;
     //cocos2d::Scene* scene;
 public:
     AppDelegate();
@@ -39,8 +40,11 @@ public:
     */
     virtual void applicationWillEnterForeground() override;
     
-    
     void changeScene(Scenes::ESceneType scene) override;
+    
+    bool getMusic() override;
+    
+    void setMusic(bool music) override;
 };
 
 #endif // _APP_DELEGATE_H_

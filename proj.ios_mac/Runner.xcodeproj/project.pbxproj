@@ -114,6 +114,9 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		C7075EEF1EB28641004FB0A8 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = C7075EEE1EB28641004FB0A8 /* pause.png */; };
+		C7075EF31EB29320004FB0A8 /* audio_off.png in Resources */ = {isa = PBXBuildFile; fileRef = C7075EF11EB29320004FB0A8 /* audio_off.png */; };
+		C7075EF41EB29320004FB0A8 /* audio_on.png in Resources */ = {isa = PBXBuildFile; fileRef = C7075EF21EB29320004FB0A8 /* audio_on.png */; };
 		C7311F921EABF957001DC0B0 /* MainMenuPhone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */; };
 		C7311F9C1EACF2E8001DC0B0 /* menu_close.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9A1EACF2E8001DC0B0 /* menu_close.png */; };
 		C7311F9D1EACF2E8001DC0B0 /* menu_open.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9B1EACF2E8001DC0B0 /* menu_open.png */; };
@@ -261,6 +264,9 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		C7075EEE1EB28641004FB0A8 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pause.png; path = ../Classes/Scenes/pause.png; sourceTree = "<group>"; };
+		C7075EF11EB29320004FB0A8 /* audio_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = audio_off.png; path = ../Classes/Scenes/audio_off.png; sourceTree = "<group>"; };
+		C7075EF21EB29320004FB0A8 /* audio_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = audio_on.png; path = ../Classes/Scenes/audio_on.png; sourceTree = "<group>"; };
 		C70F68571EB0E42700C1D1C2 /* SceneController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneController.hpp; sourceTree = "<group>"; };
 		C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuPhone.cpp; sourceTree = "<group>"; };
 		C7311F911EABF957001DC0B0 /* MainMenuPhone.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainMenuPhone.hpp; sourceTree = "<group>"; };
@@ -482,7 +488,10 @@
 				209E13EC1E9C17AE007DB2A1 /* bg_desert.png */,
 				209E13ED1E9C17AE007DB2A1 /* box.png */,
 				209E13EE1E9C17AE007DB2A1 /* castleCenter.png */,
+				C7075EEE1EB28641004FB0A8 /* pause.png */,
 				209E13EF1E9C17AE007DB2A1 /* CloseNormal.png */,
+				C7075EF11EB29320004FB0A8 /* audio_off.png */,
+				C7075EF21EB29320004FB0A8 /* audio_on.png */,
 				209E13F01E9C17AE007DB2A1 /* CloseSelected.png */,
 				209E13F21E9C17AE007DB2A1 /* fonts */,
 				209E13F31E9C17AE007DB2A1 /* HelloWorld.png */,
@@ -684,6 +693,7 @@
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				209E141B1E9C17AE007DB2A1 /* sprites.png in Resources */,
 				209E13FF1E9C17AE007DB2A1 /* bg_desert.png in Resources */,
+				C7075EF31EB29320004FB0A8 /* audio_off.png in Resources */,
 				209E14071E9C17AE007DB2A1 /* CloseSelected.png in Resources */,
 				209E14011E9C17AE007DB2A1 /* box.png in Resources */,
 				209E141D1E9C17AE007DB2A1 /* stoneHalf.png in Resources */,
@@ -700,10 +710,12 @@
 				209E14051E9C17AE007DB2A1 /* CloseNormal.png in Resources */,
 				209E140D1E9C17AE007DB2A1 /* HelloWorld.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
+				C7075EF41EB29320004FB0A8 /* audio_on.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
+				C7075EEF1EB28641004FB0A8 /* pause.png in Resources */,
 				209E14231E9C17AE007DB2A1 /* tiles_spritesheet.xml in Resources */,
 				209E14211E9C17AE007DB2A1 /* tiles_spritesheet.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,

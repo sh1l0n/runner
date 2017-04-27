@@ -2,6 +2,7 @@
 #include "Scenes/MainMenuPhone.hpp"
 #include "AppDelegate.h"
 #include <stdlib.h>
+#include <thread>
 #include <time.h>
 
 
@@ -108,12 +109,6 @@ void AppDelegate::applicationWillEnterForeground() {
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
 
-
-
-
-
-
-
 void
 AppDelegate::changeScene(Scenes::ESceneType scene) {
     
@@ -122,14 +117,15 @@ AppDelegate::changeScene(Scenes::ESceneType scene) {
     switch (scene) {
         case Scenes::MAIN_MENU:
             sceneToLoad = Scenes::MainMenuPhone::createScene(this);
-            mainMenu = true;
+            mainMenu = false;
             break;
         case Scenes::GAMESCENE:
             sceneToLoad = Scenes::PlayerTestScene::createScene(this);
-            break;
-        case Scenes::PAUSE_MENU:
+            mainMenu = true;
             break;
         case Scenes::GAMEOVER:
+            sceneToLoad = Scenes::PlayerTestScene::createScene(this);
+            mainMenu = false;
             break;
         case Scenes::EXIT:
             Director::getInstance()->end();
@@ -138,19 +134,28 @@ AppDelegate::changeScene(Scenes::ESceneType scene) {
         default:
             break;
     }
+    log("Music: %d",music);
     
     if(Director::getInstance()->getRunningScene()==NULL) {
         Director::getInstance()->runWithScene(sceneToLoad);
         mainMenu= true;
-    }/*else if(mainMenu){
-        Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
-        mainMenu = false;
-    }*/
-    else{
-        Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
-        Director::getInstance()->pushScene(sceneToLoad);//(TransitionFade::create(3.f, sceneToLoad));
+    }else if(mainMenu){
+        Director::getInstance()->pushScene(TransitionFade::create(3.f,sceneToLoad));
         Director::getInstance()->resume();
     }
+    else{
+        Director::getInstance()->pushScene(sceneToLoad);
+    }
+}
+
+bool
+AppDelegate::getMusic(){
+    return this->music;
+}
+
+void
+AppDelegate::setMusic(bool music){
+    this->music = music;
 }
 
 

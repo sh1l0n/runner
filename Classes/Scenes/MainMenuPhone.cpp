@@ -91,8 +91,10 @@ void
 Scenes::
 MainMenuPhone::playMenuCallback(cocos2d::Ref *sender) {
     
-    Entities::Sound::getInstance()->playSound("Audio/open_door.mp3");
-    Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
+    if(this->listener->getMusic()){
+        Entities::Sound::getInstance()->playSound("Audio/open_door.mp3");
+        Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
+    }
     auto menu_open = Sprite::create("menu_open.png");
     menu_open->setContentSize(SIZE_PICTURE_IPHONE);
     menu_open->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);

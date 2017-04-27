@@ -44,7 +44,7 @@ namespace Scenes {
         
             void mainMenu(cocos2d::Ref *sender);
         
-            void pauseGame(cocos2d::Ref *sender);
+            void setAudioButton();
         
             CREATE_FUNC(PlayerTestScene);
 
@@ -52,7 +52,7 @@ namespace Scenes {
         
             SceneControllerListener* _listener;
         
-            cocos2d::ui::Button* pauseButton;
+            cocos2d::ui::Button* pauseButton, *audioButton;
         
             bool pause = false, dead = false;
         
@@ -86,5 +86,10 @@ namespace Scenes {
             Vector<TiledMap::BasicBlock*> boxes;
         
             Menu* menu;
+        
+            Size visibleSize;
+        
+            const float SIZE_BUTTON = 0.1;
+            const float SPACE_BUTTON_PADDING = 20;
     };
 }

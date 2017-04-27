@@ -23,5 +23,9 @@ namespace Scenes {
 
         public:
             virtual void changeScene(ESceneType scene) = 0;
+        
+            virtual bool getMusic() = 0;
+        
+            virtual void setMusic(bool music) = 0;
     };
 }
