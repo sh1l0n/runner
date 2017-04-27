@@ -93,26 +93,16 @@ PlayerTestScene::init()
     m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
     this->addChild(m_labelPuntuacion);
     
-    /*m_labelPause = Label::createWithTTF("Pause", "fonts/Marker Felt.ttf", 24);
-    //m_labelPause->setPosition(Vec2(origin.x + visibleSize.width/1.1,
-      //                            origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
-    auto pauseItem = MenuItemLabel::create(m_labelPause,NULL);
-    pauseItem->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
-    auto menu = Menu::create(pauseItem,NULL);
-    this->addChild(menu);*/
-    auto button = cocos2d::ui::Button::create("CloseNormal.png", "CloseSelected.png", "CloseNormal.png");
+    pauseButton = cocos2d::ui::Button::create("CloseNormal.png", "CloseSelected.png", "CloseNormal.png");
     
-    //button->setTitleText("Button Text");
-    button->setPosition(Vec2(origin.x + visibleSize.width/1.05,
+    pauseButton->setPosition(Vec2(origin.x + visibleSize.width/1.05,
                              origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
-    button->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
+    pauseButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
         switch (type)
         {
             case ui::Widget::TouchEventType::BEGAN:
                 break;
             case ui::Widget::TouchEventType::ENDED:
-                std::cout << "Button 1 clicked" << std::endl;
                 pause = true;
                 break;
             default:
@@ -120,7 +110,7 @@ PlayerTestScene::init()
         }
     });
     
-    this->addChild(button);
+    this->addChild(pauseButton);
     //this->addChild(m_labelPause);
     
     //Set touch listeners
@@ -138,52 +128,6 @@ PlayerTestScene::init()
     //Finalez and update UI
     this->scheduleUpdate();
     
-    
-    
-    
-    
-    
-/*
- 
-    _mapController = TiledMap::TiledMapController(this);
- 
-
-
-    //Initialze Infinite map generator with 2 maps
-    chunk1 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
-    world1=chunk1._node;
-    //new chunk
-    worldSizePx=TiledMap::K_WIDTH*TiledMap::K_SIZE_IMAGE_SPRITE*TiledMap::K_FACTOR_SCALE;
-
-    numWorld=0;
-
-    chunk2 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 1);
-    world2=chunk2._node;
-    world2->setPosition(worldSizePx,0);
-
-
-    m_scroll->addChild(world1, 1);
-    m_scroll->addChild(world2, 1);
-
-
-
-    //The map
-    this->addChild(m_scroll, 0);
-
-    //The GUI its over m_scroll
-    m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);
-
-
-    m_labelPuntuacion->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                        origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
-
-    m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
-    this->addChild(m_labelPuntuacion);
-
-    //we asign chunk1 bwcause world 1 is the active world
-    e->setFloorCollision(chunk1._collisionables);
- 
- */
     return true;
 }
 
@@ -287,12 +231,25 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
 void
 Scenes::
 PlayerTestScene::gameOver(cocos2d::Ref *sender){
-    dead=false;
+    dead=pause=false;
     Director::getInstance()->resume();
     _listener->changeScene(Scenes::ESceneType::GAMESCENE);
     Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
     //we put in a position >-400 for not entering in pause conditional again, so we can restart
     this->player->setPositionY(200);
+}
+
+void
+Scenes::
+PlayerTestScene::mainMenu(cocos2d::Ref *sender){
+    dead=pause=false;
+    _listener->changeScene(Scenes::ESceneType::MAIN_MENU);
+}
+
+void
+Scenes::
+PlayerTestScene::pauseGame(cocos2d::Ref *sender){
+    
 }
 
 void
@@ -320,23 +277,23 @@ PlayerTestScene::update(float delta){
         Entities::Sound::getInstance()->clearSounds();
         //Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
         
+        newGameLabel = Label::createWithTTF("New Game", "fonts/Marker Felt.ttf", 24);
+        newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
+        closeLabel = Label::createWithTTF("Main Menu", "fonts/Marker Felt.ttf", 24);
+        closeItem = MenuItemLabel::create(closeLabel, CC_CALLBACK_1(PlayerTestScene::mainMenu, this));
         if(pause){
             retryLabel = Label::createWithTTF("Retry", "fonts/Marker Felt.ttf", 24);
             retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
             Entities::Sound::getInstance()->pauseBackground();
+            menu = Menu::create(retryItem, newGameItem, closeItem, NULL);
+            menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height*2);
         }else{
-            retryLabel = Label::createWithTTF("New Game", "fonts/Marker Felt.ttf", 24);
-            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(Scenes::PlayerTestScene::gameOver,this));
             Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
+            menu = Menu::create(newGameItem, closeItem, NULL);
+            menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height);
         }
-        auto closeLabel = Label::createWithTTF("Main Menu", "fonts/Marker Felt.ttf", 24);
-        auto closeItem = MenuItemLabel::create(closeLabel, NULL);
-        
-        // create menu, it's an autorelease object
-        menu = Menu::create(retryItem, closeItem, NULL);
-        //menu->setPosition(Vec2::ZERO);
+
         menu->alignItemsVertically();
-        menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height);
         this->addChild(menu, 1);
     }
 
@@ -352,62 +309,5 @@ PlayerTestScene::update(float delta){
     }
 
     this->player->customdraw(delta, this->deltaCount, this->stepTime);
-    //this->speedM->customdraw(delta, this->deltaCount, this->stepTime);
-    //this->_mapController.update(this->player->getPositionX());
     
-    
-    //this->player->getPositionX()
-    /*if(deltaCountForMap >= 0.2f) {
-
-        //comparamos la posicion del speed con el numero de mundo activo
-        //si la posición no corresponde con el mundo activo cambiamos
-        worldForPosition=speedM->getPositionX()/worldSizePx;
-        if(numWorld<worldForPosition){
-            numWorld++;
-            std::cout<<"ahora cambiamos al mundo: "+numWorld;
-            std::cout<<"\n";
-            if(numWorld%2==1){
-                //rehacemos el mundo1
-                //m_scroll->removeChild(world1,true);
-                //world1->release();
-
-                //world1->retain();
-                m_scroll->removeChild(world1);
-                chunk1 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
-                world1=chunk1._node;
-                world1->setPosition(worldSizePx*(numWorld+1),0);
-
-                m_scroll->addChild(world1);
-
-                //ahora cargamos los colisionables del chiunk 2
-                e->setFloorCollision(chunk2._collisionables);
-                //world1->release();
-
-                //world1->release();
-            }
-            if(numWorld%2==0){
-                //rehacemos el mundo2
-                //m_scroll->removeChild(world1,true);
-                //world1->release();
-
-                //world1->retain();
-                m_scroll->removeChild(world2);
-                chunk2 = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(1, 0);
-                world2=chunk2._node;
-                world2->setPosition(worldSizePx*(numWorld+1),0);
-
-                m_scroll->addChild(world2);
-                e->setFloorCollision(chunk1._collisionables);
-                //world1->release();
-
-                //world1->release();
-            }
-
-        }
-        std::cout<<speedM->getPositionX();
-
-        //std::cout<<worldSizePx;
-        std::cout<<"\n";
-        deltaCountForMap = 0.f;
-    }*/
 }

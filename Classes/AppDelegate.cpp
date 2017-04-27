@@ -2,7 +2,6 @@
 #include "Scenes/MainMenuPhone.hpp"
 #include "AppDelegate.h"
 #include <stdlib.h>
-#include <unistd.h>
 #include <time.h>
 
 
@@ -134,49 +133,24 @@ AppDelegate::changeScene(Scenes::ESceneType scene) {
             break;
         case Scenes::EXIT:
             Director::getInstance()->end();
-            #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-                exit(0);
-            #endif
+            exit(0);
             break;
         default:
             break;
     }
-    /*if(first){
-        Director::getInstance()->pushScene(sceneToLoad);
-        Director::getInstance()->resume();
-        //Director::getInstance()->popScene();
+    
+    if(Director::getInstance()->getRunningScene()==NULL) {
+        Director::getInstance()->runWithScene(sceneToLoad);
+        mainMenu= true;
+    }/*else if(mainMenu){
         Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
-        
-    }else{*/
-        if(Director::getInstance()->getRunningScene()==NULL) {
-            
-            //Director::getInstance()->pushScene(sceneToLoad);
-            Director::getInstance()->runWithScene(sceneToLoad);
-            mainMenu= true;
-        }else if(mainMenu){
-            Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
-            mainMenu = false;
-        }
-        else
-        {
-            //        Director::getInstance()->popScene();
-            //Director::getInstance()->runWithScene(sceneToLoad);
-            //        Director::getInstance()->pushScene(sceneToLoad);
-            //        Director::getInstance()->setNextScene();
-            //        Director::getInstance()->drawScene();
-            //Director::getInstance()->popScene();
-            //        Director::getInstance()->pushScene(sceneToLoad);
-            
-            
-            //Director::getInstance()->resume();
-            //Director::getInstance()->drawScene();
-            Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
-            //usleep(6000);
-            Director::getInstance()->pushScene(sceneToLoad);//(TransitionFade::create(3.f, sceneToLoad));
-            Director::getInstance()->resume();
-            //first = true;
-        }
-//    }
+        mainMenu = false;
+    }*/
+    else{
+        Director::getInstance()->replaceScene(TransitionFade::create(3.f, sceneToLoad));
+        Director::getInstance()->pushScene(sceneToLoad);//(TransitionFade::create(3.f, sceneToLoad));
+        Director::getInstance()->resume();
+    }
 }
 
 

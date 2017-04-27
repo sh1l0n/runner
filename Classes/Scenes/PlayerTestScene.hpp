@@ -42,11 +42,17 @@ namespace Scenes {
         
             void gameOver(cocos2d::Ref *sender);
         
+            void mainMenu(cocos2d::Ref *sender);
+        
+            void pauseGame(cocos2d::Ref *sender);
+        
             CREATE_FUNC(PlayerTestScene);
 
         private:
         
             SceneControllerListener* _listener;
+        
+            cocos2d::ui::Button* pauseButton;
         
             bool pause = false, dead = false;
         
@@ -71,15 +77,11 @@ namespace Scenes {
         
             Sprite* _sprite;
         
-            Label *m_labelPuntuacion;
-        
-            Label *m_labelPause;
+            Label *m_labelPuntuacion, *m_labelPause, *retryLabel, *newGameLabel, *closeLabel;
         
             Node *_nodeScroll;
         
-            Label* retryLabel;
-        
-            MenuItemLabel* retryItem;
+            MenuItemLabel *retryItem, *newGameItem, *closeItem;
         
             Vector<TiledMap::BasicBlock*> boxes;
         
