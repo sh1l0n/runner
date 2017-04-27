@@ -199,7 +199,9 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
 
     unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
     if(touch->getLocation().x>=min_width) {
-        Entities::Sound::getInstance()->playSound("Audio/jump.wav");
+        if(!pause && !dead){
+            Entities::Sound::getInstance()->playSound("Audio/jump.wav");
+        }
         this->player->onKeyUp();
     }
     else {
@@ -276,6 +278,7 @@ PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d:
 void
 Scenes::
 PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
+    pause=false;
     Director::getInstance()->resume();
     Entities::Sound::getInstance()->resumeBackground();
     this->removeChild(menu);
@@ -284,6 +287,7 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
 void
 Scenes::
 PlayerTestScene::gameOver(cocos2d::Ref *sender){
+    dead=false;
     Director::getInstance()->resume();
     _listener->changeScene(Scenes::ESceneType::GAMESCENE);
     Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
@@ -300,22 +304,29 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     this->deltaCount += 0.016f;
     this->deltaCountForMap+=0.002f;
+    
+    //##############################################################################
+    // If player falls down from the platform
+    //##############################################################################
+    if(this->player->getPositionY()<= -400){
+        dead = true;
+    }
     //##############################################################################
     // Check if player falled
     //##############################################################################
-    if(this->player->getPositionY()<= -400 || pause){
+    if(dead || pause){
         log("Entra: %f",this->player->getPositionY());
         Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
+        //Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
         
         if(pause){
             retryLabel = Label::createWithTTF("Retry", "fonts/Marker Felt.ttf", 24);
-            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
+            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
             Entities::Sound::getInstance()->pauseBackground();
-            pause = false;
         }else{
             retryLabel = Label::createWithTTF("New Game", "fonts/Marker Felt.ttf", 24);
-            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(Scenes::PlayerTestScene::gameOver,this));//,Director::getInstance()->resume());//CC_CALLBACK_1(Scenes::MainMenuPhone, this));
+            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(Scenes::PlayerTestScene::gameOver,this));
             Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
         }
         auto closeLabel = Label::createWithTTF("Main Menu", "fonts/Marker Felt.ttf", 24);

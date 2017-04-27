@@ -13,6 +13,7 @@ void Entities::Sound::stopSound(std::string sound) {
 
     this->audio->stopEffect((unsigned int)this->mapSounds[sound]);
     this->mapSounds[sound] = -1;
+
 }
 
 void Entities::Sound::stopBackground(std::string sound) {
@@ -43,7 +44,7 @@ void Entities::Sound::resumeBackground(){
 void Entities::Sound::clearSounds(){
 
     for(int i = 0; i<soundVector.size();i++){
-        this->audio->stopEffect(i);
+        this->audio->stopEffect((unsigned int)this->mapSounds[soundVector.at(i)]);
     }
 }
 
