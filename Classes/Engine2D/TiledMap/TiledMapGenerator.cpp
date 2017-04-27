@@ -91,8 +91,9 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     //Adaptacion distintos dispositivos
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
-    std::cout<<"win size X:"<<Director::getInstance()->getWinSize().width;
-    std::cout<<"win size Y:"<<Director::getInstance()->getWinSize().height;
+    std::cout<<" visible origin X:"<<Director::getInstance()->getVisibleOrigin().x;
+
+    std::cout<<"visible origin Y:"<<Director::getInstance()->getVisibleOrigin().y;
     std::cout<<"Frame size X:"<<glview->getFrameSize().width;
     std::cout<<"Frame size Y:"<<glview->getFrameSize().height;
 
@@ -100,20 +101,6 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     unsigned int size_image_sprite=ConstanDevices::getInstance()->SIZE_IMAGE_SPRITE;
     float factor_scale= ConstanDevices::getInstance()->FACTOR_SCALE;
     
-    /*if(glview->getFrameSize().width>1000){
-        //iphone
-        size_image_sprite=K_SIZE_IMAGE_SPRITE_DESIGN/2;
-        factor_scale=0.5;
-        
-    }
-    
-    if(glview->getFrameSize().width>2000){
-        //ipad
-        size_image_sprite=K_SIZE_IMAGE_SPRITE_DESIGN/4;
-        factor_scale=0.5;
-
-    }*/
-    //Fin Pablo
     
     
 

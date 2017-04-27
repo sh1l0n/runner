@@ -30,7 +30,7 @@ ConstanDevices::ConstanDevices() {
         /*size_image_sprite=K_SIZE_IMAGE_SPRITE_DESIGN/2;
         factor_scale=0.5;*/
         this->SIZE_IMAGE_SPRITE=0x23; //35;
-        this->FACTOR_SCALE= 0.5f;
+        this->FACTOR_SCALE= 0.75f;
         
         
         

@@ -64,13 +64,13 @@ namespace TiledMap {
             ChunckIdentifiers getLastChunck() const;
         
         
-            int K_WORLD_SIZE_PX;
+            int _K_WORLD_SIZE_PX = 0;
         
-            float K_FLAG_CHUNCK_PART_1;
+            float _K_FLAG_CHUNCK_PART_1 = 0.0f;
         
-            float K_FLAG_CHUNCK_PART_2;
+            float _K_FLAG_CHUNCK_PART_2 = 0.0f;
         
-            float K_FLAG_CHUNCK_PART_3;
+            float _K_FLAG_CHUNCK_PART_3 = 0.0f;
         
         public:
             TiledMapController();

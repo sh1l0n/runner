@@ -28,8 +28,8 @@ void
 Scenes::
 PlayerTestScene::addChunckToScene(const TiledMap::ChunckIdentifiers id, TiledMap::Chunck* chunck)
 {
-    const auto size = chunck->_node->getContentSize();
-    log("Add chunck to scene :%d  width: %d, height: %d", id, (int)size.width, (int)size.height);
+    //const auto size = chunck->_node->getContentSize();
+    //log("Add chunck to scene :%d  width: %d, height: %d", id, (int)size.width, (int)size.height);
     this->_nodeScroll->addChild(chunck->_node, 1, id);
     this->player->setFloorCollision(chunck->_collisionables);
 }
@@ -54,7 +54,7 @@ PlayerTestScene::init()
     //Player
     this->player->setPosition(200, 50);
     this->speedM = SpeedMarker::create();
-    this->speedM->setPosition(200, 60);
+    this->speedM->setPosition(200, 160);
     
     //Background
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
@@ -248,13 +248,13 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     // Check if player falled
     //##############################################################################
-    if(this->player->getPositionY()<= -400){
+    /*if(this->player->getPositionY()<= -400){
         log("Entra: %f",this->player->getPositionY());
         Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
         Entities::Sound::getInstance()->stopBackground("background.mp3");
         Entities::Sound::getInstance()->clearSounds();
-    }
+    }*/
 
     //##############################################################################
     // Control 15 fps for player movement
@@ -269,7 +269,7 @@ PlayerTestScene::update(float delta){
 
     this->player->customdraw(delta, this->deltaCount, this->stepTime);
     //this->speedM->customdraw(delta, this->deltaCount, this->stepTime);
-    //this->_mapController.update(this->player->getPositionX());
+    this->_mapController.update(this->speedM->getPositionX());
     
     
     //this->player->getPositionX()
