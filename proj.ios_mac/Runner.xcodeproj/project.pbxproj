@@ -111,6 +111,8 @@
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */; };
+		83E86C7C1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
@@ -261,6 +263,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantDevices.cpp; sourceTree = "<group>"; };
+		83E86C7A1EB0E50600D5FB5E /* ConstantDevices.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantDevices.hpp; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -401,6 +405,8 @@
 				209E13BB1E9C179B007DB2A1 /* Chunck.h */,
 				209E13BC1E9C179B007DB2A1 /* TiledMapGenerator.cpp */,
 				209E13BD1E9C179B007DB2A1 /* TiledMapGenerator.hpp */,
+				83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */,
+				83E86C7A1EB0E50600D5FB5E /* ConstantDevices.hpp */,
 			);
 			path = TiledMap;
 			sourceTree = "<group>";
@@ -618,10 +624,11 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 65226V85B6;
+						DevelopmentTeam = 5WZS348LC4;
+						ProvisioningStyle = Automatic;
 					};
 					5087E73D17EB910900C73F5D = {
-						DevelopmentTeam = 65226V85B6;
+						DevelopmentTeam = 5WZS348LC4;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -767,6 +774,7 @@
 				209E13E51E9C179B007DB2A1 /* Sound.cpp in Sources */,
 				209E13D91E9C179B007DB2A1 /* MiddlePyramid.cpp in Sources */,
 				209E13E71E9C179B007DB2A1 /* SpeedMarker.cpp in Sources */,
+				83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */,
 				209E13DD1E9C179B007DB2A1 /* BasicBlock.cpp in Sources */,
 				209E14341E9C25C7007DB2A1 /* PlayerTestScene.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
@@ -797,6 +805,7 @@
 				209E13D41E9C179B007DB2A1 /* BaseStructure.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				209E13E61E9C179B007DB2A1 /* Sound.cpp in Sources */,
+				83E86C7C1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */,
 				209E13DA1E9C179B007DB2A1 /* MiddlePyramid.cpp in Sources */,
 				209E13D81E9C179B007DB2A1 /* JumpStructure.cpp in Sources */,
 			);
@@ -823,8 +832,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 65226V85B6;
+				DEVELOPMENT_TEAM = 5WZS348LC4;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -838,7 +848,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
@@ -857,8 +867,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = 65226V85B6;
+				DEVELOPMENT_TEAM = 5WZS348LC4;
 				ENABLE_BITCODE = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -871,7 +882,7 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LIBRARY_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
@@ -893,7 +904,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 65226V85B6;
+				DEVELOPMENT_TEAM = 5WZS348LC4;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -927,7 +938,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 65226V85B6;
+				DEVELOPMENT_TEAM = 5WZS348LC4;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;

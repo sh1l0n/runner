@@ -14,7 +14,7 @@ Player::Player():RootEntity() {
     jump = 40.f;
     jumpSpeed = 20.f;
     friction = 1.f;
-    maxVel = 7.f;
+    maxVel = 8.f;
     gravity = 6.f;
     terminalVelocity = 5;
     maxJump = 40.f;

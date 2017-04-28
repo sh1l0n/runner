@@ -29,8 +29,8 @@ void
 Scenes::
 PlayerTestScene::addChunckToScene(const TiledMap::ChunckIdentifiers id, TiledMap::Chunck* chunck)
 {
-    const auto size = chunck->_node->getContentSize();
-    log("Add chunck to scene :%d  width: %d, height: %d", id, (int)size.width, (int)size.height);
+    //const auto size = chunck->_node->getContentSize();
+    //log("Add chunck to scene :%d  width: %d, height: %d", id, (int)size.width, (int)size.height);
     this->_nodeScroll->addChild(chunck->_node, 1, id);
     this->player->setFloorCollision(chunck->_collisionables);
 }
@@ -75,7 +75,7 @@ PlayerTestScene::init()
     //Player
     this->player->setPosition(200, 50);
     this->speedM = SpeedMarker::create();
-    this->speedM->setPosition(200, 60);
+    this->speedM->setPosition(200, 160);
     
     //Background
     Texture2D *textureBackGround = Director::getInstance()->getTextureCache()->addImage("bg_desert.png");
@@ -96,12 +96,14 @@ PlayerTestScene::init()
     this->_nodeScroll->addChild(parallax, 0);
     this->_nodeScroll->addChild(this->player, 2);
     this->_nodeScroll->addChild(this->speedM, 2);
-    this->_nodeScroll->runAction(Follow::create(this->player));
+    this->_nodeScroll->runAction(Follow::create(this->speedM));
     this->addChild(this->_nodeScroll);
     
     //Set map controller
     log("Init map controller");
     this->_mapController = TiledMap::TiledMapController(this);
+    
+    
     
     
     m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);
@@ -269,12 +271,13 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     // Update times FIXME: Corregir problema con delta (es muy invariable y ejecuta el update 4 0 5 veces, desestabilizando el movimiento)
     //##############################################################################
-    this->deltaCount += 0.016f;
+    this->deltaCount += 0.032f;
     this->deltaCountForMap+=0.002f;
     
     //##############################################################################
     // If player falls down from the platform
     //##############################################################################
+
     if(this->player->getPositionY()<= -400){
         dead = true;
     }
@@ -310,6 +313,7 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     if(this->deltaCount >= 0.067f) {
         this->m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",this->speedM->getPositionX()));
+        log("delta: %f",delta);
         this->player->customupdate(delta);
         this->speedM->customupdate(delta);
         this->stepTime = this->deltaCount;
@@ -317,6 +321,8 @@ PlayerTestScene::update(float delta){
     }
 
     this->player->customdraw(delta, this->deltaCount, this->stepTime);
+    //this->speedM->customdraw(delta, this->deltaCount, this->stepTime);
+    this->_mapController.update(this->speedM->getPositionX());
     
     audioButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
         switch (type)

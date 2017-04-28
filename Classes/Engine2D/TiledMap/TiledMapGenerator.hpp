@@ -9,6 +9,7 @@
 #include <vector>
 #include <unordered_map>
 #include "Chunck.h"
+#include "ConstantDevices.hpp"
 USING_NS_CC;
 
 namespace TiledMap {
@@ -19,8 +20,9 @@ namespace TiledMap {
     /** @short  Width for a chunk */
     static const unsigned char K_WIDTH = 0xD4; //212
 
-    /** @short  Height for a chunk */
+    /** @short  Height for a chunk*/
     static const unsigned char K_HEIGHT = 0x10; //16
+    
 
     /** @short  Height of the floor */
     static const unsigned char K_HEIGHT_FLOOR = 0x02;
@@ -38,10 +40,14 @@ namespace TiledMap {
     static const unsigned char K_MAX_VALUE_REST = 0x06;
 
     /** @short image sprite size*/
-    static const unsigned char K_SIZE_IMAGE_SPRITE = 0x46; //70;
+    //static const unsigned char K_SIZE_IMAGE_SPRITE = 0x46; //70;
+    static const unsigned char K_SIZE_IMAGE_SPRITE_DESIGN = 0x46; //70;
+    
+
 
     /** @short image sprite scale*/
-    static const float K_FACTOR_SCALE = 0.35f;
+    //static const float K_FACTOR_SCALE = 0.35f;
+    static const float K_FACTOR_SCALE_DESIGN = 0.35f;
 
     /** @short image background width size*/
     static const unsigned short K_SIZE_IMAGE_BG_WIDTH = 0x0400; //1024
