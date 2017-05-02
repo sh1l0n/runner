@@ -115,6 +115,8 @@
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		83DBBFE01EB89393008031FA /* GapPlatformStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */; };
+		83DBBFE11EB89393008031FA /* GapPlatformStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */; };
 		83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */; };
 		83E86C7C1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -268,6 +270,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GapPlatformStructure.cpp; sourceTree = "<group>"; };
+		83DBBFDF1EB89393008031FA /* GapPlatformStructure.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GapPlatformStructure.hpp; sourceTree = "<group>"; };
 		83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantDevices.cpp; sourceTree = "<group>"; };
 		83E86C7A1EB0E50600D5FB5E /* ConstantDevices.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ConstantDevices.hpp; sourceTree = "<group>"; };
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -391,6 +395,8 @@
 				209E13B41E9C179B007DB2A1 /* Pyramid.cpp */,
 				209E13B51E9C179B007DB2A1 /* Pyramid.hpp */,
 				209E13B61E9C179B007DB2A1 /* Structures.hpp */,
+				83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */,
+				83DBBFDF1EB89393008031FA /* GapPlatformStructure.hpp */,
 			);
 			path = Structures;
 			sourceTree = "<group>";
@@ -630,7 +636,7 @@
 					};
 					5087E73D17EB910900C73F5D = {
 						DevelopmentTeam = 5WZS348LC4;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -767,6 +773,7 @@
 				C7311F921EABF957001DC0B0 /* MainMenuPhone.cpp in Sources */,
 				209E13E31E9C179B007DB2A1 /* Player.cpp in Sources */,
 				209E13D11E9C179B007DB2A1 /* RootEntity.cpp in Sources */,
+				83DBBFE01EB89393008031FA /* GapPlatformStructure.cpp in Sources */,
 				209E13D51E9C179B007DB2A1 /* GapStructure.cpp in Sources */,
 				209E13CF1E9C179B007DB2A1 /* MathHelper.cpp in Sources */,
 				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
@@ -809,6 +816,7 @@
 				209E13E61E9C179B007DB2A1 /* Sound.cpp in Sources */,
 				83E86C7C1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */,
 				209E13DA1E9C179B007DB2A1 /* MiddlePyramid.cpp in Sources */,
+				83DBBFE11EB89393008031FA /* GapPlatformStructure.cpp in Sources */,
 				209E13D81E9C179B007DB2A1 /* JumpStructure.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -940,7 +948,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CODE_SIGN_IDENTITY = "Mac Developer";
-				DEVELOPMENT_TEAM = 5WZS348LC4;
+				DEVELOPMENT_TEAM = "";
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = mac/Prefix.pch;

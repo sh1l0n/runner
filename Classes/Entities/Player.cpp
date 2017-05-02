@@ -35,7 +35,10 @@ Player::Player():RootEntity() {
     sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
     this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)/2);
     this->setHeight((sprite->getContentSize().height-6)/2);
+    //Pablo
+   
     this->scaleSprite(0.5f, 0.5f);
+    this->scaleSprite(TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE, TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE);
 }
 
 /*!
