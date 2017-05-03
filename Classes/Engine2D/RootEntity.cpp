@@ -73,6 +73,7 @@ void RootEntity::customdraw(float delta, float deltaCount, float stepTime) {
     dx = lx*(1.f-percenTick) + x * percenTick;
     dy = ly*(1.f-percenTick) + y * percenTick;
     Node::setPosition(dx, dy);
+    
 }
 
 
