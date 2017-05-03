@@ -71,7 +71,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     //##############################################################################
     //Create auxiliar variables and initialize a few of their
     //##############################################################################
-    unsigned int i;
+    int i;
     int j;
     int freeSpaceInCurrentChunck;
     unsigned int positionXCurrentChunck;

@@ -5,7 +5,7 @@
  * @brief  Pyramid class implementation
  */
 
-#include "pyramid.hpp"
+#include "Pyramid.hpp"
 #include <stdlib.h>
 
 /** 

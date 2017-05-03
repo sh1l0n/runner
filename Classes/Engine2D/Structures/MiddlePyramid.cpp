@@ -53,7 +53,6 @@ MiddlePyramid::MiddlePyramid() : Structures::BaseStructure()
 Structures::
 MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructure()
 {
-    unsigned int i,j;
     if(width%2==0){
         this->_width=width-1;
     }else{

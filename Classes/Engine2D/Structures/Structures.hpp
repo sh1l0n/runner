@@ -8,7 +8,7 @@
 #pragma once
 
 #include "BaseStructure.hpp"
-#include "pyramid.hpp"
+#include "Pyramid.hpp"
 #include "JumpStructure.hpp"
 #include "MiddlePyramid.hpp"
 #include "GapStructure.hpp"
@@ -96,7 +96,6 @@ namespace Structures {
         
         BaseStructure* structure = NULL;
         unsigned short int max_width;
-        unsigned short int min_width;
         unsigned int width;
         switch(typeStructure) {
             case 1: {

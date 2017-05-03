@@ -113,8 +113,7 @@ PlayerTestScene::init()
 bool
 Scenes::
 PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
-
-    unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
+    
     Entities::Sound::getInstance()->playSound("Audio/jump.wav");
     this->player->onKeyUp();
     return true;
@@ -123,7 +122,6 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
 void
 Scenes::
 PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
-    unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
     this->player->onKeyUpRelease();
 }
 
