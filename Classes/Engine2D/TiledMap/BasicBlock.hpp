@@ -23,7 +23,7 @@ namespace TiledMap {
     /**
      * @brief Class of a collisionable object
      */
-    class BasicBlock : public DrawNode {
+    class BasicBlock : public Node {
 
         private:
 

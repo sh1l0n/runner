@@ -11,7 +11,7 @@
 #include <iostream>
 
 TiledMap::
-BasicBlock::BasicBlock() : DrawNode() {
+BasicBlock::BasicBlock() : Node() {
 
 }
 
@@ -86,13 +86,6 @@ BasicBlock::create(const float X, const float Y, const float width, const float 
         ret->_height=height;
         ret->_rect= Rect(ret->_posX,ret->_posY,ret->_width,ret->_height);
         ret->_type=type;
-
-
-        if(Utils::DEBUG_MODE) {
-            Color4F white(1, 1, 1, 1);
-            ret->drawRect(ret->_rect.origin, ret->_rect.size, white);
-        }
-
         ret->setAnchorPoint(Vec2(0, 0));
     }
     else

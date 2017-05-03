@@ -13,6 +13,8 @@ TiledMapController::TiledMapController() {
     
     _K_FLAG_CHUNCK_PART_3 = (3.f*_K_WORLD_SIZE_PX)/4.f;
     
+    _K_FLAG_CHUNCK_THRESHOLD = _K_WORLD_SIZE_PX - TiledMap::K_FLAG_CHUNCK_THRESHOLD;
+    
 }
 
 TiledMap::
@@ -24,10 +26,9 @@ TiledMapController::TiledMapController(TiledMapControllerListener* listener) {
     _K_FLAG_CHUNCK_PART_2 = (2.f*_K_WORLD_SIZE_PX)/4.f;
     
     _K_FLAG_CHUNCK_PART_3 = (3.f*_K_WORLD_SIZE_PX)/4.f;
-
     
+    _K_FLAG_CHUNCK_THRESHOLD = _K_WORLD_SIZE_PX - TiledMap::K_FLAG_CHUNCK_THRESHOLD;
     
-    log("init");
     this->flags.resize(3, false);
     this->_chuncks.reserve(TiledMap::K_NUMBERS_CHUNCKS_MEMORY);
     this->_currentChunck = TiledMap::ChunckIdentifiers::A;
@@ -36,28 +37,14 @@ TiledMapController::TiledMapController(TiledMapControllerListener* listener) {
     this->_chuncks[TiledMap::ChunckIdentifiers::A] = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(0, 0);
     this->_globalPosition += _K_WORLD_SIZE_PX;
     this->_indexOfChuncksGenerated = 0;
-    this->_chuncks[TiledMap::ChunckIdentifiers::B] = NULL;
-    this->_chuncks[TiledMap::ChunckIdentifiers::C] = NULL;
     log("add chunck to scene");
-    this->_listener->addChunckToScene(TiledMap::ChunckIdentifiers::A, this->_chuncks[TiledMap::ChunckIdentifiers::A]);
-
+    this->_listener->addChunckToScene(TiledMap::ChunckIdentifiers::A, &this->_chuncks[TiledMap::ChunckIdentifiers::A]);
+    
 }
 
 TiledMap::
 TiledMapController::~TiledMapController()
 {
-    if (this->_chuncks[TiledMap::ChunckIdentifiers::A] != NULL) {
-        delete this->_chuncks[TiledMap::ChunckIdentifiers::A];
-        this->_chuncks[TiledMap::ChunckIdentifiers::A] = NULL;
-    }
-    if (this->_chuncks[TiledMap::ChunckIdentifiers::B] != NULL) {
-        delete this->_chuncks[TiledMap::ChunckIdentifiers::B];
-        this->_chuncks[TiledMap::ChunckIdentifiers::B] = NULL;
-    }
-    if (this->_chuncks[TiledMap::ChunckIdentifiers::C] != NULL) {
-        delete this->_chuncks[TiledMap::ChunckIdentifiers::C];
-        this->_chuncks[TiledMap::ChunckIdentifiers::C] = NULL;
-    }
     this->_chuncks.clear();
 }
 
@@ -97,18 +84,19 @@ TiledMapController::getNextChunck() const {
     return nextState;
 }
 
+
 /**
-     @brief This method it's updated depend the position of the character in the screen.
-     The functions is really complex, divides the chunck into four parts, the cuts are like a activators for remove or add to CPU/GPU. Ths parts are the next:
-        
-        · Chunck: [src, a0, a1, a2, dst]
-        · a0    -> Remove last chunck from memory (GPU and CPU)
-        · a1    -> Add next chunck to CPU
-        · a2    -> Add next chucnk to GPU
-     
-        It is like a state machine.
-    
-    @param position The position of the character
+ @brief This method it's updated depend the position of the character in the screen.
+ The functions is really complex, divides the chunck into four parts, the cuts are like a activators for remove or add to CPU/GPU. Ths parts are the next:
+ 
+ · Chunck: [src, a0, a1, a2, dst]
+ · a0    -> Remove last chunck from memory (GPU and CPU)
+ · a1    -> Add next chunck to CPU
+ · a2    -> Add next chucnk to GPU
+ 
+ It is like a state machine.
+ 
+ @param position The position of the character
  */
 void
 TiledMap::
@@ -121,21 +109,22 @@ TiledMapController::update(const int position) {
     {
         TiledMap::ChunckIdentifiers lastState = this->getLastChunck();
         this->flags[0] = true;
-        log("hhhh");
-        if (this->_chuncks[lastState] != NULL) {
-            log("hhhh11");
+        
+        auto its = this->_chuncks.find(lastState);
+        if(its!=this->_chuncks.end()) {
             this->_listener->removeChunckFromScene(lastState);
-            delete this->_chuncks[lastState];
-            this->_chuncks[lastState] = NULL;
+            this->_chuncks.erase(its);
         }
     }
     else if(!this->flags[1] && localPosition>=_K_FLAG_CHUNCK_PART_2 && localPosition<_K_FLAG_CHUNCK_PART_3)
     {
         TiledMap::ChunckIdentifiers nextState = this->getNextChunck();
-        if (this->_chuncks[nextState] != NULL) {
-            delete this->_chuncks[nextState];
-            this->_chuncks[nextState] = NULL;
+        
+        auto its = this->_chuncks.find(nextState);
+        if(its!=this->_chuncks.end()) {
+            this->_chuncks.erase(its);
         }
+        
         this->_chuncks[nextState] = TiledMap::TiledMapGenerator::getInstance()->generateNewChunk(0, this->_globalPosition);
         this->_globalPosition+=_K_WORLD_SIZE_PX;
         this->flags[1] = true;
@@ -143,14 +132,14 @@ TiledMapController::update(const int position) {
     else if(!this->flags[2] && localPosition>=_K_FLAG_CHUNCK_PART_3)
     {
         TiledMap::ChunckIdentifiers nextState = this->getNextChunck();
-        this->_listener->addChunckToScene(nextState, this->_chuncks[nextState]);
+        this->_listener->addChunckToScene(nextState, &this->_chuncks[nextState]);
         this->flags[2] = true;
     }
-    else if(localPosition<=TiledMap::K_FLAG_CHUNCK_THRESHOLD) {
-            this->_currentChunck = this->getNextChunck();
-            this->_indexOfChuncksGenerated+=1;
-            this->flags[0] = false;
-            this->flags[1] = false;
-            this->flags[2] = false;
+    else if(this->flags[0] && this->flags[1] && this->flags[2] && localPosition>=_K_FLAG_CHUNCK_THRESHOLD) {
+        this->_currentChunck = this->getNextChunck();
+        this->_indexOfChuncksGenerated+=1;
+        this->flags[0] = false;
+        this->flags[1] = false;
+        this->flags[2] = false;
     }
 }

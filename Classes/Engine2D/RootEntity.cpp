@@ -14,12 +14,12 @@ RootEntity::RootEntity() {
      * dx, dy:  drawing x, y position
      * lx, ly:  Last frame x, y position
      */
-    x, dx, lx = getPositionX();
-    y, dy, ly = getPositionY();
+    x = dx = lx = getPositionX();
+    y = dy = ly = getPositionY();
 
 
-    width, height = 0; // Bounding box width and height
-    motionX, motionY = 0; // Motion (speed) for x and y coordinates.
+    width = height = 0; // Bounding box width and height
+    motionX = motionY = 0; // Motion (speed) for x and y coordinates.
 
     stepTime = 0.f; // Duration between each update iteration (in milliseconds)
 

@@ -9,7 +9,7 @@
 USING_NS_CC;
 
 Player::Player():RootEntity() {
-    vx, vy = 0;
+    vx = vy = 0;
     accel = 3.f;
     jump = 40.f;
     jumpSpeed = 20.f;
@@ -23,7 +23,7 @@ Player::Player():RootEntity() {
     bend = false;
     jumpTime = true;
     animationSpeed = 0;
-    moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime = false;
+    moveLeft = moveRight = moveUp = moveDown = floor = bend = jumpTime = false;
     debug = false;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
@@ -121,10 +121,6 @@ void Player::customupdate(float delta) {
  * @param stepTime
  */
 void Player::customdraw(float delta, float deltaCount, float stepTime) {
-    if(this->debug) {
-        drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(getWidth() / 2, getHeight() / 2),
-                           Color4F::RED);
-    }
     
    // walk->setPosition(this->getX(), this->getY());
     RootEntity::customdraw(delta, deltaCount, stepTime);
