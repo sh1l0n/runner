@@ -2,6 +2,7 @@
 
 #include "../Entities/Player.hpp"
 #include "../Entities/SpeedMarker.hpp"
+#include "../Entities/ScreenKiller.hpp"
 #include "../Engine2D/TiledMap/BasicBlock.hpp"
 #include "../Engine2D/TiledMap/TiledMapController.h"
 #include "../Engine2D/RootEntity.hpp"
@@ -51,6 +52,8 @@ namespace Scenes {
             Player *player;
         
             SpeedMarker *speedM;
+        
+            ScreenKiller *screenK;
         
             RootEntity *box;
         

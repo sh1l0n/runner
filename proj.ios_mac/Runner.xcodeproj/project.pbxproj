@@ -115,6 +115,7 @@
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8262943E1AAF051F00CB7CF7 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8262943D1AAF051F00CB7CF7 /* Security.framework */; };
+		8392E3941EBB1EA700FF590C /* ScreenKiller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8392E3921EBB1EA700FF590C /* ScreenKiller.cpp */; };
 		83DBBFE01EB89393008031FA /* GapPlatformStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */; };
 		83DBBFE11EB89393008031FA /* GapPlatformStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */; };
 		83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */; };
@@ -270,6 +271,8 @@
 		521A8E6319F0C34300D177D7 /* Default-736h@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-736h@3x.png"; sourceTree = "<group>"; };
 		52B47A461A53D09B004E4C60 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8392E3921EBB1EA700FF590C /* ScreenKiller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenKiller.cpp; sourceTree = "<group>"; };
+		8392E3931EBB1EA700FF590C /* ScreenKiller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScreenKiller.hpp; sourceTree = "<group>"; };
 		83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GapPlatformStructure.cpp; sourceTree = "<group>"; };
 		83DBBFDF1EB89393008031FA /* GapPlatformStructure.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GapPlatformStructure.hpp; sourceTree = "<group>"; };
 		83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantDevices.cpp; sourceTree = "<group>"; };
@@ -427,6 +430,8 @@
 				209E13C21E9C179B007DB2A1 /* Sound.hpp */,
 				209E13C31E9C179B007DB2A1 /* SpeedMarker.cpp */,
 				209E13C41E9C179B007DB2A1 /* SpeedMarker.hpp */,
+				8392E3921EBB1EA700FF590C /* ScreenKiller.cpp */,
+				8392E3931EBB1EA700FF590C /* ScreenKiller.hpp */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -788,6 +793,7 @@
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				209E13D31E9C179B007DB2A1 /* BaseStructure.cpp in Sources */,
 				209E142B1E9C1D3D007DB2A1 /* TiledMapController.cpp in Sources */,
+				8392E3941EBB1EA700FF590C /* ScreenKiller.cpp in Sources */,
 				209E13DF1E9C179B007DB2A1 /* Chunck.cpp in Sources */,
 				209E14321E9C25C7007DB2A1 /* MainMenu.cpp in Sources */,
 			);
