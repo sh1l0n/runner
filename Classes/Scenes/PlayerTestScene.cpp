@@ -76,7 +76,7 @@ PlayerTestScene::init()
     this->player->setPosition(200, 50);
     //Speed Marker
     this->speedM = SpeedMarker::create();
-    this->speedM->setPosition(200, 160);
+    this->speedM->setPosition(200, visibleSize.height/2.0f);
     //Screen killer
     this->screenK = ScreenKiller::create();
     this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-30,Director::getInstance()->getVisibleOrigin().y);
@@ -102,7 +102,7 @@ PlayerTestScene::init()
     this->addChild(this->player, 2);
     this->addChild(this->speedM, 2);
     this->addChild(this->screenK, 2);
-    this->runAction(Follow::create(this->player));
+    this->runAction(Follow::create(this->speedM));
 
     //Set map controller
     log("Init map controller");
@@ -257,9 +257,10 @@ PlayerTestScene::update(float delta){
     
     
     //screen Killer has reach the player
-    if(this->player->getX()<this->screenK->getX()){
+    if(this->player->getPositionX()<this->screenK->getPositionX()){
         // TO DO
         //the player dies
+        dead=true;
         this->m_labelPuntuacion->setString(StringUtils::format(" FIN JUEGO Puntuacion:%f",this->speedM->getPositionX()));
         
     }
