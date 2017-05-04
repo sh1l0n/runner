@@ -87,9 +87,13 @@ namespace Scenes {
         
             Menu* menu;
         
+            Sprite* menu_background;
+        
             Size visibleSize;
         
-            const float SIZE_BUTTON = 0.1;
+            Color4B blackColor = Color4B(0,0,0,255);
+        
+            //const float SIZE_BUTTON = 0.1;
             const float SPACE_BUTTON_PADDING = 20;
     };
 }

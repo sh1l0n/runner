@@ -7,6 +7,10 @@
 
 USING_NS_CC;
 
+//##############################################################################
+//Creation of the scene setting the listener for managing the created one
+//##############################################################################
+
 cocos2d::Scene*
 Scenes::PlayerTestScene::createScene(Scenes::SceneControllerListener* listener)
 {
@@ -17,6 +21,10 @@ Scenes::PlayerTestScene::createScene(Scenes::SceneControllerListener* listener)
     return scene;
 }
 
+//##############################################################################
+//Chunk removed for free memory
+//##############################################################################
+
 void
 Scenes::
 PlayerTestScene::removeChunckFromScene(const TiledMap::ChunckIdentifiers id)
@@ -25,15 +33,21 @@ PlayerTestScene::removeChunckFromScene(const TiledMap::ChunckIdentifiers id)
     this->_nodeScroll->removeChildByTag(id, true);
 }
 
+//##############################################################################
+//Cretes new chunk when the player is in the final of the first one
+//##############################################################################
+
 void
 Scenes::
 PlayerTestScene::addChunckToScene(const TiledMap::ChunckIdentifiers id, TiledMap::Chunck* chunck)
 {
-    //const auto size = chunck->_node->getContentSize();
-    //log("Add chunck to scene :%d  width: %d, height: %d", id, (int)size.width, (int)size.height);
     this->_nodeScroll->addChild(chunck->_node, 1, id);
     this->player->setFloorCollision(chunck->_collisionables);
 }
+
+//##############################################################################
+//Sound on/off when button it's clicked
+//##############################################################################
 
 void
 Scenes::PlayerTestScene::setAudioButton(){
@@ -41,19 +55,20 @@ Scenes::PlayerTestScene::setAudioButton(){
     if(_listener!=NULL){
         audioButton = cocos2d::ui::Button::create("audio_off.png","audio_on.png");
         if(_listener->getMusic()==true){
-            //audioButton->loadTextureNormal("audio_off.png");
             Entities::Sound::getInstance()->playBackground("Audio/background.mp3");
         }else{
-            //audioButton->loadTextureNormal("audio_on.png");
             Entities::Sound::getInstance()->clearSounds();
             Entities::Sound::getInstance()->stopBackground("background.mp3");
         }
-        audioButton->setScale(SIZE_BUTTON*2,SIZE_BUTTON*2);
-        
+        audioButton->setScale(TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS,TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS);
         this->addChild(audioButton,3);
     }
 }
-// on "init" you need to initialize your instance
+
+//##############################################################################
+//Initialization all of the componentes in game (player, map, buttons, labels)
+//##############################################################################
+
 bool
 Scenes::
 PlayerTestScene::init()
@@ -69,14 +84,11 @@ PlayerTestScene::init()
     this->player = Player::create();
     this->speedM = SpeedMarker::create();
     
-    
-    
-    
     //Player
-    this->player->setPosition(200, 50);
+    this->player->setPosition(50, 50);
     //Speed Marker
     this->speedM = SpeedMarker::create();
-    this->speedM->setPosition(200, 160);
+    this->speedM->setPosition(50, 160);
     //Screen killer
     this->screenK = ScreenKiller::create();
     this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-30,Director::getInstance()->getVisibleOrigin().y);
@@ -92,10 +104,6 @@ PlayerTestScene::init()
     ParallaxNode* parallax = ParallaxNode::create();
     parallax->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
     
-    this->_sprite = Sprite::create("box.png");
-    this->_sprite->setAnchorPoint(Vec2(0.f, 0.f));
-    this->_sprite->setPosition(100.f, 40.f);
-
     this->addChild(parallax, 0);
     this->_nodeScroll= Node::create();
     this->addChild(this->_nodeScroll, 1);
@@ -108,21 +116,13 @@ PlayerTestScene::init()
     log("Init map controller");
     this->_mapController = TiledMap::TiledMapController(this);
     
+    m_labelPuntuacion = Label::createWithTTF("Score:", "fonts/Marker Felt.ttf", 24);
     
-    
-    m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);
-    
-    
-    //m_labelPuntuacion->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                        //origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
-    
-    m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
+    m_labelPuntuacion->setString(StringUtils::format("Score:%f",speedM->getPositionX()));
     this->addChild(m_labelPuntuacion,3);
     
     pauseButton = cocos2d::ui::Button::create("pause.png");
-    pauseButton->setScale(SIZE_BUTTON,SIZE_BUTTON);//->setContentSize();
-    //pauseButton->setPosition(Vec2(origin.x + visibleSize.width/1.05,
-                             //origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    pauseButton->setScale(TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2,TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2);//-
     pauseButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
         switch (type)
         {
@@ -149,12 +149,20 @@ PlayerTestScene::init()
     return true;
 }
 
+//##############################################################################
+//Listener for managing scenes
+//##############################################################################
+
 void
 Scenes::
 PlayerTestScene::setListener(Scenes::SceneControllerListener* listener) {
     this->_listener = listener;
     setAudioButton();
 }
+
+//##############################################################################
+//When user clicks, the player jumps
+//##############################################################################
 
 bool
 Scenes::
@@ -168,12 +176,20 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
     return true;
 }
 
+//##############################################################################
+//When user stops jumping, player fall over
+//##############################################################################
+
 void
 Scenes::
 PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
     Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
     this->player->onKeyUpRelease();
 }
+
+//##############################################################################
+//User continues playing from the paused scene
+//##############################################################################
 
 void
 Scenes::
@@ -182,7 +198,12 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
     Director::getInstance()->resume();
     Entities::Sound::getInstance()->resumeBackground();
     this->removeChild(menu);
+    this->removeChild(menu_background);
 }
+
+//##############################################################################
+//Player is dead when fall off the platform
+//##############################################################################
 
 void
 Scenes::
@@ -197,12 +218,20 @@ PlayerTestScene::gameOver(cocos2d::Ref *sender){
     this->player->setPositionY(200);
 }
 
+//##############################################################################
+//Return to the main menu
+//##############################################################################
+
 void
 Scenes::
 PlayerTestScene::mainMenu(cocos2d::Ref *sender){
     dead=pause=false;
     _listener->changeScene(Scenes::ESceneType::MAIN_MENU);
 }
+
+//##############################################################################
+//Update x fps the player movement
+//##############################################################################
 
 void
 Scenes::
@@ -214,12 +243,10 @@ PlayerTestScene::update(float delta){
     this->deltaCount += 0.032f;
     this->deltaCountForMap+=0.002f;
     
-    pauseButton->setPosition(Vec2(this->player->getPosition().x,this->player->getPosition().y));
-    //audioButton->setPosition(Vec2(SPACE_BUTTON_PADDING,//audioButton->getContentSize().width,
-                                  //origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
-    audioButton->setPosition(Vec2(this->player->getPosition().x+20,this->player->getPosition().y));
+    pauseButton->setPosition(Vec2(this->player->getPosition().x+visibleSize.width/2.2,this->player->getPosition().y+visibleSize.height/2.5));
+    audioButton->setPosition(Vec2(this->player->getPosition().x-visibleSize.width/2.2,this->player->getPosition().y+visibleSize.height/2.5));
     m_labelPuntuacion->setPosition(Vec2(player->getPosition().x,
-                                        player->getPosition().y));
+                                        player->getPosition().y+visibleSize.height/2.5));
     //##############################################################################
     // If player falls down from the platform
     //##############################################################################
@@ -231,16 +258,22 @@ PlayerTestScene::update(float delta){
     // Check if player falled
     //##############################################################################
     if(dead || pause){
-        log("Entra: %f",this->player->getPositionY());
         Director::getInstance()->pause();
         Entities::Sound::getInstance()->clearSounds();
         
-        newGameLabel = Label::createWithTTF("New Game", "fonts/Marker Felt.ttf", 24);
+        menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
+        menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
+        menu_background->setPosition(this->player->getPosition().x,this->player->getPosition().y);
+        this->addChild(menu_background,3);
+        newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
+        newGameLabel->setTextColor(blackColor);
         newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
-        closeLabel = Label::createWithTTF("Main Menu", "fonts/Marker Felt.ttf", 24);
+        closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
+        closeLabel->setTextColor(blackColor);
         closeItem = MenuItemLabel::create(closeLabel, CC_CALLBACK_1(PlayerTestScene::mainMenu, this));
         if(pause){
-            retryLabel = Label::createWithTTF("Retry", "fonts/Marker Felt.ttf", 24);
+            retryLabel = Label::createWithTTF("Retry", "fonts/Sudbury Basin 3D.ttf", 48);
+            retryLabel->setTextColor(blackColor);
             retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
             Entities::Sound::getInstance()->pauseBackground();
             menu = Menu::create(retryItem, newGameItem, closeItem, NULL);
@@ -252,7 +285,7 @@ PlayerTestScene::update(float delta){
         //menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height*2);
         menu->setPosition(this->player->getPosition().x, this->player->getPosition().y);
         menu->alignItemsVertically();
-        this->addChild(menu, 3);
+        this->addChild(menu, 4);
     }
     
     
@@ -272,7 +305,7 @@ PlayerTestScene::update(float delta){
     // Control 15 fps for player movement
     //##############################################################################
     if(this->deltaCount >= 0.067f) {
-        this->m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",this->speedM->getPositionX()));
+        this->m_labelPuntuacion->setString(StringUtils::format("Score %f",this->speedM->getPositionX()));
         this->player->customupdate(delta);
          //PAB
         //this->speedM->customupdate(delta);
@@ -293,12 +326,12 @@ PlayerTestScene::update(float delta){
                 break;
             case ui::Widget::TouchEventType::ENDED:
                 
-                log("TOUCHED AUDIO!");
                 if(_listener->getMusic()==true){
                     _listener->setMusic(false);
                 }else{
                     _listener->setMusic(true);
                 }
+                this->removeChild(audioButton);
                 setAudioButton();
                 break;
             default:

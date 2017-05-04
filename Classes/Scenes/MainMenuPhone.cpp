@@ -36,6 +36,10 @@ MainMenuPhone::createScene(SceneControllerListener* listener) {
     return scene;
 }
 
+//##############################################################################
+//Initialization of the main menu with images and two buttons in each cartel
+//##############################################################################
+
 bool
 Scenes::
 MainMenuPhone::init() {
@@ -49,14 +53,13 @@ MainMenuPhone::init() {
     auto playItem = MenuItemLabel::create(playLabel, CC_CALLBACK_1(MainMenuPhone::playMenuCallback, this));
     auto exitLabel = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 24);
     auto closeItem = MenuItemLabel::create(exitLabel, CC_CALLBACK_1(MainMenuPhone::closeMenuCallback, this));
-    closeItem->setPosition(Vec2(-140,-80));
-    playItem->setPosition(Vec2(140,-80));
+    closeItem->setPosition(Vec2(-140,-85));
+    playItem->setPosition(Vec2(140,-85));
     auto menu = Menu::create(playItem, closeItem, NULL);
     this->addChild(menu, 1);
     
 
     auto menu_close = Sprite::create("menu_close.png");
-    //log("winSizeX: %f winSizeY: %f originX: %f originY: %f",winSize.width,winSize.height,origin.x,origin.y);
     menu_close->setContentSize(SIZE_PICTURE_IPHONE);
     menu_close->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);
     this->addChild(menu_close,0);
@@ -76,6 +79,9 @@ MainMenuPhone::closeMenuCallback(cocos2d::Ref *sender) {
     }
 }
 
+//##############################################################################
+//Setter of listener for manage scene
+//##############################################################################
 
 void
 Scenes::

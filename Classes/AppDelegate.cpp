@@ -106,6 +106,10 @@ void AppDelegate::applicationWillEnterForeground() {
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
 
+//##############################################################################
+//Manage the scene when player suffers a new state
+//##############################################################################
+
 void
 AppDelegate::changeScene(Scenes::ESceneType scene) {
     

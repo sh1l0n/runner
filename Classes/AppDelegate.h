@@ -13,7 +13,7 @@ class  AppDelegate : private cocos2d::Application, public Scenes::SceneControlle
 {
 private:
     bool mainMenu=false,exitMainMenu = false;
-    bool music;
+    bool music=true;
     //cocos2d::Scene* scene;
 public:
     AppDelegate();

@@ -27,7 +27,7 @@ namespace Scenes {
      */
     class MainMenuPhone : public cocos2d::Layer{
     private:
-        const Size SIZE_PICTURE_IPHONE = Size(480,296);
+        const Size SIZE_PICTURE_IPHONE = Size(480,320);
         const Size WINDOWS_SIZE_IPHONE = Director::getInstance()->getWinSize();
         SceneControllerListener* listener;
     public:

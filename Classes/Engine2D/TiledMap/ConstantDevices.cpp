@@ -24,6 +24,7 @@ ConstanDevices::ConstanDevices() {
     //deafult values
     this->SIZE_IMAGE_SPRITE=0x46; //70;
     this->FACTOR_SCALE= 0.35f;
+    this->SIZE_BUTTONS=0.2f;
     
     if(glview->getFrameSize().width>1000){
         //iphone
@@ -31,7 +32,7 @@ ConstanDevices::ConstanDevices() {
         factor_scale=0.5;*/
         this->SIZE_IMAGE_SPRITE=0x23; //35;
         this->FACTOR_SCALE= 0.75f;
-        
+        this->SIZE_BUTTONS=0.4f;
         
         
     }
@@ -42,7 +43,7 @@ ConstanDevices::ConstanDevices() {
         factor_scale=0.5;*/
         this->SIZE_IMAGE_SPRITE=0x11; //17;
         this->FACTOR_SCALE= 1.0f;
-
+        this->SIZE_BUTTONS=0.8f;
         
     }
     

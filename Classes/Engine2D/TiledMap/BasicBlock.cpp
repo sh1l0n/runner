@@ -82,7 +82,6 @@ BasicBlock::create(const float X, const float Y, const float width, const float 
     TiledMap::BasicBlock* ret = new (std::nothrow) TiledMap::BasicBlock();
     if (ret && ret->init())
     {
-        ret->autorelease();
         ret->_posX=X;
         ret->_posY=Y;
         ret->_width=width;
@@ -90,6 +89,7 @@ BasicBlock::create(const float X, const float Y, const float width, const float 
         ret->_rect= Rect(ret->_posX,ret->_posY,ret->_width,ret->_height);
         ret->_type=type;
         ret->setAnchorPoint(Vec2(0, 0));
+        ret->retain();
     }
     else
     {
