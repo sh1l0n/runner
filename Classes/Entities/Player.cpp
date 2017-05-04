@@ -9,7 +9,7 @@
 USING_NS_CC;
 
 Player::Player():RootEntity() {
-    vx= vy = 0;
+    vx = vy = 0;
     accel = 3.f;
     jump = 40.f;
     jumpSpeed = 20.f;
@@ -23,7 +23,7 @@ Player::Player():RootEntity() {
     bend = false;
     jumpTime = true;
     animationSpeed = 0;
-    moveLeft = moveRight= moveUp= moveDown= floor= bend= jumpTime = false;
+    moveLeft = moveRight = moveUp = moveDown = floor = bend = jumpTime = false;
     debug = false;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
@@ -35,7 +35,10 @@ Player::Player():RootEntity() {
     sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
     this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)/2);
     this->setHeight((sprite->getContentSize().height-6)/2);
+    //Pablo
+   
     this->scaleSprite(0.5f, 0.5f);
+    this->scaleSprite(TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE, TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE);
 }
 
 /*!
@@ -119,10 +122,6 @@ void Player::customupdate(float delta) {
  * @param stepTime
  */
 void Player::customdraw(float delta, float deltaCount, float stepTime) {
-    if(this->debug) {
-        drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(getWidth() / 2, getHeight() / 2),
-                           Color4F::RED);
-    }
     
    // walk->setPosition(this->getX(), this->getY());
     RootEntity::customdraw(delta, deltaCount, stepTime);

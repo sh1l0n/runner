@@ -29,9 +29,6 @@ namespace Scenes {
         
             virtual void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
         
-            virtual void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
-            virtual void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) override;
-        
             void removeChunckFromScene(const TiledMap::ChunckIdentifiers id) override;
         
             void addChunckToScene(const TiledMap::ChunckIdentifiers id, TiledMap::Chunck* chunck) override;

@@ -11,7 +11,17 @@
 #include <iostream>
 
 TiledMap::
-BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) : DrawNode() {
+BasicBlock::BasicBlock() : Node() {
+
+}
+
+/**
+ * Copy Constructor
+ * @param tileCollisionable object for copy
+ */
+TiledMap::
+BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) {
+
     this->_posX= tileCollisionable._posX;
     this->_posY= tileCollisionable._posY;
     this->_width= tileCollisionable._width;
@@ -79,13 +89,6 @@ BasicBlock::create(const float X, const float Y, const float width, const float 
         ret->_height=height;
         ret->_rect= Rect(ret->_posX,ret->_posY,ret->_width,ret->_height);
         ret->_type=type;
-
-
-        if(Utils::DEBUG_MODE) {
-            Color4F white(1, 1, 1, 1);
-            ret->drawRect(ret->_rect.origin, ret->_rect.size, white);
-        }
-
         ret->setAnchorPoint(Vec2(0, 0));
     }
     else

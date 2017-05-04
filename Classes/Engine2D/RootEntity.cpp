@@ -14,12 +14,12 @@ RootEntity::RootEntity() {
      * dx, dy:  drawing x, y position
      * lx, ly:  Last frame x, y position
      */
-    x= dx= lx = getPositionX();
-    y= dy= ly = getPositionY();
+    x = dx = lx = getPositionX();
+    y = dy = ly = getPositionY();
 
 
-    width= height = 0; // Bounding box width and height
-    motionX= motionY = 0; // Motion (speed) for x and y coordinates.
+    width = height = 0; // Bounding box width and height
+    motionX = motionY = 0; // Motion (speed) for x and y coordinates.
 
     stepTime = 0.f; // Duration between each update iteration (in milliseconds)
 
@@ -73,6 +73,7 @@ void RootEntity::customdraw(float delta, float deltaCount, float stepTime) {
     dx = lx*(1.f-percenTick) + x * percenTick;
     dy = ly*(1.f-percenTick) + y * percenTick;
     Node::setPosition(dx, dy);
+    
 }
 
 

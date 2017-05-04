@@ -7,6 +7,7 @@
 TiledMap::
 Chunck::Chunck() {
     this->_node = Node::create();
+    this->_node->retain();
 }
 
 TiledMap::

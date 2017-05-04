@@ -22,10 +22,10 @@ namespace Structures {
 			const static unsigned short int K_MAX_WIDTH = 6;
 
 			/** @short Minimun height for the middle pyramid */
-			const static unsigned short int K_MIN_WIDTH = 2;
+			const static unsigned short int K_MIN_WIDTH = 3;
 
 			/** @short default for the middle pyramid */
-			const static unsigned short int K_DEFAULT_WIDTH = 2;
+			const static unsigned short int K_DEFAULT_WIDTH = 3;
 
 
 		public:

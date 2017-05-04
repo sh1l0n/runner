@@ -23,7 +23,7 @@ namespace TiledMap {
     /**
      * @brief Class of a collisionable object
      */
-    class BasicBlock : public DrawNode {
+    class BasicBlock : public Node {
 
         private:
 
@@ -48,7 +48,7 @@ namespace TiledMap {
             TypeBlock  _type;
 
             BasicBlock(const BasicBlock& titleCollisionable);
-            inline BasicBlock(){};
+            BasicBlock();
 
             static BasicBlock* create(const float X, const float Y, const float width, const float height, const TypeBlock type);
 

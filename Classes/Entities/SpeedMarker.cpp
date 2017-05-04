@@ -27,11 +27,11 @@ SpeedMarker::SpeedMarker():RootEntity() {
  * @param delta
  */
 void SpeedMarker::customupdate(float delta) {
-    this->beginUpdate(); //must be called on every update reimplementation
+    //this->beginUpdate(); //must be called on every update reimplementation
     
 
     this->setPositionX(this->getPositionX()+vx);
-    //setMotionX(vx);
+    setMotionX(vx);
     RootEntity::customupdate(delta);
 }
 
@@ -43,6 +43,8 @@ void SpeedMarker::customupdate(float delta) {
  * @param stepTime
  */
 void SpeedMarker::customdraw(float delta, float deltaCount, float stepTime) {
+    //this->setPositionX(this->getPositionX()+vx);
+    //setMotionX(vx);
     drawNode->drawRect(Vec2(0 - getWidth()/2 , 0 - getHeight()/2 ), Vec2(getWidth()/2, getHeight()/2), Color4F::RED);
     RootEntity::customdraw(delta, deltaCount, stepTime);
 }

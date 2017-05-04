@@ -49,10 +49,8 @@ Scenes::PlayerTestScene::setAudioButton(){
             Entities::Sound::getInstance()->stopBackground("background.mp3");
         }
         audioButton->setScale(SIZE_BUTTON*2,SIZE_BUTTON*2);
-        audioButton->setPosition(Vec2(SPACE_BUTTON_PADDING,//audioButton->getContentSize().width,
-                                      origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
         
-        this->addChild(audioButton);
+        this->addChild(audioButton,3);
     }
 }
 // on "init" you need to initialize your instance
@@ -91,13 +89,15 @@ PlayerTestScene::init()
     this->_sprite->setAnchorPoint(Vec2(0.f, 0.f));
     this->_sprite->setPosition(100.f, 40.f);
 
-    // Set node scroll
+    this->addChild(parallax, 0);
     this->_nodeScroll= Node::create();
-    this->_nodeScroll->addChild(parallax, 0);
-    this->_nodeScroll->addChild(this->player, 2);
-    this->_nodeScroll->addChild(this->speedM, 2);
-    this->_nodeScroll->runAction(Follow::create(this->speedM));
-    this->addChild(this->_nodeScroll);
+    
+    this->addChild(this->_nodeScroll, 1);
+    
+    this->addChild(this->player, 2);
+    this->addChild(this->speedM, 2);
+    
+    this->runAction(Follow::create(this->player));
     
     //Set map controller
     log("Init map controller");
@@ -105,20 +105,19 @@ PlayerTestScene::init()
     
     
     
-    
     m_labelPuntuacion = Label::createWithTTF("Puntuación:", "fonts/Marker Felt.ttf", 24);
     
     
-    m_labelPuntuacion->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                        origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    //m_labelPuntuacion->setPosition(Vec2(origin.x + visibleSize.width/2,
+                                        //origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
     
     m_labelPuntuacion->setString(StringUtils::format("Puntuacion:%f",speedM->getPositionX()));
-    this->addChild(m_labelPuntuacion);
+    this->addChild(m_labelPuntuacion,3);
     
     pauseButton = cocos2d::ui::Button::create("pause.png");
     pauseButton->setScale(SIZE_BUTTON,SIZE_BUTTON);//->setContentSize();
-    pauseButton->setPosition(Vec2(origin.x + visibleSize.width/1.05,
-                             origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    //pauseButton->setPosition(Vec2(origin.x + visibleSize.width/1.05,
+                             //origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
     pauseButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
         switch (type)
         {
@@ -132,17 +131,16 @@ PlayerTestScene::init()
         }
     });
     
-    this->addChild(pauseButton);
+    this->addChild(pauseButton,3);
     
     EventListenerTouchOneByOne* eventListener = EventListenerTouchOneByOne::create();
     eventListener->setSwallowTouches(true);
     eventListener->onTouchBegan = CC_CALLBACK_2(PlayerTestScene::onTouchBegan, this);
     eventListener->onTouchEnded = CC_CALLBACK_2(PlayerTestScene::onTouchEnded, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
-    
     //Finale and update UI
     this->scheduleUpdate();
-    
+
     return true;
 }
 
@@ -156,17 +154,12 @@ PlayerTestScene::setListener(Scenes::SceneControllerListener* listener) {
 bool
 Scenes::
 PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
-
-    unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
-    if(touch->getLocation().x>=min_width) {
-        if(!pause && !dead && _listener->getMusic()){
-            Entities::Sound::getInstance()->playSound("Audio/jump.wav");
-        }
-        this->player->onKeyUp();
+    
+    if(!pause && !dead && _listener->getMusic()){
+        Entities::Sound::getInstance()->playSound("Audio/jump.wav");
     }
-    else {
-        // this->player->onKeyDown();
-    }
+    this->player->onKeyUp();
+    
     return true;
 }
 
@@ -174,65 +167,7 @@ void
 Scenes::
 PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
     Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
-    unsigned int min_width =  Director::getInstance()->getVisibleSize().width/2;
-    if(touch->getLocation().x>=min_width) {
-        this->player->onKeyUpRelease();
-    }
-    else {
-       //  this->player->onKeyDownRelease();
-    }
-}
-
-/*void
-Scenes::
-PlayerTestScene::onKeyPausePressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
-}*/
-
-void
-Scenes::
-PlayerTestScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
-    Vec2 position = this->_sprite->getPosition();
-    switch(keyCode) {
-        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            log("left");
-            position.x-=50;
-            this->player->onKeyLeft();
-            break;
-        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            log("right");
-            position.x+=50;
-            this->player->onKeyRight();
-            break;
-        case EventKeyboard::KeyCode::KEY_UP_ARROW:
-            this->player->onKeyUp();
-            break;
-        case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-            this->player->onKeyDown();
-            break;
-        default:
-            break;
-    }
-}
-void
-Scenes::
-PlayerTestScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event *event) {
-    
-    switch(keyCode) {
-        case EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            this->player->onKeyLeftRelease();
-            break;
-        case EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            this->player->onKeyRightRelease();
-            break;
-        case EventKeyboard::KeyCode ::KEY_UP_ARROW:
-            this->player->onKeyUpRelease();
-            break;
-        case EventKeyboard::KeyCode ::KEY_DOWN_ARROW:
-            this->player->onKeyDownRelease();
-            break;
-        default:
-            break;
-    }
+    this->player->onKeyUpRelease();
 }
 
 void
@@ -274,6 +209,12 @@ PlayerTestScene::update(float delta){
     this->deltaCount += 0.032f;
     this->deltaCountForMap+=0.002f;
     
+    pauseButton->setPosition(Vec2(this->player->getPosition().x,this->player->getPosition().y));
+    //audioButton->setPosition(Vec2(SPACE_BUTTON_PADDING,//audioButton->getContentSize().width,
+                                  //origin.y + visibleSize.height - m_labelPuntuacion->getContentSize().height));
+    audioButton->setPosition(Vec2(this->player->getPosition().x+20,this->player->getPosition().y));
+    m_labelPuntuacion->setPosition(Vec2(player->getPosition().x,
+                                        player->getPosition().y));
     //##############################################################################
     // If player falls down from the platform
     //##############################################################################
@@ -303,9 +244,10 @@ PlayerTestScene::update(float delta){
             Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
             menu = Menu::create(newGameItem, closeItem, NULL);
         }
-        menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height*2);
+        //menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height*2);
+        menu->setPosition(this->player->getPosition().x, this->player->getPosition().y);
         menu->alignItemsVertically();
-        this->addChild(menu, 1);
+        this->addChild(menu, 3);
     }
 
     //##############################################################################

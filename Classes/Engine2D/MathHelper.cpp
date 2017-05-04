@@ -19,7 +19,6 @@ bool MathHelper::rectCollision(float x, float y, float width, float height, Tile
     //std::cout << e2->toString() << "\n";
     if(x + width > e2->getX() && x < e2->getX() + e2->getWidth()) {
         Color4F white(1, 0, 0, 1);
-        e2->drawRect(e2->_rect.origin, e2->_rect.size, white);
         if (y + height > e2->getY() &&  y < e2->getY() + e2->getHeight()) {
             
             return true;

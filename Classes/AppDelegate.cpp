@@ -87,15 +87,6 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     
     this->changeScene(Scenes::ESceneType::MAIN_MENU);
-
-    // create a scene. it's an autorelease object
-    //auto scene = PlayerTestScene::createScene();
-    //log("hola %d: caracola: %d comadrona: %d",CC_TARGET_PLATFORM,CC_PLATFORM_IOS,CC_PLATFORM_MAC);
-   // scene = Scenes::MainMenuPhone::createScene();
-
-    // run
-    //director->runWithScene(scene);
-
     return true;
 }
 
