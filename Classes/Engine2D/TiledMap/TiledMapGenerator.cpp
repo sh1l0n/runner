@@ -314,13 +314,17 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 spriteToLoad->setAnchorPoint(Vec2(0, 0));
                 currentChunck._node->addChild(spriteToLoad, 0);
                 
-                //we put collisionable
-                basicBlockCollisionable = TiledMap::BasicBlock::create(
-                                                                       rectForBoundingBoxCollisionable.origin.x,
-                                                                       rectForBoundingBoxCollisionable.origin.y,
-                                                                       rectForBoundingBoxCollisionable.size.width + rectForBoundingBoxCollisionable.origin.x,
-                                                                       rectForBoundingBoxCollisionable.size.height * 0.65f + rectForBoundingBoxCollisionable.origin.y,
-                                                                       basicBlockType);
+                
+                Rect rr = spriteToLoad->getBoundingBox();
+                auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
+                                                                       rr.size.width + rr.origin.x,
+                                                                       rr.size.height*0.65f + rr.origin.y,
+                                                                       TiledMap::TypeBlock::SPIKE);
+                
+                //add the block
+                currentChunck._node->addChild(blockCollisionable, 1);
+                currentChunck._collisionables.push_back(blockCollisionable);
+
                 
                 
             }

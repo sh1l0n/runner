@@ -88,7 +88,7 @@ PlayerTestScene::init()
     this->player->setPosition(50, 50);
     //Speed Marker
     this->speedM = SpeedMarker::create();
-    this->speedM->setPosition(50, 160);
+    this->speedM->setPosition(200, visibleSize.height/2.0f);
     //Screen killer
     this->screenK = ScreenKiller::create();
     this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-30,Director::getInstance()->getVisibleOrigin().y);
@@ -110,7 +110,7 @@ PlayerTestScene::init()
     this->addChild(this->player, 2);
     this->addChild(this->speedM, 2);
     this->addChild(this->screenK, 2);
-    this->runAction(Follow::create(this->player));
+    this->runAction(Follow::create(this->speedM));
 
     //Set map controller
     log("Init map controller");
@@ -243,10 +243,10 @@ PlayerTestScene::update(float delta){
     this->deltaCount += 0.032f;
     this->deltaCountForMap+=0.002f;
     
-    pauseButton->setPosition(Vec2(this->player->getPosition().x+visibleSize.width/2.2,this->player->getPosition().y+visibleSize.height/2.5));
-    audioButton->setPosition(Vec2(this->player->getPosition().x-visibleSize.width/2.2,this->player->getPosition().y+visibleSize.height/2.5));
-    m_labelPuntuacion->setPosition(Vec2(player->getPosition().x,
-                                        player->getPosition().y+visibleSize.height/2.5));
+    pauseButton->setPosition(Vec2(this->speedM->getPosition().x+visibleSize.width/2.2,this->speedM->getPosition().y+visibleSize.height/2.5));
+    audioButton->setPosition(Vec2(this->speedM->getPosition().x-visibleSize.width/2.2,this->speedM->getPosition().y+visibleSize.height/2.5));
+    m_labelPuntuacion->setPosition(Vec2(this->speedM->getPosition().x,
+                                        this->speedM->getPosition().y+visibleSize.height/2.5));
     //##############################################################################
     // If player falls down from the platform
     //##############################################################################
@@ -263,7 +263,7 @@ PlayerTestScene::update(float delta){
         
         menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
         menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
-        menu_background->setPosition(this->player->getPosition().x,this->player->getPosition().y);
+        menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
         this->addChild(menu_background,3);
         newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
         newGameLabel->setTextColor(blackColor);
@@ -283,16 +283,17 @@ PlayerTestScene::update(float delta){
             menu = Menu::create(newGameItem, closeItem, NULL);
         }
         //menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height*2);
-        menu->setPosition(this->player->getPosition().x, this->player->getPosition().y);
+        menu->setPosition(this->speedM->getPosition().x, this->speedM->getPosition().y);
         menu->alignItemsVertically();
         this->addChild(menu, 4);
     }
     
     
     //screen Killer has reach the player
-    if(this->player->getX()<this->screenK->getX()){
+    if(this->player->getPositionX()<this->screenK->getPositionX()){
         // TO DO
         //the player dies
+        dead=true;
         this->m_labelPuntuacion->setString(StringUtils::format(" FIN JUEGO Puntuacion:%f",this->speedM->getPositionX()));
         
     }

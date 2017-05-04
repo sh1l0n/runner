@@ -11,7 +11,7 @@ using namespace std;
 
 SpeedMarker::SpeedMarker():RootEntity() {
     
-    vx=7;
+    vx=2;
     debug = true;
 
     if(debug) {
