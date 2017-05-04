@@ -119,6 +119,7 @@
 		C7075EEF1EB28641004FB0A8 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = C7075EEE1EB28641004FB0A8 /* pause.png */; };
 		C7075EF31EB29320004FB0A8 /* audio_off.png in Resources */ = {isa = PBXBuildFile; fileRef = C7075EF11EB29320004FB0A8 /* audio_off.png */; };
 		C7075EF41EB29320004FB0A8 /* audio_on.png in Resources */ = {isa = PBXBuildFile; fileRef = C7075EF21EB29320004FB0A8 /* audio_on.png */; };
+		C71313A21EBA42F3003F6818 /* GameSharing in Resources */ = {isa = PBXBuildFile; fileRef = C71313A11EBA42F3003F6818 /* GameSharing */; };
 		C7311F921EABF957001DC0B0 /* MainMenuPhone.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */; };
 		C7311F9C1EACF2E8001DC0B0 /* menu_close.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9A1EACF2E8001DC0B0 /* menu_close.png */; };
 		C7311F9D1EACF2E8001DC0B0 /* menu_open.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9B1EACF2E8001DC0B0 /* menu_open.png */; };
@@ -272,6 +273,7 @@
 		C7075EF11EB29320004FB0A8 /* audio_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = audio_off.png; path = ../Classes/Scenes/audio_off.png; sourceTree = "<group>"; };
 		C7075EF21EB29320004FB0A8 /* audio_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = audio_on.png; path = ../Classes/Scenes/audio_on.png; sourceTree = "<group>"; };
 		C70F68571EB0E42700C1D1C2 /* SceneController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SceneController.hpp; sourceTree = "<group>"; };
+		C71313A11EBA42F3003F6818 /* GameSharing */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GameSharing; sourceTree = "<group>"; };
 		C7311F901EABF957001DC0B0 /* MainMenuPhone.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainMenuPhone.cpp; sourceTree = "<group>"; };
 		C7311F911EABF957001DC0B0 /* MainMenuPhone.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MainMenuPhone.hpp; sourceTree = "<group>"; };
 		C7311F9A1EACF2E8001DC0B0 /* menu_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_close.png; sourceTree = "<group>"; };
@@ -518,6 +520,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				C71313A11EBA42F3003F6818 /* GameSharing */,
 				209E142D1E9C25C7007DB2A1 /* Scenes */,
 				209E13A61E9C179B007DB2A1 /* Engine2D */,
 				209E13BE1E9C179B007DB2A1 /* Entities */,
@@ -713,6 +716,7 @@
 				209E14191E9C17AE007DB2A1 /* sprites.plist in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				209E14031E9C17AE007DB2A1 /* castleCenter.png in Resources */,
+				C71313A21EBA42F3003F6818 /* GameSharing in Resources */,
 				209E140F1E9C17AE007DB2A1 /* liquidLavaTop_mid.png in Resources */,
 				209E14051E9C17AE007DB2A1 /* CloseNormal.png in Resources */,
 				209E140D1E9C17AE007DB2A1 /* HelloWorld.png in Resources */,
@@ -854,6 +858,7 @@
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.devbits.randomrunner;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -888,6 +893,7 @@
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.devbits.randomrunner;
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
