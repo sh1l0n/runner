@@ -51,6 +51,8 @@ PlayerTestScene::init()
     this->speedM = SpeedMarker::create();
     
     
+    
+    
     //Player
     this->player->setPosition(200, 50);
     //Speed Marker
