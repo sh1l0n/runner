@@ -10,9 +10,8 @@
 using namespace std;
 
 SpeedMarker::SpeedMarker():RootEntity() {
+    
     vx=7;
-
-
     debug = true;
 
     if(debug) {
@@ -22,18 +21,22 @@ SpeedMarker::SpeedMarker():RootEntity() {
 
 }
 
+
+
 /*!
  * RootEntity custom update method reimplementation
  * @param delta
  */
 void SpeedMarker::customupdate(float delta) {
-    //this->beginUpdate(); //must be called on every update reimplementation
+    this->beginUpdate(); //must be called on every update reimplementation
     
 
     this->setPositionX(this->getPositionX()+vx);
-    setMotionX(vx);
+    //setMotionX(vx);
     RootEntity::customupdate(delta);
 }
+
+
 
 
 /*!

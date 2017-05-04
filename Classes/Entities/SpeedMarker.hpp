@@ -44,6 +44,7 @@ public:
     static SpeedMarker * create();
     
     void customupdate(float delta) override;
+    
     void customdraw(float delta, float deltaCount, float stepTime) override;
    /* void setFloorCollision(Vector<TiledMap::BasicBlock*> floors);
 

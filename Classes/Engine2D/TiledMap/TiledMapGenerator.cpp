@@ -22,6 +22,8 @@ TiledMap::TiledMapGenerator* TiledMap::TiledMapGenerator::_instance = NULL;
 //4->Block Collisionable RIGID with plataform sprite
 //5->Block No Collisionable with sprite  with sprite wall (Py and MIDPY not collisionable)
 //6->Clock No Collisionable with sprite floor
+//PAB
+//8->Block Collisionable  DAMAGE with spike sprite (in floor)
 TiledMap::
 TiledMapGenerator::TiledMapGenerator() {
     this->_mapTextures.reserve(6);
@@ -156,9 +158,10 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                     case 5: //Plataform for Jump Structure
                         basicBlockType = TiledMap::TypeBlock::WALL;
                         break;
-                    case 3:
+                    //pab
+                    /*case 3:
                         basicBlockType = TiledMap::TypeBlock::SPIKE;
-                        break;
+                        break;*/
                     default:
                         basicBlockType = TiledMap::TypeBlock::NONE;
                         /*  std::cout << "sprite not found for guid: "
@@ -200,14 +203,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                                    basicBlockType);
                             break;
                             
-                        case 3: //Lava for jump Structure, tehe block collisionbale is smaller
-                            basicBlockCollisionable = TiledMap::BasicBlock::create(
-                                                                                   rectForBoundingBoxCollisionable.origin.x,
-                                                                                   rectForBoundingBoxCollisionable.origin.y,
-                                                                                   rectForBoundingBoxCollisionable.size.width + rectForBoundingBoxCollisionable.origin.x,
-                                                                                   rectForBoundingBoxCollisionable.size.height * 0.65f + rectForBoundingBoxCollisionable.origin.y,
-                                                                                   basicBlockType);
-                            break;
+
                         case 4: //Plataform for Jump Structure
                             basicBlockCollisionable = TiledMap::BasicBlock::create(
                                                                                    rectForBoundingBoxCollisionable.origin.x,
@@ -276,6 +272,13 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                         mapForTextures[i][k]=7;
                     }
                 }
+                //PAB LAVA
+                if(mapForTextures[i][j+1]==3){
+                    //There is a Damage
+                    for(k=0;k<=K_HEIGHT_FLOOR;k++){
+                        mapForTextures[i][k]=8;
+                    }
+                }
             }
             
             //we put the floor sprite if is not 0 (gap)
@@ -299,6 +302,31 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 currentChunck._collisionables.push_back(blockCollisionable);
             }
             
+
+            //LAVA
+            if(mapForTextures[i][j]==8) {
+                //we put the sprite
+                spriteToLoad = Sprite::createWithTexture(this->_mapTextures[3],
+                                                         Rect(0, 0, size_image_sprite, size_image_sprite));
+                spriteToLoad->setScale(factor_scale, factor_scale);
+                spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
+                                          j * factor_scale * size_image_sprite);
+                spriteToLoad->setAnchorPoint(Vec2(0, 0));
+                currentChunck._node->addChild(spriteToLoad, 0);
+                
+                //we put collisionable
+                basicBlockCollisionable = TiledMap::BasicBlock::create(
+                                                                       rectForBoundingBoxCollisionable.origin.x,
+                                                                       rectForBoundingBoxCollisionable.origin.y,
+                                                                       rectForBoundingBoxCollisionable.size.width + rectForBoundingBoxCollisionable.origin.x,
+                                                                       rectForBoundingBoxCollisionable.size.height * 0.65f + rectForBoundingBoxCollisionable.origin.y,
+                                                                       basicBlockType);
+                
+                
+            }
+            
+
+
         }
     }
     
