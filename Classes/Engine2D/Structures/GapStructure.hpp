@@ -11,15 +11,15 @@ namespace Structures  {
 
 
         /** @short default width for gap structure*/
-        const static unsigned short int K_DEFAULT_WIDTH = 4;
+        const static unsigned short int K_DEFAULT_WIDTH = 6;
         /** @short default max jump for gap structure*/
-        const static unsigned short int K_DEFAULT_MAX_JUMP = 2;
+        const static unsigned short int K_DEFAULT_MAX_JUMP = 3;
         /** @short default min jump for gap structure*/
-        const static unsigned short int K_DEFAULT_MIN_JUMP = 1;
+        const static unsigned short int K_DEFAULT_MIN_JUMP = 2;
         /** @short default max rest for gap structure*/
-        const static unsigned short int K_DEFAULT_MAX_REST = 2;
+        const static unsigned short int K_DEFAULT_MAX_REST = 4;
         /** @short default min rest  for gap structure*/
-        const static unsigned short int K_DEFAULT_MIN_REST = 1;
+        const static unsigned short int K_DEFAULT_MIN_REST = 3;
 
 
 

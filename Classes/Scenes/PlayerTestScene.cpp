@@ -88,7 +88,7 @@ PlayerTestScene::init()
     this->player->setPosition(50, 50);
     //Speed Marker
     this->speedM = SpeedMarker::create();
-    this->speedM->setPosition(200, visibleSize.height/2.0f);
+    this->speedM->setPosition(50, visibleSize.height/2.0f);
     //Screen killer
     this->screenK = ScreenKiller::create();
     this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-30,Director::getInstance()->getVisibleOrigin().y);

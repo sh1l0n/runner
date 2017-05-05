@@ -158,15 +158,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                     case 5: //Plataform for Jump Structure
                         basicBlockType = TiledMap::TypeBlock::WALL;
                         break;
-                    //pab
-                    /*case 3:
-                        basicBlockType = TiledMap::TypeBlock::SPIKE;
-                        break;*/
                     default:
                         basicBlockType = TiledMap::TypeBlock::NONE;
-                        /*  std::cout << "sprite not found for guid: "
-                         << mapForTextures[positionXCurrentChunck][positionYCurrentChunck] << "\n";
-                         */
                         break;
                         
                 }
@@ -187,13 +180,9 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                     //When the sprite is loaded, only now, we have the size of this sprite
                     //and check that is collisionable or not
                     //##############################################################################
-                    rectForBoundingBoxCollisionable = spriteToLoad->getBoundingBox();
-                    
-                    std::cout << "rect for display origin x: " << rectForBoundingBoxCollisionable.origin.x << "\n";
-                    
-                    
                     switch (basicBlockTypeCurrent) {
                         case 1:
+                        case 4:
                             rectForBoundingBoxCollisionable = spriteToLoad->getBoundingBox();
                             basicBlockCollisionable = TiledMap::BasicBlock::create(
                                                                                    rectForBoundingBoxCollisionable.origin.x,
@@ -203,23 +192,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                                    basicBlockType);
                             break;
                             
-
-                        case 4: //Plataform for Jump Structure
-                            basicBlockCollisionable = TiledMap::BasicBlock::create(
-                                                                                   rectForBoundingBoxCollisionable.origin.x,
-                                                                                   rectForBoundingBoxCollisionable.origin.y + 10,
-                                                                                   rectForBoundingBoxCollisionable.size.width + rectForBoundingBoxCollisionable.origin.x,
-                                                                                   rectForBoundingBoxCollisionable.size.height + rectForBoundingBoxCollisionable.origin.y,
-                                                                                   basicBlockType);
-                            break;
-                            
                         default:
                             basicBlockCollisionable = NULL;
-                            /*
-                             std::cout << "object with guid: "
-                             << mapForTextures[positionXCurrentChunck][positionYCurrentChunck]
-                             << " it not collisionable\n";
-                             */
                             break;
                     }
                 }
@@ -257,11 +231,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             if(j==K_POSITION_FLOOR_COLLISIONABLE && mapForTextures[i][j+1] == 0) {
                 mapForTextures[i][j]=2;
             }
-            else{
-                if(mapForTextures[i][j]!=7){
+            else if(mapForTextures[i][j]!=7){
                     mapForTextures[i][j]=6;
-                }
-                
             }
             //put 0 for gap Structures
             unsigned int k;
@@ -282,55 +253,30 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             }
             
             //we put the floor sprite if is not 0 (gap)
-            if(mapForTextures[i][j]==2 || mapForTextures[i][j]==6){
+            basicBlockType = TiledMap::TypeBlock::FLOOR;
+            if(mapForTextures[i][j]==2 || mapForTextures[i][j]==6) {
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[2],
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
-                spriteToLoad->setScale(factor_scale, factor_scale);
-                spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
-                                          j * factor_scale * size_image_sprite);
-                spriteToLoad->setAnchorPoint(Vec2(0, 0));
-                currentChunck._node->addChild(spriteToLoad, 0);
             }
-            
-            if(mapForTextures[i][j]==2) {
-                Rect rr = spriteToLoad->getBoundingBox();
-                auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
-                                                                       rr.size.width + rr.origin.x,
-                                                                       rr.size.height + rr.origin.y,
-                                                                       TiledMap::TypeBlock::FLOOR);
-                currentChunck._node->addChild(blockCollisionable, 1);
-                currentChunck._collisionables.push_back(blockCollisionable);
-            }
-            
-
-            //LAVA
-            if(mapForTextures[i][j]==8) {
-                //we put the sprite
+            else if(mapForTextures[i][j]==8){
+                basicBlockType = TiledMap::TypeBlock::SPIKE;
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[3],
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
-                spriteToLoad->setScale(factor_scale, factor_scale);
-                spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
-                                          j * factor_scale * size_image_sprite);
-                spriteToLoad->setAnchorPoint(Vec2(0, 0));
-                currentChunck._node->addChild(spriteToLoad, 0);
-                
-                
-                Rect rr = spriteToLoad->getBoundingBox();
-                auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
-                                                                       rr.size.width + rr.origin.x,
-                                                                       rr.size.height*0.65f + rr.origin.y,
-                                                                       TiledMap::TypeBlock::SPIKE);
-                
-                //add the block
-                currentChunck._node->addChild(blockCollisionable, 1);
-                currentChunck._collisionables.push_back(blockCollisionable);
-
-                
-                
             }
             
-
-
+            
+            spriteToLoad->setScale(factor_scale, factor_scale);
+            spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
+                                      j * factor_scale * size_image_sprite);
+            spriteToLoad->setAnchorPoint(Vec2(0, 0));
+            currentChunck._node->addChild(spriteToLoad, 0);
+            Rect rr = spriteToLoad->getBoundingBox();
+            auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
+                                                                   rr.size.width + rr.origin.x,
+                                                                   rr.size.height + rr.origin.y,
+                                                                   basicBlockType);
+            currentChunck._node->addChild(blockCollisionable, 1);
+            currentChunck._collisionables.push_back(blockCollisionable);
         }
     }
     

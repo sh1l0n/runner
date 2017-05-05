@@ -6,15 +6,15 @@
 
 #include <iostream>
 #include "../Engine2D/MathHelper.hpp"
+#include "../Utils/Constants.h"
 #include "Player.hpp"
 using namespace std;
 
 SpeedMarker::SpeedMarker():RootEntity() {
     
-    vx=2;
-    debug = true;
+    vx=3;
 
-    if(debug) {
+    if(Utils::DEBUG_MODE) {
         drawNode->drawRect(Vec2(0 - 20 , 0 - 20 ), Vec2(20, 20), Color4F::RED);
         //drawNode->drawRect(Vec2(0 - getWidth() / 2, 0 - getHeight() / 2), Vec2(20, 20), Color4F::WHITE);
     }
