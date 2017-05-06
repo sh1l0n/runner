@@ -262,17 +262,18 @@ PlayerTestScene::update(float delta){
         Entities::Sound::getInstance()->clearSounds();
         
         menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
-        menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
+        menu_background->setContentSize(Size(visibleSize.width/2,visibleSize.height/1.5));
         menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
+        menu_background->setOpacity(150);
         this->addChild(menu_background,3);
-        newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
+        newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 24);
         newGameLabel->setTextColor(blackColor);
         newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
-        closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
+        closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 24);
         closeLabel->setTextColor(blackColor);
         closeItem = MenuItemLabel::create(closeLabel, CC_CALLBACK_1(PlayerTestScene::mainMenu, this));
         if(pause){
-            retryLabel = Label::createWithTTF("Retry", "fonts/Sudbury Basin 3D.ttf", 48);
+            retryLabel = Label::createWithTTF("Retry", "fonts/Sudbury Basin 3D.ttf", 24);
             retryLabel->setTextColor(blackColor);
             retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
             Entities::Sound::getInstance()->pauseBackground();
