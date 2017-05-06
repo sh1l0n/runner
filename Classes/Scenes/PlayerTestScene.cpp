@@ -11,6 +11,8 @@ USING_NS_CC;
 //Creation of the scene setting the listener for managing the created one
 //##############################################################################
 
+int Scenes::PlayerTestScene::coins = 0;
+
 cocos2d::Scene*
 Scenes::PlayerTestScene::createScene(Scenes::SceneControllerListener* listener)
 {
@@ -81,6 +83,8 @@ PlayerTestScene::init()
     visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
     
+    this->coins = 0;
+    
     this->player = Player::create();
     this->speedM = SpeedMarker::create();
     
@@ -101,10 +105,25 @@ PlayerTestScene::init()
     spriteBg->setScale(1, 1);
     spriteBg->setPosition(0, 0);
     spriteBg->setAnchorPoint(Vec2(0, 0));
-    ParallaxNode* parallax = ParallaxNode::create();
+    
+    Sprite *spriteBg2 = Sprite::createWithTexture(textureBackGround,
+                                                 Rect(0, 0, 1024 , 512));
+    spriteBg2->setScale(1, 1);
+    spriteBg2->setPosition(0, 0);
+    spriteBg2->setAnchorPoint(Vec2(0, 0));
+    
+    //This numbers are just magic... I'm not completely sure why it's working, but... it Works :) so please... Don't touch them :p
+    parallax = ParallaxNode::create();
     parallax->addChild(spriteBg, 0, Vec2(0.5f,1), Vec2(0,0));
+    parallax->setPosition(Vec2(-200,0));
+    
+    parallax2 = ParallaxNode::create();
+    parallax2->addChild(spriteBg2, 0, Vec2(0.5f,1), Vec2(0,0));
+    parallax2->setPosition(Vec2(1848,0));
+    // -----
     
     this->addChild(parallax, 0);
+    this->addChild(parallax2, 0);
     this->_nodeScroll= Node::create();
     this->addChild(this->_nodeScroll, 1);
     this->addChild(this->player, 2);
@@ -130,6 +149,10 @@ PlayerTestScene::init()
                 break;
         }
     });
+    
+    coinsLabel = Label::createWithTTF("Coins:", "fonts/Marker Felt.ttf", 24);
+    this->coinsLabel->setString(StringUtils::format("Coins: %i", this->coins));
+    this->addChild(coinsLabel,3);
     
     this->addChild(pauseButton,3);
     
@@ -284,6 +307,10 @@ PlayerTestScene::update(float delta){
     audioButton->setPosition(Vec2(this->speedM->getPosition().x-visibleSize.width/2.2,this->speedM->getPosition().y+visibleSize.height/2.5));
     m_labelPuntuacion->setPosition(Vec2(this->speedM->getPosition().x,
                                         this->speedM->getPosition().y+visibleSize.height/2.5));
+    
+    coinsLabel->setPosition(Vec2(this->speedM->getPosition().x - visibleSize.width/2 + 100,
+                                 this->speedM->getPosition().y+visibleSize.height/2.5));
+    this->coinsLabel->setString(StringUtils::format("Coins: %i", this->coins));
     //##############################################################################
     // If player falls down from the platform
     //##############################################################################
@@ -316,7 +343,10 @@ PlayerTestScene::update(float delta){
     //##############################################################################
     // Control 15 fps for player movement
     //##############################################################################
+
     if(this->deltaCount >= 0.067f) {
+        this->player->setSpeedMarkerVelocity(speedM->getVelocity());
+        this->player->setSpeedMarkerPosition(speedM->getX());
         this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->speedM->getPositionX())/10));
         this->player->customupdate(delta);
          //PAB
@@ -325,6 +355,16 @@ PlayerTestScene::update(float delta){
         this->stepTime = this->deltaCount;
         
         this->deltaCount = 0.f;
+        
+        //Infinite parallax.
+        //This numbers are just magic... I'm not completely sure why it's working, but... it Works :) so please... Don't touch them :p
+        if(parallax->getPositionX() + 1848 < speedM->getX() - Director::getInstance()->getVisibleSize().width) {
+            parallax->setPosition(Vec2(parallax2->getPositionX() + 1848 + 200, 0));
+        }
+        if(parallax2->getPositionX() + 1848 < speedM->getX()- Director::getInstance()->getVisibleSize().width) {
+            parallax2->setPosition(Vec2(parallax->getPositionX() + 1848 + 200, 0));
+        }
+           
     }
 
     this->player->customdraw(delta, this->deltaCount, this->stepTime);

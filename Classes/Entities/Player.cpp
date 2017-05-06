@@ -10,14 +10,15 @@ USING_NS_CC;
 
 Player::Player():RootEntity() {
     vx = vy = 0;
-    accel = 3.f;
-    jump = 40.f;
-    jumpSpeed = 20.f;
+    accel = 2.0f;
+    jump = 30.f;
+    initialJumpSpeed = 15.f;
+    jumpSpeed = initialJumpSpeed;
     friction = 1.f;
-    maxVel = 8.5f;
-    gravity = 6.f;
+    maxVel = 0.f; //Speed marker velocity;
+    gravity = 3.f;
     terminalVelocity = 5;
-    maxJump = 40.f;
+    maxJump = 100.f;
     auxHeight = 0;
     floor = false;
     bend = false;
@@ -25,6 +26,8 @@ Player::Player():RootEntity() {
     animationSpeed = 0;
     moveLeft = moveRight = moveUp = moveDown = floor = bend = jumpTime = false;
     debug = false;
+    speedMarkerVelocity = 0;
+    speedMarkerPosition = 0;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
     auto frames = getAnimation("p1_walk%02d.png", 6);
@@ -33,12 +36,11 @@ Player::Player():RootEntity() {
 
     this->animation = Animation::createWithSpriteFrames(frames, 1.0f/8);
     sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
-    this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)/2);
-    this->setHeight((sprite->getContentSize().height-6)/2);
     //Pablo
    
-    this->scaleSprite(0.5f, 0.5f);
-    this->scaleSprite(TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE, TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE);
+    this->scaleSprite(1, 1);
+    this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)*1);
+    this->setHeight((sprite->getContentSize().height-6)*1);
 }
 
 /*!
@@ -47,6 +49,13 @@ Player::Player():RootEntity() {
  */
 void Player::customupdate(float delta) {
     this->beginUpdate(); //must be called on every update reimplementation
+    
+    if(getX() >= speedMarkerPosition) {
+        maxVel = speedMarkerVelocity/0.36f;
+    } else {
+         maxVel = speedMarkerVelocity/0.3f;
+    }
+    
 
     // Right movement
     if(moveRight) {
@@ -109,9 +118,24 @@ void Player::customupdate(float delta) {
 
     resolveFloorCollisionsY(); // vertical collisions
     setMotionY(vy);
+    
+    // Remove unused collisionables
+   
+    for(auto it2 = floorVector.begin(); it2 != floorVector.end();)
+    {
+        if((*it2)->getX() < getX() - 100)
+        {
+            it2 = floorVector.erase(it2);
+        }
+        else
+        {
+            ++it2;
+        }
+    }
+    
 
+    log("SPVEL: %f", speedMarkerVelocity);
     RootEntity::customupdate(delta);
-    std::cout<< "#" << floorVector.size() << std::endl;
 }
 
 
@@ -132,7 +156,7 @@ void Player::customdraw(float delta, float deltaCount, float stepTime) {
  * @param floors
  */
 void Player::setFloorCollision(std::vector<TiledMap::BasicBlock *> floors) {
-    floorVector = floors;
+    floorVector.insert(floorVector.end(), floors.begin(), floors.end());
 }
 
 
@@ -146,7 +170,7 @@ void Player::resolveFloorCollisionsY() {
             if(getCorrectPositionY() + getHeight() > block->getY()) {
                 floor = true;
                 jumpTime = true;
-                jumpSpeed = 30.f;
+                jumpSpeed = initialJumpSpeed;
                 if(vy < 0){
                     log("UP v-");
                     setY(block->getY() + block->getHeight() + getHeight()/2);
@@ -261,8 +285,15 @@ Vector<SpriteFrame*> Player::getAnimation(const char *format, int count)
     for(int i = 1; i <= count; i++)
     {
         sprintf(str, format, i);
-        cocos2d::log("%s", str);
         animFrames.pushBack(spritecache->getSpriteFrameByName(str));
     }
     return animFrames;
+}
+
+void Player::setSpeedMarkerVelocity(float velocity) {
+    speedMarkerVelocity = velocity;
+}
+
+void Player::setSpeedMarkerPosition(float position) {
+    speedMarkerPosition = position;
 }

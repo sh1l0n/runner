@@ -15,10 +15,12 @@ USING_NS_CC;
 namespace Scenes {
     
     class PlayerTestScene: public Layer,  public TiledMap::TiledMapControllerListener {
+        
 
         public:
         
             virtual bool init() override;
+            static int coins;
         
             void menuCloseCallback(cocos2d::Ref* pSender);
         
@@ -77,15 +79,18 @@ namespace Scenes {
         
             Sprite* _sprite;
         
-            Label *m_labelPuntuacion, *m_labelPause, *retryLabel, *newGameLabel, *closeLabel;
+            Label *m_labelPuntuacion, *m_labelPause, *retryLabel, *newGameLabel, *closeLabel, *coinsLabel;
         
             Node *_nodeScroll;
+            ParallaxNode *parallax;
+            ParallaxNode *parallax2;
         
             //MenuItemLabel *retryItem, *newGameItem, *closeItem;
         
             Vector<TiledMap::BasicBlock*> boxes;
         
             Node* menu;
+        
         
         //    Menu* menu;
         
@@ -99,5 +104,7 @@ namespace Scenes {
             const float SPACE_BUTTON_PADDING = 20;
         
             void createMenuPause();
+        
+        
     };
 }
