@@ -26,13 +26,14 @@ TiledMap::TiledMapGenerator* TiledMap::TiledMapGenerator::_instance = NULL;
 //8->Block Collisionable  DAMAGE with spike sprite (in floor)
 TiledMap::
 TiledMapGenerator::TiledMapGenerator() {
-    this->_mapTextures.reserve(6);
+    this->_mapTextures.reserve(7);
     this->_mapTextures[1] = Director::getInstance()->getTextureCache()->addImage("box.png");
     this->_mapTextures[2] = Director::getInstance()->getTextureCache()->addImage("castleCenter.png");
     this->_mapTextures[3] = Director::getInstance()->getTextureCache()->addImage("liquidLavaTop_mid.png");
     this->_mapTextures[4] = Director::getInstance()->getTextureCache()->addImage("stoneHalf.png");
     this->_mapTextures[5] = this->_mapTextures[1];
     this->_mapTextures[6] = this->_mapTextures[2];
+    this->_mapTextures[7] = Director::getInstance()->getTextureCache()->addImage("goldCoin5.png");
 }
 
 
@@ -92,14 +93,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
     //Pablo________________________________
     //Adaptacion distintos dispositivos
     auto director = Director::getInstance();
-    auto glview = director->getOpenGLView();
-    std::cout<<" visible origin X:"<<Director::getInstance()->getVisibleOrigin().x;
-    
-    std::cout<<"visible origin Y:"<<Director::getInstance()->getVisibleOrigin().y;
-    std::cout<<"Frame size X:"<<glview->getFrameSize().width;
-    std::cout<<"Frame size Y:"<<glview->getFrameSize().height;
-    
-    
+    auto glview = director->getOpenGLView();    
     unsigned int size_image_sprite=ConstanDevices::getInstance()->SIZE_IMAGE_SPRITE;
     float factor_scale= ConstanDevices::getInstance()->FACTOR_SCALE;
     
@@ -135,7 +129,6 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
         //Create a structure and include it in the matrix
         //##############################################################################
         currentStructure = Structures::getStructureMatrix(freeSpaceInCurrentChunck);
-        std::cout<<currentStructure->toString();
         
         for (i = 0; i < currentStructure->getWidth(); ++i) {
             for (j = 0; j < currentStructure->getHeight(); ++j) {
@@ -158,6 +151,9 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                     case 5: //Plataform for Jump Structure
                         basicBlockType = TiledMap::TypeBlock::WALL;
                         break;
+                    case 8:
+                        basicBlockType = TiledMap::TypeBlock::COIN;
+                        break;
                     default:
                         basicBlockType = TiledMap::TypeBlock::NONE;
                         break;
@@ -169,7 +165,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                              Rect(0, 0, size_image_sprite, size_image_sprite));
                     
                     
-                    spriteToLoad->setAnchorPoint(Vec2(0, 0));
+                        spriteToLoad->setAnchorPoint(Vec2(0, 0));
+    
                     spriteToLoad->setPosition((positionXCurrentChunck * factor_scale * size_image_sprite)+posXInitial,
                                               positionYCurrentChunck * factor_scale * size_image_sprite);
                     spriteToLoad->setScale(factor_scale, factor_scale);
@@ -183,6 +180,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                     switch (basicBlockTypeCurrent) {
                         case 1:
                         case 4:
+                        case 7:
+                        case 8:
                             rectForBoundingBoxCollisionable = spriteToLoad->getBoundingBox();
                             basicBlockCollisionable = TiledMap::BasicBlock::create(
                                                                                    rectForBoundingBoxCollisionable.origin.x,
@@ -277,6 +276,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                    basicBlockType);
             currentChunck._node->addChild(blockCollisionable, 1);
             currentChunck._collisionables.push_back(blockCollisionable);
+            
+            
         }
     }
     

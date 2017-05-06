@@ -41,6 +41,7 @@
 		209E14231E9C17AE007DB2A1 /* tiles_spritesheet.xml in Resources */ = {isa = PBXBuildFile; fileRef = 209E13FE1E9C17AE007DB2A1 /* tiles_spritesheet.xml */; };
 		209E142B1E9C1D3D007DB2A1 /* TiledMapController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 209E14291E9C1D3D007DB2A1 /* TiledMapController.cpp */; };
 		209E14341E9C25C7007DB2A1 /* PlayerTestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 209E14301E9C25C7007DB2A1 /* PlayerTestScene.cpp */; };
+		20C721501EBCFFE600C96B15 /* goldCoin5.png in Resources */ = {isa = PBXBuildFile; fileRef = 20C7214F1EBCFFE600C96B15 /* goldCoin5.png */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		294D0D641D0D56D500F7F5D4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 294D0D631D0D56D500F7F5D4 /* CoreText.framework */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
@@ -174,6 +175,7 @@
 		209E142A1E9C1D3D007DB2A1 /* TiledMapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TiledMapController.h; sourceTree = "<group>"; };
 		209E14301E9C25C7007DB2A1 /* PlayerTestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PlayerTestScene.cpp; sourceTree = "<group>"; };
 		209E14311E9C25C7007DB2A1 /* PlayerTestScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PlayerTestScene.hpp; sourceTree = "<group>"; };
+		20C7214F1EBCFFE600C96B15 /* goldCoin5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = goldCoin5.png; sourceTree = "<group>"; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		294D0D631D0D56D500F7F5D4 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/CoreText.framework; sourceTree = DEVELOPER_DIR; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				C75584CB1EBB972D0067DB20 /* menu_background_landscape.png */,
 				C7311F9E1EAD0645001DC0B0 /* Audio */,
 				C7311F9A1EACF2E8001DC0B0 /* menu_close.png */,
+				20C7214F1EBCFFE600C96B15 /* goldCoin5.png */,
 				C7311F9B1EACF2E8001DC0B0 /* menu_open.png */,
 				209E13EC1E9C17AE007DB2A1 /* bg_desert.png */,
 				209E13ED1E9C17AE007DB2A1 /* box.png */,
@@ -550,7 +553,8 @@
 				LastUpgradeCheck = 0500;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = 4ZJBY72XZ5;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -616,6 +620,7 @@
 				209E14171E9C17AE007DB2A1 /* res in Resources */,
 				C75584CC1EBB972D0067DB20 /* menu_background_landscape.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
+				20C721501EBCFFE600C96B15 /* goldCoin5.png in Resources */,
 				C75584D01EBB99AB0067DB20 /* menu_background_portrait.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
@@ -705,7 +710,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4ZJBY72XZ5;
 				ENABLE_BITCODE = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -725,7 +730,7 @@
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pramon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devbits.randomrunner;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -743,7 +748,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4ZJBY72XZ5;
 				ENABLE_BITCODE = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -762,7 +767,7 @@
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pramon;
+				PRODUCT_BUNDLE_IDENTIFIER = com.devbits.randomrunner;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;

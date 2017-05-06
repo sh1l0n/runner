@@ -16,7 +16,8 @@ namespace TiledMap {
         NONE = 0x00,
         WALL = 0x01,
         FLOOR = 0x02,
-        SPIKE = 0x03
+        SPIKE = 0x03,
+        COIN = 0x04
     };
 
 

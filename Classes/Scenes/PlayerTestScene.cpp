@@ -112,18 +112,15 @@ PlayerTestScene::init()
     this->addChild(this->screenK, 2);
     this->runAction(Follow::create(this->speedM));
 
-    //Set map controller
-    log("Init map controller");
+    createMenuPause();
     this->_mapController = TiledMap::TiledMapController(this);
     
     m_labelPuntuacion = Label::createWithTTF("Score:", "fonts/Marker Felt.ttf", 24);
-    
-    m_labelPuntuacion->setString(StringUtils::format("Score:%f",speedM->getPositionX()));
+    this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->speedM->getPositionX())/10));
     this->addChild(m_labelPuntuacion,3);
-    
-    pauseButton = cocos2d::ui::Button::create("pause.png");
-    pauseButton->setScale(TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2,TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2);//-
-    pauseButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
+    this->pauseButton = cocos2d::ui::Button::create("pause.png");
+    this->pauseButton->setScale(TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2,TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2);//-
+    this->pauseButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
         switch (type)
         {
             case ui::Widget::TouchEventType::BEGAN:
@@ -143,7 +140,6 @@ PlayerTestScene::init()
     eventListener->onTouchBegan = CC_CALLBACK_2(PlayerTestScene::onTouchBegan, this);
     eventListener->onTouchEnded = CC_CALLBACK_2(PlayerTestScene::onTouchEnded, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
-    //Finale and update UI
     this->scheduleUpdate();
 
     return true;
@@ -198,7 +194,6 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
     Director::getInstance()->resume();
     Entities::Sound::getInstance()->resumeBackground();
     this->removeChild(menu);
-    this->removeChild(menu_background);
 }
 
 //##############################################################################
@@ -235,6 +230,50 @@ PlayerTestScene::mainMenu(cocos2d::Ref *sender){
 
 void
 Scenes::
+PlayerTestScene::createMenuPause() {
+    
+    Menu* menu_ui;
+    Director::getInstance()->pause();
+    Entities::Sound::getInstance()->clearSounds();
+    Sprite* menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
+    Label* newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
+    Label* closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
+    MenuItemLabel* newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
+    MenuItemLabel* closeItem = MenuItemLabel::create(closeLabel, CC_CALLBACK_1(PlayerTestScene::mainMenu, this));
+    
+    menu = Node::create();
+    menu->retain();
+    menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
+    menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
+    
+    newGameLabel->setTextColor(blackColor);
+    
+    closeLabel->setTextColor(blackColor);
+    
+    if(pause){
+        Entities::Sound::getInstance()->pauseBackground();
+        Label* retryLabel = Label::createWithTTF("Retry", "fonts/Sudbury Basin 3D.ttf", 48);
+        retryLabel->setTextColor(blackColor);
+        MenuItemLabel* retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
+        menu_ui = Menu::create(retryItem, newGameItem, closeItem, NULL);
+        
+    }else{
+        Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
+        menu_ui = Menu::create(newGameItem, closeItem, NULL);
+    }
+    
+    menu_ui->setPosition(this->speedM->getPosition().x, this->speedM->getPosition().y);
+    menu_ui->alignItemsVertically();
+    LayerGradient* layer = LayerGradient::create(blackColor, Color4B(0,0,0,0));
+    menu->addChild(layer, 0);
+    menu->addChild(menu_background, 1);
+    menu->addChild(menu_ui, 2);
+}
+
+
+
+void
+Scenes::
 PlayerTestScene::update(float delta){
     
     //##############################################################################
@@ -258,33 +297,6 @@ PlayerTestScene::update(float delta){
     // Check if player falled
     //##############################################################################
     if(dead || pause){
-        Director::getInstance()->pause();
-        Entities::Sound::getInstance()->clearSounds();
-        
-        menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
-        menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
-        menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
-        this->addChild(menu_background,3);
-        newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
-        newGameLabel->setTextColor(blackColor);
-        newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
-        closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
-        closeLabel->setTextColor(blackColor);
-        closeItem = MenuItemLabel::create(closeLabel, CC_CALLBACK_1(PlayerTestScene::mainMenu, this));
-        if(pause){
-            retryLabel = Label::createWithTTF("Retry", "fonts/Sudbury Basin 3D.ttf", 48);
-            retryLabel->setTextColor(blackColor);
-            retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
-            Entities::Sound::getInstance()->pauseBackground();
-            menu = Menu::create(retryItem, newGameItem, closeItem, NULL);
-            
-        }else{
-            Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
-            menu = Menu::create(newGameItem, closeItem, NULL);
-        }
-        //menu->setPosition(WINDOWS_SIZE_IPHONE.width/2,origin.y + closeItem->getContentSize().height*2);
-        menu->setPosition(this->speedM->getPosition().x, this->speedM->getPosition().y);
-        menu->alignItemsVertically();
         this->addChild(menu, 4);
     }
     
@@ -306,7 +318,7 @@ PlayerTestScene::update(float delta){
     // Control 15 fps for player movement
     //##############################################################################
     if(this->deltaCount >= 0.067f) {
-        this->m_labelPuntuacion->setString(StringUtils::format("Score %f",this->speedM->getPositionX()));
+        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->speedM->getPositionX())/10));
         this->player->customupdate(delta);
          //PAB
         //this->speedM->customupdate(delta);

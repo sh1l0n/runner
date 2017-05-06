@@ -81,13 +81,15 @@ namespace Scenes {
         
             Node *_nodeScroll;
         
-            MenuItemLabel *retryItem, *newGameItem, *closeItem;
+            //MenuItemLabel *retryItem, *newGameItem, *closeItem;
         
             Vector<TiledMap::BasicBlock*> boxes;
         
-            Menu* menu;
+            Node* menu;
         
-            Sprite* menu_background;
+        //    Menu* menu;
+        
+          //  Sprite* menu_background;
         
             Size visibleSize;
         
@@ -95,5 +97,7 @@ namespace Scenes {
         
             //const float SIZE_BUTTON = 0.1;
             const float SPACE_BUTTON_PADDING = 20;
+        
+            void createMenuPause();
     };
 }
