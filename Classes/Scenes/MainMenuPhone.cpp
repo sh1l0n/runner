@@ -64,6 +64,8 @@ MainMenuPhone::init() {
     menu_close->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);
     this->addChild(menu_close,0);
     
+    GameSharing::initGameSharing();
+    
     return true;
 }
 

@@ -13,6 +13,7 @@
 #include "PlayerTestScene.hpp"
 #include "cocos2d.h"
 #include "SceneController.hpp"
+#include "../GameSharing/GameSharing.h"
 
 namespace Scenes {
     

@@ -46,6 +46,10 @@ namespace Scenes {
         
             void setAudioButton();
         
+            void checkAchievement(const Vec2);
+        
+            void checkAchievementJump();
+        
             CREATE_FUNC(PlayerTestScene);
 
         private:
@@ -85,18 +89,21 @@ namespace Scenes {
             ParallaxNode *parallax;
             ParallaxNode *parallax2;
         
-            //MenuItemLabel *retryItem, *newGameItem, *closeItem;
-        
             Vector<TiledMap::BasicBlock*> boxes;
         
             Node* menu;
         
+<<<<<<< HEAD
         
         //    Menu* menu;
         
           //  Sprite* menu_background;
         
+=======
+>>>>>>> db0d90eefb50b02f9471a3870a1faa6947a25617
             Size visibleSize;
+        
+            int totalJumps = 0, achievementOk = 0;
         
             Color4B blackColor = Color4B(0,0,0,255);
         

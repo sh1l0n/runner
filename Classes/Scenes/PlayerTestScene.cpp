@@ -4,6 +4,7 @@
 #include "../Engine2D/MathHelper.hpp"
 #include "../Engine2D/TiledMap/TiledMapGenerator.hpp"
 #include "../Entities/Sound.hpp"
+#include "../GameSharing/GameSharing.h"
 
 USING_NS_CC;
 
@@ -162,7 +163,7 @@ PlayerTestScene::init()
     eventListener->onTouchEnded = CC_CALLBACK_2(PlayerTestScene::onTouchEnded, this);
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
     this->scheduleUpdate();
-
+    
     return true;
 }
 
@@ -188,6 +189,7 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
     if(!pause && !dead && _listener->getMusic()){
         Entities::Sound::getInstance()->playSound("Audio/jump.wav");
     }
+    totalJumps++;
     this->player->onKeyUp();
     
     return true;
@@ -201,6 +203,7 @@ void
 Scenes::
 PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
     Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
+    checkAchievementJump();
     this->player->onKeyUpRelease();
 }
 
@@ -247,7 +250,7 @@ PlayerTestScene::mainMenu(cocos2d::Ref *sender){
 }
 
 //##############################################################################
-//Update x fps the player movement
+//Pop up with menu when is paused or played is dead
 //##############################################################################
 
 void
@@ -258,6 +261,7 @@ PlayerTestScene::createMenuPause() {
     Director::getInstance()->pause();
     Entities::Sound::getInstance()->clearSounds();
     Sprite* menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
+    Sprite* black_background = cocos2d::Sprite::create("black_background.jpg");
     Label* newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
     Label* closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
     MenuItemLabel* newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
@@ -268,8 +272,12 @@ PlayerTestScene::createMenuPause() {
     
     menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
     menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
+    black_background->setContentSize(Size(visibleSize.width,visibleSize.height));
+    black_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
+    black_background->setOpacity(130);
     newGameLabel->setTextColor(blackColor);
     closeLabel->setTextColor(blackColor);
+    
     
     if(pause){
         Entities::Sound::getInstance()->pauseBackground();
@@ -285,8 +293,7 @@ PlayerTestScene::createMenuPause() {
     
     menu_ui->setPosition(this->speedM->getPosition().x, this->speedM->getPosition().y);
     menu_ui->alignItemsVertically();
-    LayerGradient* layer = LayerGradient::create(blackColor, Color4B(0,0,0,0));
-    menu->addChild(layer, 0);
+    menu->addChild(black_background,0);
     menu->addChild(menu_background, 1);
     menu->addChild(menu_ui, 2);
 }
@@ -332,14 +339,15 @@ PlayerTestScene::update(float delta){
         // TO DO
         //the player dies
         dead=true;
-        this->m_labelPuntuacion->setString(StringUtils::format(" FIN JUEGO Puntuacion:%f",this->speedM->getPositionX()));
-        
+        this->m_labelPuntuacion->setString(StringUtils::format(" Dead! Puntuacion:%f",this->speedM->getPositionX()));
     }
     
     //PAB
     this->speedM->customupdate(delta);
     this->screenK->customupdate(delta);
-
+    if(int(this->speedM->getPositionX())%100==0){
+        checkAchievement(this->speedM->getPosition());
+    }
     //##############################################################################
     // Control 15 fps for player movement
     //##############################################################################
@@ -347,7 +355,7 @@ PlayerTestScene::update(float delta){
     if(this->deltaCount >= 0.067f) {
         this->player->setSpeedMarkerVelocity(speedM->getVelocity());
         this->player->setSpeedMarkerPosition(speedM->getX());
-        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->speedM->getPositionX())/10));
+        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->speedM->getPositionX())));
         this->player->customupdate(delta);
          //PAB
         //this->speedM->customupdate(delta);
@@ -391,4 +399,39 @@ PlayerTestScene::update(float delta){
 
         }
     });
+}
+
+//##############################################################################
+// Earn achievements if player reach the points
+//##############################################################################
+void Scenes::PlayerTestScene::checkAchievement(Vec2 score){
+    
+    if(score.x > 500 && achievementOk == 0){
+        GameSharing::UnlockAchivement(2);
+        achievementOk = 1;
+    }else if(score.x > 1000 && achievementOk == 1){
+        GameSharing::UnlockAchivement(3);
+        achievementOk = 2;
+    }else if(score.x > 2000 && achievementOk == 2){
+        GameSharing::UnlockAchivement(4);
+        achievementOk = 3;
+    }else if(score.x > 5000 && achievementOk == 3){
+        GameSharing::UnlockAchivement(5);
+        achievementOk = 4;
+    }else if(score.x > 10000 && achievementOk == 4){
+        GameSharing::UnlockAchivement(6);
+        achievementOk = 5;
+    }
+}
+
+//##############################################################################
+// Earn achievements if player jumps x times
+//##############################################################################
+void Scenes::PlayerTestScene::checkAchievementJump(){
+    switch(totalJumps){
+        case 10: GameSharing::UnlockAchivement(0);
+            break;
+        case 30: GameSharing::UnlockAchivement(1);
+            break;
+    }
 }
