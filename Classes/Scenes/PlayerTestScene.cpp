@@ -91,7 +91,7 @@ PlayerTestScene::init()
     this->speedM->setPosition(50, visibleSize.height/2.0f);
     //Screen killer
     this->screenK = ScreenKiller::create();
-    this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-30,Director::getInstance()->getVisibleOrigin().y);
+    this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-190,Director::getInstance()->getVisibleOrigin().y);
     
     
     //Background
@@ -111,8 +111,6 @@ PlayerTestScene::init()
     this->addChild(this->speedM, 2);
     this->addChild(this->screenK, 2);
     this->runAction(Follow::create(this->speedM));
-
-    createMenuPause();
     this->_mapController = TiledMap::TiledMapController(this);
     
     m_labelPuntuacion = Label::createWithTTF("Score:", "fonts/Marker Felt.ttf", 24);
@@ -194,6 +192,7 @@ PlayerTestScene::retryMenuCallback(cocos2d::Ref *sender) {
     Director::getInstance()->resume();
     Entities::Sound::getInstance()->resumeBackground();
     this->removeChild(menu);
+    menu->release();
 }
 
 //##############################################################################
@@ -243,16 +242,15 @@ PlayerTestScene::createMenuPause() {
     
     menu = Node::create();
     menu->retain();
+    
     menu_background->setContentSize(Size(visibleSize.width,visibleSize.height));
     menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
-    
     newGameLabel->setTextColor(blackColor);
-    
     closeLabel->setTextColor(blackColor);
     
     if(pause){
         Entities::Sound::getInstance()->pauseBackground();
-        Label* retryLabel = Label::createWithTTF("Retry", "fonts/Sudbury Basin 3D.ttf", 48);
+        Label* retryLabel = Label::createWithTTF("Resume", "fonts/Sudbury Basin 3D.ttf", 48);
         retryLabel->setTextColor(blackColor);
         MenuItemLabel* retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
         menu_ui = Menu::create(retryItem, newGameItem, closeItem, NULL);
@@ -297,6 +295,7 @@ PlayerTestScene::update(float delta){
     // Check if player falled
     //##############################################################################
     if(dead || pause){
+        createMenuPause();
         this->addChild(menu, 4);
     }
     

@@ -58,6 +58,7 @@ namespace TiledMap {
 
             /** @short Get the global bounding box */
             Rect getBoundingBox() const;
+            TypeBlock getType() const;
 
             float getX() const;
             float getY() const;

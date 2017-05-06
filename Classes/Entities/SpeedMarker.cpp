@@ -12,7 +12,7 @@ using namespace std;
 
 SpeedMarker::SpeedMarker():RootEntity() {
     
-    vx=3;
+    vx=2.5;
 
     if(Utils::DEBUG_MODE) {
         drawNode->drawRect(Vec2(0 - 20 , 0 - 20 ), Vec2(20, 20), Color4F::RED);

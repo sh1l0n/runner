@@ -26,14 +26,14 @@ TiledMap::TiledMapGenerator* TiledMap::TiledMapGenerator::_instance = NULL;
 //8->Block Collisionable  DAMAGE with spike sprite (in floor)
 TiledMap::
 TiledMapGenerator::TiledMapGenerator() {
-    this->_mapTextures.reserve(7);
+    this->_mapTextures.reserve(8);
     this->_mapTextures[1] = Director::getInstance()->getTextureCache()->addImage("box.png");
     this->_mapTextures[2] = Director::getInstance()->getTextureCache()->addImage("castleCenter.png");
     this->_mapTextures[3] = Director::getInstance()->getTextureCache()->addImage("liquidLavaTop_mid.png");
     this->_mapTextures[4] = Director::getInstance()->getTextureCache()->addImage("stoneHalf.png");
     this->_mapTextures[5] = this->_mapTextures[1];
     this->_mapTextures[6] = this->_mapTextures[2];
-    this->_mapTextures[7] = Director::getInstance()->getTextureCache()->addImage("goldCoin5.png");
+    this->_mapTextures[8] = Director::getInstance()->getTextureCache()->addImage("goldCoin5.png");
 }
 
 
@@ -200,6 +200,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 // If the node is collisionable add the object and delete pointer from memory
                 //##############################################################################
                 if (basicBlockCollisionable != NULL) {
+                    
                     currentChunck._node->addChild(basicBlockCollisionable, 1);
                     currentChunck._collisionables.push_back(basicBlockCollisionable);
                 }
@@ -235,18 +236,21 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             }
             //put 0 for gap Structures
             unsigned int k;
+            int rander;
+            bool isCoin;
             if(j==K_HEIGHT_FLOOR-1){
                 if(mapForTextures[i][j+1]==7){
                     //There is a Gap
                     for(k=0;k<=K_HEIGHT_FLOOR;k++){
                         mapForTextures[i][k]=7;
+
                     }
                 }
                 //PAB LAVA
                 if(mapForTextures[i][j+1]==3){
                     //There is a Damage
                     for(k=0;k<=K_HEIGHT_FLOOR;k++){
-                        mapForTextures[i][k]=8;
+                        mapForTextures[i][k]=7;
                     }
                 }
             }
@@ -256,28 +260,39 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             if(mapForTextures[i][j]==2 || mapForTextures[i][j]==6) {
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[2],
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
+                
+                
             }
-            else if(mapForTextures[i][j]==8){
+            else if(mapForTextures[i][j]==7){
                 basicBlockType = TiledMap::TypeBlock::SPIKE;
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[3],
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
             }
+            else if(mapForTextures[i][j]==8) {
+                basicBlockType = TiledMap::TypeBlock::COIN;
+                spriteToLoad = Sprite::createWithTexture(this->_mapTextures[8],
+                                                         Rect(0, 0, size_image_sprite, size_image_sprite));
+            }
             
+            if(mapForTextures[i][j]!=0 && mapForTextures[i][j]!=7){
             
-            spriteToLoad->setScale(factor_scale, factor_scale);
-            spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
+                spriteToLoad->setScale(factor_scale, factor_scale);
+                spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
                                       j * factor_scale * size_image_sprite);
-            spriteToLoad->setAnchorPoint(Vec2(0, 0));
-            currentChunck._node->addChild(spriteToLoad, 0);
-            Rect rr = spriteToLoad->getBoundingBox();
-            auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
+                spriteToLoad->setAnchorPoint(Vec2(0, 0));
+             
+                //std::cout << "añadido sprite"<<mapForTextures[i][j]<<"\n";
+                currentChunck._node->addChild(spriteToLoad, 0);
+                Rect rr = spriteToLoad->getBoundingBox();
+                auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
                                                                    rr.size.width + rr.origin.x,
                                                                    rr.size.height + rr.origin.y,
                                                                    basicBlockType);
-            currentChunck._node->addChild(blockCollisionable, 1);
-            currentChunck._collisionables.push_back(blockCollisionable);
             
-            
+                //std::cout << "añadido colisionable"<<mapForTextures[i][j]<<"\n";
+                currentChunck._node->addChild(blockCollisionable, 1);
+                currentChunck._collisionables.push_back(blockCollisionable);
+            }
         }
     }
     
