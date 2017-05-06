@@ -51,9 +51,7 @@ JumpStructure::JumpStructure() : Structures::BaseStructure()
         int salto=rand()%(_maxXDisBlock + 1)+1;
         posX=posX+salto;
         this->_data[posY][posX]=1;
-
-
-
+        this->_data[posY-1][posX]=7;
     }
 
 
@@ -85,6 +83,7 @@ JumpStructure::JumpStructure(const unsigned short int height, const unsigned sho
 
     posX=0;
     posY=1;
+    bool isCoin = false;
     //Put blocks to pass the spike zone
 
     while(posX+_maxXDisBlock<_width-1){
@@ -97,11 +96,19 @@ JumpStructure::JumpStructure(const unsigned short int height, const unsigned sho
             maxSaltoAbajo=1;
         }
         //calculate the new block position in Y
-        posY= rand()%(maxSaltoArriba-maxSaltoAbajo + 1) + maxSaltoAbajo;
+        posY= rand()%(maxSaltoArriba-maxSaltoAbajo) + maxSaltoAbajo;
         //new block position in X
         int salto=rand()%(_maxXDisBlock + 1)+1;
         posX=posX+salto;
         this->_data[posY][posX]=4;
+        
+        
+        int rander = rand()%(3);
+        isCoin = (rander==1);
+        
+        if(isCoin) {
+            this->_data[posY+1][posX]=8;
+        }
 
 
 

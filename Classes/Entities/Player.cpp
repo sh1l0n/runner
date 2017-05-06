@@ -14,7 +14,7 @@ Player::Player():RootEntity() {
     jump = 40.f;
     jumpSpeed = 20.f;
     friction = 1.f;
-    maxVel = 8.f;
+    maxVel = 8.5f;
     gravity = 6.f;
     terminalVelocity = 5;
     maxJump = 40.f;
@@ -154,6 +154,14 @@ void Player::resolveFloorCollisionsY() {
                     log("UP v+");
                     setY(block->getY() - getHeight()/2);
                 }
+                //pab
+                if(block->_type==TiledMap::TypeBlock::SPIKE){
+                    jumpSpeed = 20.f;
+                    if(vx>0){
+                        vx=vx-2;
+                    }
+                }
+                //fin pab
 
             } else {
                 jumpSpeed = 30.f;

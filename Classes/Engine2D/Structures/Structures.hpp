@@ -62,7 +62,7 @@ namespace Structures {
     
     
     /** @short The maximum width value for GapPlataform Structure */
-    static const unsigned char K_MAX_GAPPF_STRUCT_WIDTH = 20;
+    static const unsigned char K_MAX_GAPPF_STRUCT_WIDTH = 8;
     /** @short The minimum width value for jump Structure */
     static const unsigned char K_MIM_GAPPF_STRUCT_WIDTH = 4;
     
@@ -90,8 +90,8 @@ namespace Structures {
 	{
 
 
-        //int typeStructure = rand() % (K_NUMBER_STRUCTURES-1 +1) + 1;
-        int typeStructure = 2;
+        int typeStructure = rand() % (K_NUMBER_STRUCTURES-1 +1) + 1;
+        //int typeStructure = 3;
         
         
         BaseStructure* structure = NULL;

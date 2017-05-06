@@ -118,6 +118,13 @@ BasicBlock::getWidth() const {
     //return 70.f;
 }
 
+TiledMap::TypeBlock
+TiledMap::
+BasicBlock::getType() const {
+    return _type;
+}
+
+
 float
 TiledMap::
 BasicBlock::getHeight() const {
