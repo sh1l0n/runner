@@ -201,6 +201,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 // If the node is collisionable add the object and delete pointer from memory
                 //##############################################################################
                 if (basicBlockCollisionable != NULL) {
+                    
                     currentChunck._node->addChild(basicBlockCollisionable, 1);
                     currentChunck._collisionables.push_back(basicBlockCollisionable);
                 }
@@ -257,6 +258,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             if(mapForTextures[i][j]==2 || mapForTextures[i][j]==6) {
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[2],
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
+                
+                
             }
             else if(mapForTextures[i][j]==8){
                 basicBlockType = TiledMap::TypeBlock::SPIKE;
@@ -264,19 +267,24 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
             }
             
-            
+            if(mapForTextures[i][j]!=0 && mapForTextures[i][j]!=7){
             spriteToLoad->setScale(factor_scale, factor_scale);
             spriteToLoad->setPosition((i * factor_scale * size_image_sprite)+posXInitial,
                                       j * factor_scale * size_image_sprite);
             spriteToLoad->setAnchorPoint(Vec2(0, 0));
+             
+            //std::cout << "añadido sprite"<<mapForTextures[i][j]<<"\n";
             currentChunck._node->addChild(spriteToLoad, 0);
             Rect rr = spriteToLoad->getBoundingBox();
             auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
                                                                    rr.size.width + rr.origin.x,
                                                                    rr.size.height + rr.origin.y,
                                                                    basicBlockType);
+            
+            //std::cout << "añadido colisionable"<<mapForTextures[i][j]<<"\n";
             currentChunck._node->addChild(blockCollisionable, 1);
             currentChunck._collisionables.push_back(blockCollisionable);
+            }
         }
     }
     

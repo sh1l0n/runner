@@ -91,7 +91,7 @@ PlayerTestScene::init()
     this->speedM->setPosition(50, visibleSize.height/2.0f);
     //Screen killer
     this->screenK = ScreenKiller::create();
-    this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-30,Director::getInstance()->getVisibleOrigin().y);
+    this->screenK->setPosition(Director::getInstance()->getVisibleOrigin().x-190,Director::getInstance()->getVisibleOrigin().y);
     
     
     //Background

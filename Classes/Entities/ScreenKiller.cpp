@@ -15,7 +15,7 @@
 using namespace std;
 
 ScreenKiller::ScreenKiller():RootEntity() {
-    vx=2;
+    vx=1;
     
     
     debug = true;
