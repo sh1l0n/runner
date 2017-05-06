@@ -62,7 +62,7 @@ namespace Structures {
     
     
     /** @short The maximum width value for GapPlataform Structure */
-    static const unsigned char K_MAX_GAPPF_STRUCT_WIDTH = 10;
+    static const unsigned char K_MAX_GAPPF_STRUCT_WIDTH = 8;
     /** @short The minimum width value for jump Structure */
     static const unsigned char K_MIM_GAPPF_STRUCT_WIDTH = 4;
     
