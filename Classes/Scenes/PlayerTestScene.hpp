@@ -44,6 +44,10 @@ namespace Scenes {
         
             void setAudioButton();
         
+            void checkAchievement(const Vec2);
+        
+            void checkAchievementJump();
+        
             CREATE_FUNC(PlayerTestScene);
 
         private:
@@ -90,6 +94,8 @@ namespace Scenes {
             Sprite* menu_background;
         
             Size visibleSize;
+        
+            int totalJumps = 0, achievementOk = 0;
         
             Color4B blackColor = Color4B(0,0,0,255);
         

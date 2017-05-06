@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Leaderboards</key>
+	<array/>
+	<key>Achievements</key>
+	<array>
+		<string>Jump</string>
+		<string>Jump_30</string>
+		<string>First_500</string>
+		<string>First_1000</string>
+		<string>First_2000</string>
+		<string>First_5000</string>
+		<string>First_10000</string>
+	</array>
+</dict>
+</plist>

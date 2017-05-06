@@ -4,6 +4,7 @@
 #include "../Engine2D/MathHelper.hpp"
 #include "../Engine2D/TiledMap/TiledMapGenerator.hpp"
 #include "../Entities/Sound.hpp"
+#include "../GameSharing/GameSharing.h"
 
 USING_NS_CC;
 
@@ -145,7 +146,7 @@ PlayerTestScene::init()
     Director::getInstance()->getEventDispatcher()->addEventListenerWithSceneGraphPriority(eventListener, this);
     //Finale and update UI
     this->scheduleUpdate();
-
+    
     return true;
 }
 
@@ -171,6 +172,7 @@ PlayerTestScene::onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) {
     if(!pause && !dead && _listener->getMusic()){
         Entities::Sound::getInstance()->playSound("Audio/jump.wav");
     }
+    totalJumps++;
     this->player->onKeyUp();
     
     return true;
@@ -184,6 +186,7 @@ void
 Scenes::
 PlayerTestScene::onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) {
     Entities::Sound::getInstance()->stopSound("Audio/jump.wav");
+    checkAchievementJump();
     this->player->onKeyUpRelease();
 }
 
@@ -264,7 +267,7 @@ PlayerTestScene::update(float delta){
         menu_background = cocos2d::Sprite::create("menu_background_portrait.png");
         menu_background->setContentSize(Size(visibleSize.width/2,visibleSize.height/1.5));
         menu_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
-        menu_background->setOpacity(150);
+        menu_background->setOpacity(200);
         this->addChild(menu_background,3);
         newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 24);
         newGameLabel->setTextColor(blackColor);
@@ -296,13 +299,15 @@ PlayerTestScene::update(float delta){
         //the player dies
         dead=true;
         this->m_labelPuntuacion->setString(StringUtils::format(" FIN JUEGO Puntuacion:%f",this->speedM->getPositionX()));
-        
     }
     
     //PAB
     this->speedM->customupdate(delta);
     this->screenK->customupdate(delta);
-
+    log("scori: %f", this->speedM->getPositionX());
+    if(int(this->speedM->getPositionX())%100==0){
+        checkAchievement(this->speedM->getPosition());
+    }
     //##############################################################################
     // Control 15 fps for player movement
     //##############################################################################
@@ -341,4 +346,39 @@ PlayerTestScene::update(float delta){
 
         }
     });
+}
+
+//##############################################################################
+// Earn achievements if player reach the points
+//##############################################################################
+void Scenes::PlayerTestScene::checkAchievement(Vec2 score){
+    
+    if(score.x > 500 && achievementOk == 0){
+        GameSharing::UnlockAchivement(2);
+        achievementOk = 1;
+    }else if(score.x > 1000 && achievementOk == 1){
+        GameSharing::UnlockAchivement(3);
+        achievementOk = 2;
+    }else if(score.x > 2000 && achievementOk == 2){
+        GameSharing::UnlockAchivement(4);
+        achievementOk = 3;
+    }else if(score.x > 5000 && achievementOk == 3){
+        GameSharing::UnlockAchivement(5);
+        achievementOk = 4;
+    }else if(score.x > 10000 && achievementOk == 4){
+        GameSharing::UnlockAchivement(6);
+        achievementOk = 5;
+    }
+}
+
+//##############################################################################
+// Earn achievements if player jumps x times
+//##############################################################################
+void Scenes::PlayerTestScene::checkAchievementJump(){
+    switch(totalJumps){
+        case 10: GameSharing::UnlockAchivement(0);
+            break;
+        case 30: GameSharing::UnlockAchivement(1);
+            break;
+    }
 }
