@@ -302,6 +302,10 @@ PlayerTestScene::update(float delta){
     // Check if player falled
     //##############################################################################
     if(dead || pause){
+        //GameSharing::startScoreRequest(0);
+        GameSharing::SubmitScore(this->speedM->getPositionX(),0);
+        //GameSharing::submitScoreToLeaderboard(this->speedM->getPositionX(), 0);
+        //GameSharing::startScoreRequest(0);
         createMenuPause();
         this->addChild(menu, 4);
     }

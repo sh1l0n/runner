@@ -30,6 +30,7 @@ namespace Scenes {
     private:
         const Size SIZE_PICTURE_IPHONE = Size(480,320);
         const Size WINDOWS_SIZE_IPHONE = Director::getInstance()->getWinSize();
+        Size visibleSize = Director::getInstance()->getVisibleSize();
         SceneControllerListener* listener;
     public:
         MainMenuPhone();
@@ -40,6 +41,7 @@ namespace Scenes {
         virtual bool init();
         void closeMenuCallback(cocos2d::Ref* sender);
         void playMenuCallback(cocos2d::Ref* sender);
+        void showAchievements();
         CREATE_FUNC(MainMenuPhone)
     };
 
