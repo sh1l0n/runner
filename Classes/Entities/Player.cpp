@@ -8,7 +8,7 @@
 
 USING_NS_CC;
 
-Player::Player():RootEntity() {
+Player::Player(PlayerCoinListener* listener):RootEntity() {
     vx = vy = 0;
     accel = 2.0f;
     jump = 30.f;
@@ -28,6 +28,7 @@ Player::Player():RootEntity() {
     debug = false;
     speedMarkerVelocity = 0;
     speedMarkerPosition = 0;
+    this->_listenerCoins = listener;
 
     SpriteFrameCache::getInstance()->addSpriteFramesWithFile("player/player_walk.plist");
     auto frames = getAnimation("p1_walk%02d.png", 6);
@@ -170,9 +171,10 @@ void Player::resolveFloorCollisionsY() {
     for(int i = 0; i<floorVector.size(); ++i) {
         TiledMap::BasicBlock *block = floorVector.at(i);
         //Vertical collision
-        if (MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(),
-                                      block)) {
-
+        
+        MathHelperTypeCollision coll =MathHelper::rectCollision(getCorrectPositionX(), getCorrectPositionY() + vy, getWidth(), getHeight(), block);
+        //Horizontal collision
+        if(coll==MathHelperTypeCollision::COLLISION) {
             if(getCorrectPositionY() + getHeight() > block->getY()) {
                 floor = true;
                 jumpTime = true;
@@ -207,6 +209,10 @@ void Player::resolveFloorCollisionsY() {
 
             vy = 0;
         }
+        else if(coll==MathHelperTypeCollision::COIN) {
+            _listenerCoins->retrieveCoin(block);
+            block->erease();
+        }
     }
 }
 
@@ -214,8 +220,9 @@ void Player::resolveFloorCollisionsX() {
     for(int i = 0; i<floorVector.size(); ++i) {
         TiledMap::BasicBlock *block = floorVector.at(i);
 
+        MathHelperTypeCollision coll = MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block);
         //Horizontal collision
-        if(MathHelper::rectCollision(getCorrectPositionX() + vx, getCorrectPositionY(), getWidth(), getHeight(), block)) {
+        if(coll==MathHelperTypeCollision::COLLISION) {
 
             if(getCorrectPositionX() + getWidth() > block->getX() + block->getWidth()/2.f) {
                 if(vx < 0) {
@@ -233,6 +240,10 @@ void Player::resolveFloorCollisionsX() {
             }
             
             vx = 0;
+        }
+        else if(coll==MathHelperTypeCollision::COIN) {
+            _listenerCoins->retrieveCoin(block);
+            block->erease();
         }
     }
 }
@@ -269,9 +280,9 @@ void Player::onKeyDownRelease(){
     moveDown = false;
 }
 
-Player * Player::create()
+Player * Player::create(PlayerCoinListener* listener)
 {
-    Player * ret = new (std::nothrow) Player();
+    Player * ret = new (std::nothrow) Player(listener);
     if (ret && ret->init())
     {
         ret->autorelease();

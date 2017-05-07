@@ -13,6 +13,12 @@
 #include "cocos2d.h"
 USING_NS_CC;
 
+class PlayerCoinListener {
+    public:
+        virtual void retrieveCoin(TiledMap::BasicBlock* block) = 0;
+};
+
+
 class Player : public RootEntity {
 private:
     //! x coordinate velocity
@@ -43,6 +49,8 @@ private:
     float speedMarkerPosition;
 
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
+    
+    PlayerCoinListener* _listenerCoins;
 
     //Textures
     std::string texStand = "test/Basepack/player/p1_stand.png";
@@ -63,8 +71,8 @@ private:
     Animation *animation;
     float animationSpeed;
 public:
-    Player();
-    static Player * create();
+    Player(PlayerCoinListener* listener);
+    static Player * create(PlayerCoinListener* listener);
 
     void customupdate(float delta) override;
     void customdraw(float delta, float deltaCount, float stepTime) override;

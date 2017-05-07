@@ -12,15 +12,14 @@
 #include <iostream>
 #include "../Engine2D/MathHelper.hpp"
 #include "Player.hpp"
+#include "../Utils/Constants.h"
 using namespace std;
 
 ScreenKiller::ScreenKiller():RootEntity() {
     vx=2.5;
     
     
-    debug = true;
-    
-    if(debug) {
+    if(Utils::DEBUG_MODE) {
         int alt=Director::getInstance()->getWinSize().height;
         drawNode->drawRect(Vec2(0 - 0.05 , 0 - alt ), Vec2(0.05, alt), Color4F::RED);
 

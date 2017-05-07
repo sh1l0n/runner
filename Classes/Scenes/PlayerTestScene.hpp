@@ -14,13 +14,13 @@ USING_NS_CC;
 
 namespace Scenes {
     
-    class PlayerTestScene: public Layer,  public TiledMap::TiledMapControllerListener {
+    class PlayerTestScene: public Layer,  public TiledMap::TiledMapControllerListener, public PlayerCoinListener {
         
 
         public:
         
             virtual bool init() override;
-            static int coins;
+            int coins;
         
             int auxCoins=0;
         
@@ -33,6 +33,8 @@ namespace Scenes {
             virtual bool onTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event) override;
         
             virtual void onTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event) override;
+        
+            virtual void retrieveCoin(TiledMap::BasicBlock* block) override;
         
             void removeChunckFromScene(const TiledMap::ChunckIdentifiers id) override;
         
@@ -74,6 +76,7 @@ namespace Scenes {
             float puntuacion;
         
             TiledMap::TiledMapController _mapController;
+            Node* currentNode = NULL;
         
             Player *player;
         

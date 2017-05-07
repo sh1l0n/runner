@@ -171,7 +171,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                               positionYCurrentChunck * factor_scale * size_image_sprite);
                     spriteToLoad->setScale(factor_scale, factor_scale);
                     
-                    currentChunck._node->addChild(spriteToLoad, 0);
+                    int tag = i*K_WIDTH + j;
+                    currentChunck._node->addChild(spriteToLoad, 0, tag);
                     
                     //##############################################################################
                     //When the sprite is loaded, only now, we have the size of this sprite
@@ -188,7 +189,8 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                                                                                    rectForBoundingBoxCollisionable.origin.y,
                                                                                    rectForBoundingBoxCollisionable.size.width + rectForBoundingBoxCollisionable.origin.x,
                                                                                    rectForBoundingBoxCollisionable.size.height + rectForBoundingBoxCollisionable.origin.y,
-                                                                                   basicBlockType);
+                                                                                   basicBlockType,
+                                                                                   tag);
                             break;
                             
                         default:
@@ -236,8 +238,6 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
             }
             //put 0 for gap Structures
             unsigned int k;
-            int rander;
-            bool isCoin;
             if(j==K_HEIGHT_FLOOR-1){
                 if(mapForTextures[i][j+1]==7){
                     //There is a Gap
@@ -282,12 +282,14 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 spriteToLoad->setAnchorPoint(Vec2(0, 0));
              
                 //std::cout << "añadido sprite"<<mapForTextures[i][j]<<"\n";
-                currentChunck._node->addChild(spriteToLoad, 0);
+                int tag = i*K_WIDTH + j;
+                currentChunck._node->addChild(spriteToLoad, 0, tag);
                 Rect rr = spriteToLoad->getBoundingBox();
                 auto blockCollisionable = TiledMap::BasicBlock::create(rr.origin.x, rr.origin.y,
                                                                    rr.size.width + rr.origin.x,
                                                                    rr.size.height + rr.origin.y,
-                                                                   basicBlockType);
+                                                                   basicBlockType,
+                                                                   tag);
             
                 //std::cout << "añadido colisionable"<<mapForTextures[i][j]<<"\n";
                 currentChunck._node->addChild(blockCollisionable, 1);

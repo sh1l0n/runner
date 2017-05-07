@@ -5,10 +5,16 @@
 #pragma once
 #include "TiledMap/BasicBlock.hpp"
 
+enum MathHelperTypeCollision {
+    NONE,
+    COLLISION,
+    COIN
+};
+
 class MathHelper {
 
 public:
-    static bool rectCollision(float x, float y, float width, float height, TiledMap::BasicBlock *e2);
+    static MathHelperTypeCollision rectCollision(float x, float y, float width, float height, TiledMap::BasicBlock *e2);
     static int sign(float x);
 
 };

@@ -27,6 +27,7 @@ BasicBlock::BasicBlock(const BasicBlock& tileCollisionable) {
     this->_width= tileCollisionable._width;
     this->_height= tileCollisionable._height;
     this->_type = tileCollisionable._type;
+    this->_idtag = tileCollisionable._idtag;
     this->_rect=Rect(this->_posX,this->_posY,this->_width,this->_height);
     std::cout<<this->_posX << "//" << this->_posY << "//" << this->_width << "//" << this->_height << std::endl;
 
@@ -77,7 +78,7 @@ BasicBlock::operator=(const TiledMap::BasicBlock& tileCollisionable) {
  */
 TiledMap::BasicBlock*
 TiledMap::
-BasicBlock::create(const float X, const float Y, const float width, const float height,const TypeBlock type)
+BasicBlock::create(const float X, const float Y, const float width, const float height,const TypeBlock type, int idtag)
 {
     TiledMap::BasicBlock* ret = new (std::nothrow) TiledMap::BasicBlock();
     if (ret && ret->init())
@@ -88,6 +89,7 @@ BasicBlock::create(const float X, const float Y, const float width, const float 
         ret->_height=height;
         ret->_rect= Rect(ret->_posX,ret->_posY,ret->_width,ret->_height);
         ret->_type=type;
+        ret->_idtag = idtag;
         ret->setAnchorPoint(Vec2(0, 0));
         ret->retain();
     }
@@ -131,6 +133,12 @@ BasicBlock::getHeight() const {
     std::cout << "--" << this->_height - this->_posY << std::endl;
     return this->_height - this->_posY;
     //return 70.f;
+}
+
+int
+TiledMap::
+BasicBlock::getIdTag() const{
+    return _idtag;
 }
 
 void

@@ -12,8 +12,6 @@ USING_NS_CC;
 //Creation of the scene setting the listener for managing the created one
 //##############################################################################
 
-int Scenes::PlayerTestScene::coins = 0;
-
 cocos2d::Scene*
 Scenes::PlayerTestScene::createScene(Scenes::SceneControllerListener* listener)
 {
@@ -44,6 +42,11 @@ void
 Scenes::
 PlayerTestScene::addChunckToScene(const TiledMap::ChunckIdentifiers id, TiledMap::Chunck* chunck)
 {
+    if(currentNode!=NULL) {
+        delete currentNode;
+        currentNode = NULL;
+    }
+    currentNode = chunck->_node;
     this->_nodeScroll->addChild(chunck->_node, 1, id);
     this->player->setFloorCollision(chunck->_collisionables);
 }
@@ -86,7 +89,7 @@ PlayerTestScene::init()
     
     this->coins = 0;
     
-    this->player = Player::create();
+    this->player = Player::create(this);
     this->speedM = SpeedMarker::create();
     
     //Player
@@ -443,4 +446,14 @@ void Scenes::PlayerTestScene::checkAchievementJump(){
         case 30: GameSharing::UnlockAchivement(1);
             break;
     }
+}
+
+
+void
+Scenes::
+PlayerTestScene::retrieveCoin(TiledMap::BasicBlock* block) {
+    
+    coins++;
+    log("coin tag: %d", block->getIdTag());
+    currentNode->removeChildByTag(block->getIdTag());
 }

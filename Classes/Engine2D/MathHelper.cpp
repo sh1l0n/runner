@@ -16,19 +16,19 @@
     return false;
 }*/
 
-bool MathHelper::rectCollision(float x, float y, float width, float height, TiledMap::BasicBlock *e2) {
+MathHelperTypeCollision
+MathHelper::rectCollision(float x, float y, float width, float height, TiledMap::BasicBlock *e2) {
+    
     if(x + width > e2->getX() && x < e2->getX() + e2->getWidth()) {
         Color4F white(1, 0, 0, 1);
         if (y + height > e2->getY() &&  y < e2->getY() + e2->getHeight()) {
-            if(e2->_type == 4) {
-                Scenes::PlayerTestScene::coins++;
-                e2->erease();
-                return false;
+            if(e2->_type == TiledMap::TypeBlock::COIN) {
+                return MathHelperTypeCollision::COIN;
             }
-            return true;
+            return MathHelperTypeCollision::COLLISION;
         }
     }
-    return false;
+    return MathHelperTypeCollision::NONE;
 }
 
 int MathHelper::sign(float x) {
