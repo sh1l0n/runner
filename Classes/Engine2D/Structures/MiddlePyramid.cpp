@@ -53,6 +53,7 @@ MiddlePyramid::MiddlePyramid() : Structures::BaseStructure()
 Structures::
 MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructure()
 {
+     bool isCoin = false;
     if(width%2==0){
         this->_width=width-1;
     }else{
@@ -67,10 +68,20 @@ MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructu
             this->_data[i].resize(this->_width, false);
         }
         this->_data[0][0]=1;
+        
+
         this->_data[0][1]=1;
         this->_data[0][2]=5;
         
-        this->_data[1][0]=0;
+        int rander = rand()%(3);
+        isCoin = (rander==1);
+        
+        if(isCoin) {
+            this->_data[1][0]=8;
+        }else{
+            this->_data[1][0]=0;
+        }
+        
         this->_data[1][1]=0;
         this->_data[1][2]=1;
         
@@ -89,14 +100,32 @@ MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructu
         this->_data[0][4]=5;
         
         this->_data[1][0]=0;
-        this->_data[1][1]=0;
+        
+        int rander = rand()%(3);
+        isCoin = (rander==1);
+        
+        if(isCoin) {
+            this->_data[1][1]=8;
+        }else{
+            this->_data[1][1]=0;
+        }
+        
         this->_data[1][2]=1;
         this->_data[1][3]=1;
         this->_data[1][4]=5;
         
         this->_data[2][0]=0;
         this->_data[2][1]=0;
-        this->_data[2][2]=0;
+        
+        rander = rand()%(3);
+        isCoin = (rander==1);
+        
+        if(isCoin) {
+            this->_data[2][2]=8;
+        }else{
+            this->_data[2][2]=0;
+        }
+        
         this->_data[2][3]=0;
         this->_data[2][4]=1;
         
@@ -128,7 +157,17 @@ MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructu
         
         
         this->_data[2][0]=0;
-        this->_data[2][1]=0;
+        
+        int rander = rand()%(3);
+        isCoin = (rander==1);
+        
+        if(isCoin) {
+            this->_data[2][1]=8;
+        }else{
+            this->_data[2][1]=0;
+        }
+        
+        
         this->_data[2][2]=0;
         this->_data[2][3]=0;
         this->_data[2][4]=1;
@@ -137,7 +176,16 @@ MiddlePyramid::MiddlePyramid(unsigned short int width) : Structures::BaseStructu
         
         this->_data[3][0]=0;
         this->_data[3][1]=0;
-        this->_data[3][2]=0;
+        
+        rander = rand()%(3);
+        isCoin = (rander==1);
+        
+        if(isCoin) {
+            this->_data[3][2]=8;
+        }else{
+            this->_data[3][2]=0;
+        }
+        
         this->_data[3][3]=0;
         this->_data[3][4]=0;
         this->_data[3][5]=0;

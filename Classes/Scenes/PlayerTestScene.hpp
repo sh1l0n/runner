@@ -93,14 +93,7 @@ namespace Scenes {
         
             Node* menu;
         
-<<<<<<< HEAD
-        
-        //    Menu* menu;
-        
-          //  Sprite* menu_background;
-        
-=======
->>>>>>> db0d90eefb50b02f9471a3870a1faa6947a25617
+
             Size visibleSize;
         
             int totalJumps = 0, achievementOk = 0;
