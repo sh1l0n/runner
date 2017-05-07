@@ -68,6 +68,7 @@
 		521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 521A8E6319F0C34300D177D7 /* Default-736h@3x.png */; };
 		52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52B47A461A53D09B004E4C60 /* Security.framework */; };
 		8392E3941EBB1EA700FF590C /* ScreenKiller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8392E3921EBB1EA700FF590C /* ScreenKiller.cpp */; };
+		83AA97A61EBF22610068EE59 /* GameCenterHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83AA97A51EBF22610068EE59 /* GameCenterHelper.mm */; };
 		83DBBFE01EB89393008031FA /* GapPlatformStructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */; };
 		83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */; };
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
@@ -81,7 +82,6 @@
 		C7311F9D1EACF2E8001DC0B0 /* menu_open.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9B1EACF2E8001DC0B0 /* menu_open.png */; };
 		C7311F9F1EAD0645001DC0B0 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9E1EAD0645001DC0B0 /* Audio */; };
 		C73858FF1EBDE0E900756FE7 /* GameSharing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73858FE1EBDE0E900756FE7 /* GameSharing.cpp */; };
-		C73859031EBDE36C00756FE7 /* GameCenterHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C73859021EBDE36C00756FE7 /* GameCenterHelper.mm */; };
 		C73859081EBDEE4E00756FE7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73859071EBDEE4E00756FE7 /* GameKit.framework */; };
 		C738590C1EBDF0E600756FE7 /* ios_ids.plist in Resources */ = {isa = PBXBuildFile; fileRef = C738590B1EBDF0E600756FE7 /* ios_ids.plist */; };
 		C738590F1EBE488C00756FE7 /* black_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C738590E1EBE488C00756FE7 /* black_background.jpg */; };
@@ -222,6 +222,7 @@
 		8262943D1AAF051F00CB7CF7 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		8392E3921EBB1EA700FF590C /* ScreenKiller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenKiller.cpp; sourceTree = "<group>"; };
 		8392E3931EBB1EA700FF590C /* ScreenKiller.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ScreenKiller.hpp; sourceTree = "<group>"; };
+		83AA97A51EBF22610068EE59 /* GameCenterHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameCenterHelper.mm; path = ios/GameCenterHelper.mm; sourceTree = SOURCE_ROOT; };
 		83DBBFDE1EB89393008031FA /* GapPlatformStructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GapPlatformStructure.cpp; sourceTree = "<group>"; };
 		83DBBFDF1EB89393008031FA /* GapPlatformStructure.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = GapPlatformStructure.hpp; sourceTree = "<group>"; };
 		83E86C791EB0E50600D5FB5E /* ConstantDevices.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConstantDevices.cpp; sourceTree = "<group>"; };
@@ -240,7 +241,6 @@
 		C7311F9E1EAD0645001DC0B0 /* Audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Audio; sourceTree = "<group>"; };
 		C73858FE1EBDE0E900756FE7 /* GameSharing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameSharing.cpp; path = GameSharing/GameSharing.cpp; sourceTree = "<group>"; };
 		C73859001EBDE0EC00756FE7 /* GameSharing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameSharing.h; path = GameSharing/GameSharing.h; sourceTree = "<group>"; };
-		C73859021EBDE36C00756FE7 /* GameCenterHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameCenterHelper.mm; path = ios/GameCenterHelper.mm; sourceTree = SOURCE_ROOT; };
 		C73859071EBDEE4E00756FE7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		C738590B1EBDF0E600756FE7 /* ios_ids.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ios_ids.plist; sourceTree = "<group>"; };
 		C738590E1EBE488C00756FE7 /* black_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = black_background.jpg; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				C73859021EBDE36C00756FE7 /* GameCenterHelper.mm */,
+				83AA97A51EBF22610068EE59 /* GameCenterHelper.mm */,
 				5087E77117EB970100C73F5D /* Icons */,
 				503AE0FA17EB989F00D1A890 /* AppController.h */,
 				503AE0FB17EB989F00D1A890 /* AppController.mm */,
@@ -716,7 +716,7 @@
 				83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */,
 				209E13DD1E9C179B007DB2A1 /* BasicBlock.cpp in Sources */,
 				209E14341E9C25C7007DB2A1 /* PlayerTestScene.cpp in Sources */,
-				C73859031EBDE36C00756FE7 /* GameCenterHelper.mm in Sources */,
+				83AA97A61EBF22610068EE59 /* GameCenterHelper.mm in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,

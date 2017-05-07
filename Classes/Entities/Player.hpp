@@ -36,6 +36,10 @@ private:
     float maxJump;
     //! jump speed
     float jumpSpeed;
+    float initialJumpSpeed;
+    
+    float speedMarkerVelocity;
+    float speedMarkerPosition;
 
     bool moveLeft, moveRight, moveUp, moveDown, floor, bend, jumpTime;
 
@@ -64,6 +68,8 @@ public:
     void customupdate(float delta) override;
     void customdraw(float delta, float deltaCount, float stepTime) override;
     void setFloorCollision(std::vector<TiledMap::BasicBlock*> floors);
+    void setSpeedMarkerVelocity(float velocity);
+    void setSpeedMarkerPosition(float position);
 
     void onKeyLeft();
     void onKeyRight();

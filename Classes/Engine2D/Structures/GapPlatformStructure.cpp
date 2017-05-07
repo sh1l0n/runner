@@ -90,6 +90,7 @@ GapPlatformStructure::GapPlatformStructure(const unsigned short int height, cons
     posX=0;
     posY=1;
     //Put blocks to pass the spike zone
+    bool isCoin;
     
     while(posX+_maxXDisBlock<_width-1){
         //claculate avialable positions in Y
@@ -106,6 +107,16 @@ GapPlatformStructure::GapPlatformStructure(const unsigned short int height, cons
         int salto=rand()%(_maxXDisBlock + 1)+1;
         posX=posX+salto;
         this->_data[posY][posX]=4;
+        if(posY<height-1){
+            //is possible put a coin
+            int rander = rand()%(2);
+            isCoin = (rander==1);
+            
+            if(isCoin) {
+                this->_data[posY+1][posX]=8;
+            }
+            
+        }
         
         
         

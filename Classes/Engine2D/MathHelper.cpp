@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "MathHelper.hpp"
+#include "../Scenes/PlayerTestScene.hpp"
 
 /*bool MathHelper::rectCollision(float x1, float y1, float width1, float height1,
                                float x2, float y2, float width2, float height2) {
@@ -16,11 +17,14 @@
 }*/
 
 bool MathHelper::rectCollision(float x, float y, float width, float height, TiledMap::BasicBlock *e2) {
-    //std::cout << e2->toString() << "\n";
     if(x + width > e2->getX() && x < e2->getX() + e2->getWidth()) {
         Color4F white(1, 0, 0, 1);
         if (y + height > e2->getY() &&  y < e2->getY() + e2->getHeight()) {
-            
+            if(e2->_type == 4) {
+                Scenes::PlayerTestScene::coins++;
+                e2->erease();
+                return false;
+            }
             return true;
         }
     }

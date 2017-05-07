@@ -46,6 +46,7 @@ public:
     void customupdate(float delta) override;
     
     void customdraw(float delta, float deltaCount, float stepTime) override;
+    float getVelocity();
    /* void setFloorCollision(Vector<TiledMap::BasicBlock*> floors);
 
     void onKeyLeft();

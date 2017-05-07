@@ -103,6 +103,7 @@ GapStructure::GapStructure(unsigned short int p_width,unsigned short int p_max_j
             max_rest=available;
         }
         int rest = rand() % (max_rest-minRest +1)+minRest;
+        //put a coin in the
         newPosition=position+rest;
         position=newPosition;
         available=this->_width-position;

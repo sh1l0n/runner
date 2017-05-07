@@ -133,6 +133,12 @@ BasicBlock::getHeight() const {
     //return 70.f;
 }
 
+void
+TiledMap::
+BasicBlock::erease() {
+    this->_posY = 10000; // I Just can't remove the coin...
+}
+
 std::string
 TiledMap::
 BasicBlock::toString() const {

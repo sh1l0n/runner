@@ -66,6 +66,8 @@ namespace TiledMap {
             float getHeight() const;
             /** @short The bounding box of the node */
             Rect _rect;
+        
+            void erease();
 
             std::string toString() const;
         
