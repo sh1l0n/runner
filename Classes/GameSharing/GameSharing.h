@@ -39,9 +39,9 @@ public:
      it has no effect on android, so don't call it if your app only runs on android*/
     static void initGameSharing();
     /**@brief This method submits a score to the current leaderboard*/
-    static void SubmitScore(int score,int leaderboardId = 0);
+    static void SubmitScore(int score,int leaderboardId);
     /**@brief This method opens the leaderboards UI for the current board*/
-    static void ShowLeaderboards(int leaderbaordID = 0);
+    static void ShowLeaderboards(int leaderboardId);
     /**@brief This method unlocks an achivement
      @param ID: The index of the achivement in your list.*/
     static void UnlockAchivement(int ID);

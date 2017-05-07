@@ -27,6 +27,7 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "GameSharing.h"
 
 @implementation AppController
 
@@ -47,15 +48,15 @@ static AppDelegate s_sharedApplication;
     cocos2d::GLViewImpl::convertAttrs();
     
     // Override point for customization after application launch.
-
+    
     // Add the view controller's view to the window and display.
     window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
-
+    
     // Use RootViewController to manage CCEAGLView
     _viewController = [[RootViewController alloc]init];
-    //**_viewController.wantsFullScreenLayout = YES;
+    _viewController.wantsFullScreenLayout = YES;
     
-
+    
     // Set RootViewController to window
     if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
     {
@@ -67,10 +68,10 @@ static AppDelegate s_sharedApplication;
         // use this method on ios6
         [window setRootViewController:_viewController];
     }
-
+    
     [window makeKeyAndVisible];
-
-    //**[[UIApplication sharedApplication] setStatusBarHidden:true];
+    
+    [[UIApplication sharedApplication] setStatusBarHidden:true];
     
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView((__bridge void *)_viewController.view);
@@ -78,7 +79,10 @@ static AppDelegate s_sharedApplication;
     
     //run the cocos2d-x game scene
     app->run();
-
+    
+    // Init GameSharing
+    GameSharing::initGameSharing_iOS((__bridge void *)_viewController);
+    
     return YES;
 }
 
@@ -102,7 +106,7 @@ static AppDelegate s_sharedApplication;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     /*
-     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+     Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
     cocos2d::Application::getInstance()->applicationDidEnterBackground();

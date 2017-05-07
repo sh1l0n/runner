@@ -317,7 +317,12 @@ PlayerTestScene::update(float delta){
     
     coinsLabel->setPosition(Vec2(this->speedM->getPosition().x - visibleSize.width/2 + 100,
                                  this->speedM->getPosition().y+visibleSize.height/2.5));
-    this->coinsLabel->setString(StringUtils::format("Coins: %i", this->coins));
+    if(auxCoins<this->coins){
+        this->coinsLabel->setString(StringUtils::format("Coins: %i", this->coins));
+        Entities::Sound::getInstance()->playSound("Audio/coin.mp3");
+        auxCoins = this->coins;
+    }
+    
     //##############################################################################
     // If player falls down from the platform
     //##############################################################################
@@ -329,6 +334,10 @@ PlayerTestScene::update(float delta){
     // Check if player falled
     //##############################################################################
     if(dead || pause){
+        //GameSharing::startScoreRequest(0);
+        GameSharing::SubmitScore(this->speedM->getPositionX(),0);
+        //GameSharing::submitScoreToLeaderboard(this->speedM->getPositionX(), 0);
+        //GameSharing::startScoreRequest(0);
         createMenuPause();
         this->addChild(menu, 4);
     }

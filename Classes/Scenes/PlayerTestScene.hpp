@@ -22,6 +22,8 @@ namespace Scenes {
             virtual bool init() override;
             static int coins;
         
+            int auxCoins=0;
+        
             void menuCloseCallback(cocos2d::Ref* pSender);
         
             void setListener(SceneControllerListener* listener);

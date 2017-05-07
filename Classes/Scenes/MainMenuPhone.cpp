@@ -64,6 +64,7 @@ MainMenuPhone::init() {
     menu_close->setPosition(WINDOWS_SIZE_IPHONE.width/2,WINDOWS_SIZE_IPHONE.height/2);
     this->addChild(menu_close,0);
     
+    showAchievements();
     GameSharing::initGameSharing();
     
     return true;
@@ -110,4 +111,31 @@ MainMenuPhone::playMenuCallback(cocos2d::Ref *sender) {
     if(this->listener!=NULL) {
         this->listener->changeScene(ESceneType::GAMESCENE);
     }
+}
+
+//##############################################################################
+//Show the achievements and the best scores of the players appart from you
+//##############################################################################
+void
+Scenes::
+MainMenuPhone::showAchievements(){
+    
+    cocos2d::ui::Button* achievementButton;
+    
+    achievementButton = cocos2d::ui::Button::create("achievement.png");
+    achievementButton->setScale(TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2,TiledMap::ConstanDevices::getInstance()->SIZE_BUTTONS/2);
+    achievementButton->setPosition(Vec2(visibleSize.width/2+visibleSize.width/2.3,visibleSize.height/2+visibleSize.height/2.5));
+    achievementButton->addTouchEventListener([&](Ref* sender, cocos2d::ui::Widget::TouchEventType type){
+        switch (type)
+        {
+            case ui::Widget::TouchEventType::BEGAN:
+                break;
+            case ui::Widget::TouchEventType::ENDED:
+                GameSharing::openGameCenterLeaderboardsUI(0);
+                break;
+            default:
+                break;
+        }
+    });
+    this->addChild(achievementButton,2);
 }

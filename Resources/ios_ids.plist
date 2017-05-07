@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>Leaderboards</key>
-	<array/>
+	<array>
+		<string>Best_Distance</string>
+	</array>
 	<key>Achievements</key>
 	<array>
 		<string>Jump</string>

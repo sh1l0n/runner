@@ -13,7 +13,7 @@ namespace Entities {
 
     class Sound {
     private:
-        std::vector<std::string> soundVector{"open_door.mp3","jump.wav"};
+        std::vector<std::string> soundVector{"open_door.mp3","jump.wav","coin.mp3"};
         std::unordered_map<std::string, int> mapSounds;
         std::unordered_map<std::string, int> mapBackground;
         static Sound* instance;
