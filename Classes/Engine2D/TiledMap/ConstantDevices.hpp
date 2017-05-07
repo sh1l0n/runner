@@ -29,6 +29,8 @@ namespace TiledMap {
         unsigned char SIZE_IMAGE_SPRITE;
         float SIZE_BUTTONS;
         float FACTOR_SCALE;
+        float FACTOR_SCALE_X_PLAYER;
+        float FACTOR_SCALE_Y_PLAYER;
         /** @short instance of constant devices */
         static ConstanDevices *_instance;
 

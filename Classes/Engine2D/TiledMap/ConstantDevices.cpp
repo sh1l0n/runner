@@ -33,6 +33,8 @@ ConstanDevices::ConstanDevices() {
         this->SIZE_IMAGE_SPRITE=0x23; //35;
         this->FACTOR_SCALE= 0.75f;
         this->SIZE_BUTTONS=0.4f;
+        this->FACTOR_SCALE_X_PLAYER=0.6f;
+        this->FACTOR_SCALE_Y_PLAYER=0.7f;
         
         
     }
@@ -44,6 +46,8 @@ ConstanDevices::ConstanDevices() {
         this->SIZE_IMAGE_SPRITE=0x11; //17;
         this->FACTOR_SCALE= 1.0f;
         this->SIZE_BUTTONS=0.8f;
+        this->FACTOR_SCALE_X_PLAYER=1.0f;
+        this->FACTOR_SCALE_Y_PLAYER=0.9f;
         
     }
     
