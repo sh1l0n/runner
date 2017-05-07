@@ -38,9 +38,15 @@ Player::Player():RootEntity() {
     sprite->runAction(RepeatForever::create(Animate::create(this->animation)));
     //Pablo
    
-    this->scaleSprite(1, 1);
-    this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)*1);
-    this->setHeight((sprite->getContentSize().height-6)*1);
+    this->scaleSprite(TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE_X_PLAYER,TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE_Y_PLAYER); //1
+    this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)*TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE_Y_PLAYER); //5
+    this->setHeight((sprite->getContentSize().height-6)*TiledMap::ConstanDevices::getInstance()->FACTOR_SCALE_X_PLAYER);
+    //Antes mod pablo
+    /*this->scaleSprite(0.6, 0.7); //1
+    this->setWidth((sprite->getContentSize().width-sprite->getContentSize().width/5)*0.7); //5
+    this->setHeight((sprite->getContentSize().height-6)*0.6);*/
+    //FIN antes mod mablo
+    
 }
 
 /*!
