@@ -267,6 +267,9 @@ PlayerTestScene::createMenuPause() {
     Sprite* black_background = cocos2d::Sprite::create("black_background.jpg");
     Label* newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
     Label* closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
+    Label* labelScore =  Label::createWithTTF( StringUtils::format("Score: %d Coins: %d",((int)this->speedM->getPositionX()), coins) , "fonts/arial.ttf", 32);
+    
+    MenuItemLabel* scoreItem = MenuItemLabel::create(labelScore, NULL);
     MenuItemLabel* newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
     MenuItemLabel* closeItem = MenuItemLabel::create(closeLabel, CC_CALLBACK_1(PlayerTestScene::mainMenu, this));
     
@@ -279,6 +282,7 @@ PlayerTestScene::createMenuPause() {
     black_background->setPosition(this->speedM->getPosition().x,this->speedM->getPosition().y);
     black_background->setOpacity(130);
     newGameLabel->setTextColor(blackColor);
+    labelScore->setTextColor(blackColor);
     closeLabel->setTextColor(blackColor);
     
     
@@ -287,11 +291,11 @@ PlayerTestScene::createMenuPause() {
         Label* retryLabel = Label::createWithTTF("Resume", "fonts/Sudbury Basin 3D.ttf", 48);
         retryLabel->setTextColor(blackColor);
         MenuItemLabel* retryItem = MenuItemLabel::create(retryLabel,CC_CALLBACK_1(PlayerTestScene::retryMenuCallback, this));
-        menu_ui = Menu::create(retryItem, newGameItem, closeItem, NULL);
+        menu_ui = Menu::create(scoreItem, retryItem, newGameItem, closeItem, NULL);
         
     }else{
         Entities::Sound::getInstance()->stopBackground("Audio/background.mp3");
-        menu_ui = Menu::create(newGameItem, closeItem, NULL);
+        menu_ui = Menu::create(scoreItem, newGameItem, closeItem, NULL);
     }
     
     menu_ui->setPosition(this->speedM->getPosition().x, this->speedM->getPosition().y);
@@ -320,11 +324,7 @@ PlayerTestScene::update(float delta){
     
     coinsLabel->setPosition(Vec2(this->speedM->getPosition().x - visibleSize.width/2 + 100,
                                  this->speedM->getPosition().y+visibleSize.height/2.5));
-    if(auxCoins<this->coins){
-        this->coinsLabel->setString(StringUtils::format("Coins: %i", this->coins));
-        Entities::Sound::getInstance()->playSound("Audio/coin.mp3");
-        auxCoins = this->coins;
-    }
+    this->coinsLabel->setString(StringUtils::format("Coins: %i", this->coins));
     
     //##############################################################################
     // If player falls down from the platform
@@ -434,6 +434,15 @@ void Scenes::PlayerTestScene::checkAchievement(Vec2 score){
         GameSharing::UnlockAchivement(6);
         achievementOk = 5;
     }
+    else if(coins==5) {
+        GameSharing::UnlockAchivement(7);
+    }
+    else if(coins==20) {
+        GameSharing::UnlockAchivement(8);
+    }
+    else if(coins==50) {
+        GameSharing::UnlockAchivement(9);
+    }
 }
 
 //##############################################################################
@@ -456,4 +465,5 @@ PlayerTestScene::retrieveCoin(TiledMap::BasicBlock* block) {
     coins++;
     log("coin tag: %d", block->getIdTag());
     currentNode->removeChildByTag(block->getIdTag());
+    if(_listener->getMusic())Entities::Sound::getInstance()->playSound("Audio/coin.mp3");
 }
