@@ -84,6 +84,20 @@ TiledMapController::getNextChunck() const {
     return nextState;
 }
 
+void
+TiledMap::
+TiledMapController::removeChildByTag(const int idtag, const int position) {
+    
+    const int localPosition = position - (_K_WORLD_SIZE_PX*this->_indexOfChuncksGenerated);
+    TiledMap::ChunckIdentifiers state;
+    if(localPosition<0) {
+        state = this->getLastChunck();
+    }
+    else {
+        state = _currentChunck;
+    }
+    this->_chuncks[state]._node->removeChildByTag(idtag);
+}
 
 /**
  @brief This method it's updated depend the position of the character in the screen.

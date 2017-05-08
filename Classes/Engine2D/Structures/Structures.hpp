@@ -91,14 +91,17 @@ namespace Structures {
 
 
         int typeStructure = rand() % (K_NUMBER_STRUCTURES-1) + 1;
-        //int typeStructure = 4;
         
         
         BaseStructure* structure = NULL;
         unsigned short int max_width;
         unsigned int width;
+        unsigned int max_x_block;
+        unsigned int max_y_block;
+        unsigned int height;
+        
         switch(typeStructure) {
-            case 1: {
+            case 1:
                 if (availableXSpace < K_MAX_MIDDLE_PYRAMID_WIDTH) {
                     max_width = availableXSpace;
                 } else {
@@ -109,7 +112,7 @@ namespace Structures {
                 
                 structure = new MiddlePyramid(width);
                 break;
-            }
+            
                 /*case 2: {
                  if (availableXSpace < K_MAX_PYRAMID_WIDTH) {
                  
@@ -126,7 +129,7 @@ namespace Structures {
                  structure = new Pyramid(width);
                  break;
                  }*/
-            case 2: {
+            case 2:
                 
                 if (availableXSpace < K_MAX_JUMP_STRUCT_WIDTH) {
                     
@@ -135,17 +138,16 @@ namespace Structures {
                     max_width = K_MAX_JUMP_STRUCT_WIDTH;
                 }
                 
-                unsigned int height =
-                rand() % (Structures::K_MAX_JUMP_STRUCT_HEIGHT - K_MIN_JUMP_STRUCT_HEIGHT + 1) + 3;
+                height =rand() % (Structures::K_MAX_JUMP_STRUCT_HEIGHT - K_MIN_JUMP_STRUCT_HEIGHT + 1) + 3;
                 width = rand() % (max_width - K_MIM_JUMP_STRUCT_WIDTH + 1) + K_MIM_JUMP_STRUCT_WIDTH;
-                unsigned int max_x_block = rand() % (K_MAX_X_JUMP_HEIGHT - 1 + 1) + 1;
-                unsigned int max_y_block = rand() % (K_MAX_Y_JUMP_HEIGHT - 1 + 1) + 1;
-                
+                max_x_block = rand() % (K_MAX_X_JUMP_HEIGHT - 1 + 1) + 1;
+                max_y_block = rand() % (K_MAX_Y_JUMP_HEIGHT - 1 + 1) + 1;
+
                 structure = new JumpStructure(height, width, max_x_block, max_y_block);
                 //structure = new JumpEstructure();
-            }
+            
                 break;
-            case 3: {
+            case 3:
                 
                 if (availableXSpace < K_MAX_GAP_STRUCT_WIDTH) {
                     
@@ -163,25 +165,20 @@ namespace Structures {
                 
                 
                 break;
-            }
-            case 4: {
+            case 4:
                 
                 if (availableXSpace < K_MAX_GAPPF_STRUCT_WIDTH) {
-                    
                     max_width = availableXSpace;
                 } else {
                     max_width = K_MAX_GAPPF_STRUCT_WIDTH;
                 }
                 
-                unsigned int height =
-                rand() % (Structures::K_MAX_GAPPF_STRUCT_HEIGHT - K_MIN_GAPPF_STRUCT_HEIGHT + 1) + 3;
+                height = rand() % (Structures::K_MAX_GAPPF_STRUCT_HEIGHT - K_MIN_GAPPF_STRUCT_HEIGHT + 1) + 3;
                 width = rand() % (max_width - K_MIM_GAPPF_STRUCT_WIDTH + 1) + K_MIM_GAPPF_STRUCT_WIDTH;
-                unsigned int max_x_block = rand() % (K_MAX_X_GAPPF_JUMP_HEIGHT - 1 + 1) + 1;
-                unsigned int max_y_block = rand() % (K_MAX_Y_GAPPF_JUMP_HEIGHT - 1 + 1) + 1;
-                
+                max_x_block = rand() % (K_MAX_X_GAPPF_JUMP_HEIGHT - 1 + 1) + 1;
+                max_y_block = rand() % (K_MAX_Y_GAPPF_JUMP_HEIGHT - 1 + 1) + 1;
                 structure = new GapPlatformStructure(height, width, max_x_block, max_y_block);
-                //structure = new JumpEstructure();
-            }
+                break;
         }
         return structure;
     }

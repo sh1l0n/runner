@@ -71,5 +71,6 @@ namespace TiledMap {
         TiledMapController(TiledMapControllerListener* listener);
         ~TiledMapController();
         void update(const int position);
+        void removeChildByTag(const int idtag, const int position);
     };
 }

@@ -76,7 +76,7 @@ namespace Scenes {
             float puntuacion;
         
             TiledMap::TiledMapController _mapController;
-            Node* currentNode = NULL;
+
         
             Player *player;
         

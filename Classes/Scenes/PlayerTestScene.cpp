@@ -42,11 +42,6 @@ void
 Scenes::
 PlayerTestScene::addChunckToScene(const TiledMap::ChunckIdentifiers id, TiledMap::Chunck* chunck)
 {
-    if(currentNode!=NULL) {
-        delete currentNode;
-        currentNode = NULL;
-    }
-    currentNode = chunck->_node;
     this->_nodeScroll->addChild(chunck->_node, 1, id);
     this->player->setFloorCollision(chunck->_collisionables);
 }
@@ -267,7 +262,7 @@ PlayerTestScene::createMenuPause() {
     Sprite* black_background = cocos2d::Sprite::create("black_background.jpg");
     Label* newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
     Label* closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
-    Label* labelScore =  Label::createWithTTF( StringUtils::format("Score: %d Coins: %d",((int)this->speedM->getPositionX()), coins) , "fonts/arial.ttf", 32);
+    Label* labelScore =  Label::createWithTTF( StringUtils::format("Score: %d Coins: %d",((int)this->player->getPositionX()), coins) , "fonts/arial.ttf", 32);
     
     MenuItemLabel* scoreItem = MenuItemLabel::create(labelScore, NULL);
     MenuItemLabel* newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
@@ -351,14 +346,14 @@ PlayerTestScene::update(float delta){
         // TO DO
         //the player dies
         dead=true;
-        this->m_labelPuntuacion->setString(StringUtils::format(" Dead! Puntuacion:%f",this->speedM->getPositionX()));
+        this->m_labelPuntuacion->setString(StringUtils::format(" Dead! Puntuacion:%f",this->player->getPositionX()));
     }
     
     //PAB
     this->speedM->customupdate(delta);
     this->screenK->customupdate(delta);
     if(int(this->speedM->getPositionX())%100==0){
-        checkAchievement(this->speedM->getPosition());
+        checkAchievement(this->player->getPosition());
     }
     //##############################################################################
     // Control 15 fps for player movement
@@ -367,7 +362,7 @@ PlayerTestScene::update(float delta){
     if(this->deltaCount >= 0.067f) {
         this->player->setSpeedMarkerVelocity(speedM->getVelocity());
         this->player->setSpeedMarkerPosition(speedM->getX());
-        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->speedM->getPositionX())));
+        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->player->getPositionX())));
         this->player->customupdate(delta);
          //PAB
         //this->speedM->customupdate(delta);
@@ -464,6 +459,6 @@ PlayerTestScene::retrieveCoin(TiledMap::BasicBlock* block) {
     
     coins++;
     log("coin tag: %d", block->getIdTag());
-    currentNode->removeChildByTag(block->getIdTag());
+    _mapController.removeChildByTag(block->getIdTag(), this->speedM->getPositionX());
     if(_listener->getMusic())Entities::Sound::getInstance()->playSound("Audio/coin.mp3");
 }
