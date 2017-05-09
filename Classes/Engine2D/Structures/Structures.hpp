@@ -52,7 +52,7 @@ namespace Structures {
 	/** @short The minimum width value for jump Structure */
 	static const unsigned char K_MIN_GAP_STRUCT_WIDTH = 4;
 	/** @short The maximum jump value for gap Structure */
-	static const unsigned char K_MAX_GAP_STRUCT_JUMP = 4;
+	static const unsigned char K_MAX_GAP_STRUCT_JUMP = 3;
 	/** @short The minimum jump value for jump Structure */
 	static const unsigned char K_MIN_GAP_STRUCT_JUMP = 1;
 	/** @short The maximum rest value for gap Structure */
@@ -90,7 +90,7 @@ namespace Structures {
 	{
 
 
-        int typeStructure = rand() % (K_NUMBER_STRUCTURES-1) + 1;
+        int typeStructure = rand() % (K_NUMBER_STRUCTURES-1) + 2;
         
         
         BaseStructure* structure = NULL;

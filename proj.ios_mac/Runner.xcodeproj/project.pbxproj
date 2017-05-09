@@ -141,7 +141,7 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Runner-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Runner-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2080C4C71EBFAF570014B4C7 /* GameCenterHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameCenterHelper.mm; path = ../../../../../Downloads/GameCenterHelper.mm; sourceTree = "<group>"; };
+		2080C4C71EBFAF570014B4C7 /* GameCenterHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameCenterHelper.mm; sourceTree = SOURCE_ROOT; };
 		2080C4C91EBFC41B0014B4C7 /* Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coin.png; sourceTree = "<group>"; };
 		2080C4DC1EC0A5320014B4C7 /* AppIcon-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20x20@1x.png"; sourceTree = "<group>"; };
 		2080C4DD1EC0A5320014B4C7 /* AppIcon-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20x20@2x.png"; sourceTree = "<group>"; };
