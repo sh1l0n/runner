@@ -90,7 +90,7 @@ namespace Structures {
 	{
 
 
-        int typeStructure = rand() % (K_NUMBER_STRUCTURES-1) + 2;
+        int typeStructure = rand() % (K_NUMBER_STRUCTURES-1+1) + 1;
         
         
         BaseStructure* structure = NULL;
