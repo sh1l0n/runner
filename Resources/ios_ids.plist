@@ -5,19 +5,21 @@
 	<key>Leaderboards</key>
 	<array>
 		<string>Best_Distance</string>
+		<string>Best_Collector</string>
 	</array>
 	<key>Achievements</key>
 	<array>
 		<string>Jump</string>
 		<string>Jump_30</string>
+		<string>First_100</string>
 		<string>First_500</string>
 		<string>First_1000</string>
+		<string>First_1500</string>
 		<string>First_2000</string>
-		<string>First_5000</string>
-		<string>First_10000</string>
 		<string>Coin_5</string>
 		<string>Coin_20</string>
 		<string>Coin_50</string>
+		<string>Coins_200</string>
 	</array>
 </dict>
 </plist>

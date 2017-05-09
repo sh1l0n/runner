@@ -141,7 +141,7 @@ AppDelegate::changeScene(Scenes::ESceneType scene) {
         Director::getInstance()->runWithScene(sceneToLoad);
         mainMenu= true;
     }else if(mainMenu){
-        Director::getInstance()->pushScene(TransitionFade::create(3.f,sceneToLoad));
+        Director::getInstance()->pushScene(TransitionFade::create(1.f,sceneToLoad));
         Director::getInstance()->resume();
     }
     else{

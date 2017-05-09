@@ -262,7 +262,7 @@ PlayerTestScene::createMenuPause() {
     Sprite* black_background = cocos2d::Sprite::create("black_background.jpg");
     Label* newGameLabel = Label::createWithTTF("New Game", "fonts/Sudbury Basin 3D.ttf", 48);
     Label* closeLabel = Label::createWithTTF("Main Menu", "fonts/Sudbury Basin 3D.ttf", 48);
-    Label* labelScore =  Label::createWithTTF( StringUtils::format("Score: %d Coins: %d",((int)this->player->getPositionX()), coins) , "fonts/arial.ttf", 32);
+    Label* labelScore =  Label::createWithTTF( StringUtils::format("Score: %d Coins: %d",((int)this->player->getPositionX())/10, coins) , "fonts/arial.ttf", 32);
     
     MenuItemLabel* scoreItem = MenuItemLabel::create(labelScore, NULL);
     MenuItemLabel* newGameItem = MenuItemLabel::create(newGameLabel,CC_CALLBACK_1(PlayerTestScene::gameOver,this));
@@ -332,10 +332,8 @@ PlayerTestScene::update(float delta){
     // Check if player falled
     //##############################################################################
     if(dead || pause){
-        //GameSharing::startScoreRequest(0);
-        GameSharing::SubmitScore(this->speedM->getPositionX(),0);
-        //GameSharing::submitScoreToLeaderboard(this->speedM->getPositionX(), 0);
-        //GameSharing::startScoreRequest(0);
+        GameSharing::SubmitScore(this->player->getPositionX()/10,0);
+        GameSharing::SubmitScore(this->coins, 1);
         createMenuPause();
         this->addChild(menu, 4);
     }
@@ -346,14 +344,14 @@ PlayerTestScene::update(float delta){
         // TO DO
         //the player dies
         dead=true;
-        this->m_labelPuntuacion->setString(StringUtils::format(" Dead! Puntuacion:%f",this->player->getPositionX()));
+        this->m_labelPuntuacion->setString(StringUtils::format(" Dead! %f",this->player->getPositionX()/10));
     }
     
     //PAB
     this->speedM->customupdate(delta);
     this->screenK->customupdate(delta);
     if(int(this->speedM->getPositionX())%100==0){
-        checkAchievement(this->player->getPosition());
+        checkAchievement(this->player->getPositionX()/10);
     }
     //##############################################################################
     // Control 15 fps for player movement
@@ -362,7 +360,7 @@ PlayerTestScene::update(float delta){
     if(this->deltaCount >= 0.067f) {
         this->player->setSpeedMarkerVelocity(speedM->getVelocity());
         this->player->setSpeedMarkerPosition(speedM->getX());
-        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->player->getPositionX())));
+        this->m_labelPuntuacion->setString(StringUtils::format("%d",((int)this->player->getPositionX())/10));
         this->player->customupdate(delta);
          //PAB
         //this->speedM->customupdate(delta);
@@ -411,32 +409,39 @@ PlayerTestScene::update(float delta){
 //##############################################################################
 // Earn achievements if player reach the points
 //##############################################################################
-void Scenes::PlayerTestScene::checkAchievement(Vec2 score){
+void Scenes::PlayerTestScene::checkAchievement(float score){
     
-    if(score.x > 500 && achievementOk == 0){
+    if(score > 100 && achievementOk == 0){
         GameSharing::UnlockAchivement(2);
         achievementOk = 1;
-    }else if(score.x > 1000 && achievementOk == 1){
+    }else if(score > 500 && achievementOk == 1){
         GameSharing::UnlockAchivement(3);
         achievementOk = 2;
-    }else if(score.x > 2000 && achievementOk == 2){
+    }else if(score > 1000 && achievementOk == 2){
         GameSharing::UnlockAchivement(4);
         achievementOk = 3;
-    }else if(score.x > 5000 && achievementOk == 3){
+    }else if(score > 1500 && achievementOk == 3){
         GameSharing::UnlockAchivement(5);
         achievementOk = 4;
-    }else if(score.x > 10000 && achievementOk == 4){
+    }else if(score > 2000 && achievementOk == 4){
         GameSharing::UnlockAchivement(6);
         achievementOk = 5;
     }
-    else if(coins==5) {
+    else if(coins==5 && coinsAchievement==0) {
         GameSharing::UnlockAchivement(7);
+        coinsAchievement=1;
     }
-    else if(coins==20) {
+    else if(coins==20 && coinsAchievement==1) {
         GameSharing::UnlockAchivement(8);
+        coinsAchievement=2;
     }
-    else if(coins==50) {
+    else if(coins==50 && coinsAchievement==2) {
         GameSharing::UnlockAchivement(9);
+        coinsAchievement=3;
+    }
+    else if(coins==200 && coinsAchievement==3){
+        GameSharing::UnlockAchivement(11);
+        coinsAchievement=4;
     }
 }
 

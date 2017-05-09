@@ -10,7 +10,6 @@
 		1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2d iOS.a */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
-		2080C4C81EBFAF570014B4C7 /* GameCenterHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2080C4C71EBFAF570014B4C7 /* GameCenterHelper.mm */; };
 		2080C4CA1EBFC41B0014B4C7 /* Coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2080C4C91EBFC41B0014B4C7 /* Coin.png */; };
 		2080C4F11EC0A5320014B4C7 /* AppIcon-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2080C4DC1EC0A5320014B4C7 /* AppIcon-20x20@1x.png */; };
 		2080C4F21EC0A5320014B4C7 /* AppIcon-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2080C4DD1EC0A5320014B4C7 /* AppIcon-20x20@2x.png */; };
@@ -90,6 +89,7 @@
 		C7311F9C1EACF2E8001DC0B0 /* menu_close.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9A1EACF2E8001DC0B0 /* menu_close.png */; };
 		C7311F9D1EACF2E8001DC0B0 /* menu_open.png in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9B1EACF2E8001DC0B0 /* menu_open.png */; };
 		C7311F9F1EAD0645001DC0B0 /* Audio in Resources */ = {isa = PBXBuildFile; fileRef = C7311F9E1EAD0645001DC0B0 /* Audio */; };
+		C7338AD81EC221690096D735 /* GameCenterHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = C7338AD71EC221690096D735 /* GameCenterHelper.mm */; };
 		C73858FF1EBDE0E900756FE7 /* GameSharing.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73858FE1EBDE0E900756FE7 /* GameSharing.cpp */; };
 		C73859081EBDEE4E00756FE7 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C73859071EBDEE4E00756FE7 /* GameKit.framework */; };
 		C738590C1EBDF0E600756FE7 /* ios_ids.plist in Resources */ = {isa = PBXBuildFile; fileRef = C738590B1EBDF0E600756FE7 /* ios_ids.plist */; };
@@ -141,7 +141,6 @@
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Runner-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Runner-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		2080C4C71EBFAF570014B4C7 /* GameCenterHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameCenterHelper.mm; path = ../../../../../Downloads/GameCenterHelper.mm; sourceTree = "<group>"; };
 		2080C4C91EBFC41B0014B4C7 /* Coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Coin.png; sourceTree = "<group>"; };
 		2080C4DC1EC0A5320014B4C7 /* AppIcon-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20x20@1x.png"; sourceTree = "<group>"; };
 		2080C4DD1EC0A5320014B4C7 /* AppIcon-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppIcon-20x20@2x.png"; sourceTree = "<group>"; };
@@ -257,6 +256,7 @@
 		C7311F9A1EACF2E8001DC0B0 /* menu_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_close.png; sourceTree = "<group>"; };
 		C7311F9B1EACF2E8001DC0B0 /* menu_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_open.png; sourceTree = "<group>"; };
 		C7311F9E1EAD0645001DC0B0 /* Audio */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Audio; sourceTree = "<group>"; };
+		C7338AD71EC221690096D735 /* GameCenterHelper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = GameCenterHelper.mm; path = ios/GameCenterHelper.mm; sourceTree = SOURCE_ROOT; };
 		C73858FE1EBDE0E900756FE7 /* GameSharing.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GameSharing.cpp; path = GameSharing/GameSharing.cpp; sourceTree = "<group>"; };
 		C73859001EBDE0EC00756FE7 /* GameSharing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameSharing.h; path = GameSharing/GameSharing.h; sourceTree = "<group>"; };
 		C73859071EBDEE4E00756FE7 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -302,7 +302,7 @@
 		080E96DDFE201D6D7F000001 /* ios */ = {
 			isa = PBXGroup;
 			children = (
-				2080C4C71EBFAF570014B4C7 /* GameCenterHelper.mm */,
+				C7338AD71EC221690096D735 /* GameCenterHelper.mm */,
 				5087E77117EB970100C73F5D /* Icons */,
 				503AE0FA17EB989F00D1A890 /* AppController.h */,
 				503AE0FB17EB989F00D1A890 /* AppController.mm */,
@@ -752,7 +752,7 @@
 				83E86C7B1EB0E50600D5FB5E /* ConstantDevices.cpp in Sources */,
 				209E13DD1E9C179B007DB2A1 /* BasicBlock.cpp in Sources */,
 				209E14341E9C25C7007DB2A1 /* PlayerTestScene.cpp in Sources */,
-				2080C4C81EBFAF570014B4C7 /* GameCenterHelper.mm in Sources */,
+				C7338AD81EC221690096D735 /* GameCenterHelper.mm in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,

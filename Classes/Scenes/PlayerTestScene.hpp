@@ -50,7 +50,7 @@ namespace Scenes {
         
             void setAudioButton();
         
-            void checkAchievement(const Vec2);
+            void checkAchievement(const float);
         
             void checkAchievementJump();
         
@@ -76,7 +76,6 @@ namespace Scenes {
             float puntuacion;
         
             TiledMap::TiledMapController _mapController;
-
         
             Player *player;
         
@@ -101,7 +100,7 @@ namespace Scenes {
 
             Size visibleSize;
         
-            int totalJumps = 0, achievementOk = 0;
+            int totalJumps = 0, achievementOk = 0, coinsAchievement = 0;
         
             Color4B blackColor = Color4B(0,0,0,255);
         
