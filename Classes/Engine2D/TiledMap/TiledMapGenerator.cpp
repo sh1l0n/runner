@@ -223,6 +223,9 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
         }
     }
     
+    
+
+    
     //##############################################################################
     //Generate the floor only in the borders of the map and pick up collisionables
     //##############################################################################
@@ -248,10 +251,11 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 }
                 //PAB LAVA
                 if(mapForTextures[i][j+1]==3){
-                    //There is a Damage
+                    mapForTextures[i][K_HEIGHT_FLOOR-1]=3;
+                    /*//There is a Damage
                     for(k=0;k<=K_HEIGHT_FLOOR;k++){
-                        mapForTextures[i][k]=7;
-                    }
+                        mapForTextures[i][k]=3;
+                    }*/
                 }
             }
             
@@ -263,7 +267,7 @@ TiledMapGenerator::generateNewChunk(const unsigned int level, const unsigned lon
                 
                 
             }
-            else if(mapForTextures[i][j]==7){
+            else if(mapForTextures[i][j]==3){
                 basicBlockType = TiledMap::TypeBlock::SPIKE;
                 spriteToLoad = Sprite::createWithTexture(this->_mapTextures[3],
                                                          Rect(0, 0, size_image_sprite, size_image_sprite));
