@@ -1,12 +1,6 @@
-proj.android
-proj.win10
-proj.android-studio
-proj.win32
-proj.ios_mac
-proj.win8.1-universal
 cmake-build-debug
-proj.linux
 cocos2d
-proj.tizen
 .cocos-project.json
 .idea
+*DS_Store*
+bin

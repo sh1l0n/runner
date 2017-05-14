@@ -1,15 +1,21 @@
+
+#include "Scenes/MainMenuPhone.hpp"
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include <stdlib.h>
+#include <thread>
+#include <time.h>
+
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
+static cocos2d::Size designResolutionSize = cocos2d::Size(480,320);
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
 
 AppDelegate::AppDelegate()
 {
+    srand(time(NULL));
 }
 
 AppDelegate::~AppDelegate() 
@@ -42,18 +48,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLViewImpl::createWithRect("Runner", cocos2d::Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
 #else
         glview = GLViewImpl::create("Runner");
+        
+        
 #endif
         director->setOpenGLView(glview);
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0f / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::EXACT_FIT);
     auto frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     if (frameSize.height > mediumResolutionSize.height)
@@ -70,15 +78,15 @@ bool AppDelegate::applicationDidFinishLaunching() {
     {        
         director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
     }
+    //pab
+    /*std::cout<<"Content scale"<<MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width)<<"\n";
+     director->setContentScaleFactor(3);*/
+    //pab
 
     register_all_packages();
-
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
-    // run
-    director->runWithScene(scene);
-
+    
+    
+    this->changeScene(Scenes::ESceneType::MAIN_MENU);
     return true;
 }
 
@@ -97,3 +105,59 @@ void AppDelegate::applicationWillEnterForeground() {
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
+
+//##############################################################################
+//Manage the scene when player suffers a new state
+//##############################################################################
+
+void
+AppDelegate::changeScene(Scenes::ESceneType scene) {
+    
+    cocos2d::Scene* sceneToLoad;
+    
+    switch (scene) {
+        case Scenes::MAIN_MENU:
+            sceneToLoad = Scenes::MainMenuPhone::createScene(this);
+            mainMenu = false;
+            break;
+        case Scenes::GAMESCENE:
+            sceneToLoad = Scenes::PlayerTestScene::createScene(this);
+            mainMenu = true;
+            break;
+        case Scenes::GAMEOVER:
+            sceneToLoad = Scenes::PlayerTestScene::createScene(this);
+            mainMenu = false;
+            break;
+        case Scenes::EXIT:
+            Director::getInstance()->end();
+            exit(0);
+            break;
+        default:
+            break;
+    }
+    log("Music: %d",music);
+    
+    if(Director::getInstance()->getRunningScene()==NULL) {
+        Director::getInstance()->runWithScene(sceneToLoad);
+        mainMenu= true;
+    }else if(mainMenu){
+        Director::getInstance()->pushScene(TransitionFade::create(1.f,sceneToLoad));
+        Director::getInstance()->resume();
+    }
+    else{
+        Director::getInstance()->pushScene(sceneToLoad);
+    }
+}
+
+bool
+AppDelegate::getMusic(){
+    return this->music;
+}
+
+void
+AppDelegate::setMusic(bool music){
+    this->music = music;
+}
+
+
+
