@@ -33,7 +33,6 @@
 		<string>AppIcon-76x76@2x.png</string>
 		<string>AppIcon-76x76@3x.png</string>
 		<string>AppIcon-83.5x83.5@2x.png</string>
-		<string></string>
 	</array>
 	<key>CFBundleIconFiles~ipad</key>
 	<array>
@@ -66,7 +65,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>1.2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
